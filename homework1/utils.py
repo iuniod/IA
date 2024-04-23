@@ -1,81 +1,111 @@
+""" This module constains parsing functions for the input data and
+    pretty printing functions for the output data. """
 import yaml
-import argparse
-import sys
 
-##################### MACROURI #####################
-INTERVALE = 'Intervale'
-ZILE = 'Zile'
-MATERII = 'Materii'
-PROFESORI = 'Profesori'
-SALI = 'Sali'
+##################### MACROS #####################
+INTERVALS = 'Intervale'
+DAYS = 'Zile'
+SUBJECTS = 'Materii'
+TEACHERS = 'Profesori'
+CLASSROOMS = 'Sali'
+CONSTRAINTS = 'Constrangeri'
 
-def read_yaml_file(file_path : str) -> dict:
-    '''
-    Citeste un fișier yaml și returnează conținutul său sub formă de dicționar
-    '''
-    with open(file_path, 'r') as file:
-        return yaml.safe_load(file)
+def process_teacher_constraints(constraints: list) -> (list, int):
+    ''' Process the constraints of a teacher and return the days, slots and break limit. '''
+    days = []
+    slots = []
+    break_limit = -1
 
+    for i, constraint in enumerate(constraints):
+        if i < 5:
+            if constraint[0] != '!':
+                days.append(10 * (i + 1))
+        else:
+            if constraint[0:6] == '!Pauza':
+                break_limit = int(constraint[8:])
+            elif constraint[0] != '!':
+                index = constraint.index('-')
+                first = int(constraint[0:index])
+                last = int(constraint[index + 1:])
+                while first <= last:
+                    for day in days:
+                        slots.append(int(day + first / 2 - 3))
+                    first += 2
+        slots.sort()
 
-def acces_yaml_attributes(yaml_dict : dict):
-    '''
-    Primește un dicționar yaml și afișează datele referitoare la atributele sale
-    '''
+    return slots, break_limit if break_limit != -1 else None
 
-    print('Zilele din orar sunt:', yaml_dict[ZILE])
+def read_yaml_file(file_path: str) -> dict:
+    ''' Read a yaml file and return its content as a dictionary.'''
+    parse_file = {}
+    with open(file_path, 'r', encoding='utf-8') as file:
+        parse_file = yaml.safe_load(file)
+
+    # code all the constraints in a more accessible way to check them
+    for teacher in parse_file[TEACHERS]:
+        slots, break_limit = process_teacher_constraints(parse_file[TEACHERS][teacher][CONSTRAINTS])
+
+        subjects = parse_file[TEACHERS][teacher]['Materii']
+        parse_file[TEACHERS][teacher] = {'Sloturi': slots,
+                                   'Materii': subjects,
+                                   'Pauza': break_limit if break_limit != -1 else None}
+    return parse_file
+
+def acces_yaml_attributes(yaml_dict: dict):
+    ''' Print the data from the yaml dictionary (in Romanian).'''
+
+    print('Zilele din orar sunt:', yaml_dict[DAYS])
     print()
-    print('Intervalele orarului sunt:', yaml_dict[INTERVALE])
+    print('Intervalele orarului sunt:', yaml_dict[INTERVALS])
     print()
-    print('Materiile sunt:', yaml_dict[MATERII])
+    print('Materiile sunt:', yaml_dict[SUBJECTS])
     print()
     print('Profesorii sunt:', end=' ')
-    print(*list(yaml_dict[PROFESORI].keys()), sep=', ')
+    print(*list(yaml_dict[TEACHERS].keys()), sep=', ')
     print()
     print('Sălile sunt:', end=' ')
-    print(*list(yaml_dict[SALI].keys()), sep=', ')
+    print(*list(yaml_dict[CLASSROOMS].keys()), sep=', ')
+    print("Constrangerile fiecarui profesor sunt:")
+    for teacher in yaml_dict[TEACHERS]:
+        print(f"{teacher}: {yaml_dict[TEACHERS][teacher]}")
 
 
-def get_profs_initials(profs : list) -> dict:
-    '''
-    Primește o listă de profesori
+def get_teachers_initials(teachers: list) -> dict:
+    ''' Get a list of teachers and return two dictionaries:
+    - one that has the names of the teachers as keys and their initials as values:
+        (teacher_to_initials[teacher] = initials)
+    - one that has the initials of the teachers as keys and their names as values:
+        (initials_to_teacher[initials] = teacher) '''
 
-    Returnează două dicționare:
-    - unul care are numele profesorilor drept chei și drept valori prescurtările lor (prof_to_initials[prof] = initiale)
-    - unul care are prescurtările profesorilor drept chei și drept valori numele lor (initials_to_prof[initiale] = prof)
-    '''
-
-    initials_to_prof = {}
-    prof_to_initials = {}
+    initials_to_teacher = {}
+    teacher_to_initials = {}
     initials_count = {}
 
-    for prof in profs:
-        name_components = prof.split(' ')
+    for teacher in teachers:
+        name_components = teacher.split(' ')
         initials = name_components[0][0] + name_components[1][0]
-        
+
         if initials in initials_count:
             initials_count[initials] += 1
             initials += str(initials_count[initials])
         else:
             initials_count[initials] = 1
-        
-        initials_to_prof[initials] = prof
-        prof_to_initials[prof] = initials
-        
-    return prof_to_initials, initials_to_prof
+
+        initials_to_teacher[initials] = teacher
+        teacher_to_initials[teacher] = initials
+
+    return teacher_to_initials, initials_to_teacher
 
 
-def allign_string_with_spaces(s : str, max_len : int, allignment_type : str = 'center') -> str:
-    '''
-    Primește un string și un număr întreg
-
-    Returnează string-ul dat, completat cu spații până la lungimea dată
-    '''
+def allign_string_with_spaces(s: str, max_len: int, allignment_type: str = 'center') -> str:
+    ''' Receives a string and an integer, and returns the string, filled with spaces
+        until it reaches the given length. '''
 
     len_str = len(s)
 
     if len_str >= max_len:
-        raise ValueError('Lungimea string-ului este mai mare decât lungimea maximă dată')
-    
+        raise ValueError('Length of the string is greater than the given maximum length')
+
 
     if allignment_type == 'left':
         s = 6 * ' ' + s
@@ -89,29 +119,33 @@ def allign_string_with_spaces(s : str, max_len : int, allignment_type : str = 'c
     return s
 
 
-def pretty_print_timetable_aux_zile(timetable : {str : {(int, int) : {str : (str, str)}}}, input_path : str) -> str:
-    '''
-    Primește un dicționar ce are chei zilele, cu valori dicționare de intervale reprezentate ca tupluri de int-uri, cu valori dicționare de săli, cu valori tupluri (profesor, materie)
-
-    Returnează un string formatat să arate asemenea unui tabel excel cu zilele pe linii, intervalele pe coloane și în intersecția acestora, ferestrele de 2 ore cu materiile alocate în fiecare sală fiecărui profesor
-    '''
+def pretty_print_timetable_aux_zile(
+    timetable_schedule: {str: {(int, int): {str: (str, str)}}},
+    input_path: str
+    ) -> str:
+    ''' Receives a dictionary with the days as keys and with values as dictionaries of intervals
+        represented as tuples of integers, with values dictionaries of classrooms,
+        with values tuples (teacher, subject).
+        Returns a string formatted to look like an excel table with the days on the lines,
+        the intervals on the columns and in the intersection of these, the 2 hour windows
+        with the subjects allocated in each classroom to each teacher. '''
 
     max_len = 30
 
-    profs = read_yaml_file(input_path)[PROFESORI].keys()
-    profs_to_initials, _ = get_profs_initials(profs)
+    teachers_to_initials, _ = get_teachers_initials(read_yaml_file(input_path)[TEACHERS].keys())
 
-    table_str = '|           Interval           |             Luni             |             Marti            |           Miercuri           |              Joi             |            Vineri            |\n'
+    table_str = '|           Interval           |             Luni             ' + \
+                '|             Marti            |           Miercuri           ' + \
+                '|              Joi             |            Vineri            |\n'
 
-    no_classes = len(timetable['Luni'][(8, 10)])
+    no_classes = len(timetable_schedule['Luni'][(8, 10)])
 
-    first_line_len = 187
-    delim = '-' * first_line_len + '\n'
-    table_str = table_str + delim
-    
-    for interval in timetable['Luni']:
+    delim = '-' * 187 + '\n'
+    table_str += delim
+
+    for interval in timetable_schedule['Luni']:
         s_interval = '|'
-        
+
         crt_str = allign_string_with_spaces(f'{interval[0]} - {interval[1]}', max_len, 'center')
 
         s_interval += crt_str
@@ -120,8 +154,8 @@ def pretty_print_timetable_aux_zile(timetable : {str : {(int, int) : {str : (str
             if class_idx != 0:
                 s_interval += f'|{30 * " "}'
 
-            for day in timetable:
-                classes = timetable[day][interval]
+            for day in timetable_schedule:
+                classes = timetable_schedule[day][interval]
                 classroom = list(classes.keys())[class_idx]
 
                 s_interval += '|'
@@ -129,43 +163,51 @@ def pretty_print_timetable_aux_zile(timetable : {str : {(int, int) : {str : (str
                 if not classes[classroom]:
                     s_interval += allign_string_with_spaces(f'{classroom} - goala', max_len, 'left')
                 else:
-                    prof, subject = classes[classroom]
-                    s_interval += allign_string_with_spaces(f'{subject} : ({classroom} - {profs_to_initials[prof]})', max_len, 'left')
-            
+                    teacher, subject = classes[classroom]
+                    s_interval += allign_string_with_spaces(
+                                    f'{subject} : ({classroom} - {teachers_to_initials[teacher]})',
+                                    max_len, 'left')
+
             s_interval += '|\n'
         table_str += s_interval + delim
 
     return table_str
 
-def pretty_print_timetable_aux_intervale(timetable : {(int, int) : {str : {str : (str, str)}}}, input_path : str) -> str:
-    '''
-    Primește un dicționar de intervale reprezentate ca tupluri de int-uri, cu valori dicționare de zile, cu valori dicționare de săli, cu valori tupluri (profesor, materie)
-
-    Returnează un string formatat să arate asemenea unui tabel excel cu zilele pe linii, intervalele pe coloane și în intersecția acestora, ferestrele de 2 ore cu materiile alocate în fiecare sală fiecărui profesor
-    '''
+def pretty_print_timetable_aux_intervale(
+    timetable_schedule: {(int, int): {str: {str: (str, str)}}},
+    input_path: str
+    ) -> str:
+    ''' Receives a dictionary with intervals represented as tuples of integers,
+        with values dictionaries of days, with values dictionaries of classrooms,
+        with values tuples (teacher, subject).
+        Returns a string formatted to look like an excel table with the days on the lines,
+        the intervals on the columns and in the intersection of these, the 2 hour windows
+        with the subjects allocated in each classroom to each teacher. '''
 
     max_len = 30
 
-    profs = read_yaml_file(input_path)[PROFESORI].keys()
-    profs_to_initials, _ = get_profs_initials(profs)
+    teachers = read_yaml_file(input_path)[TEACHERS].keys()
+    teachers_to_initials, _ = get_teachers_initials(teachers)
 
-    table_str = '|           Interval           |             Luni             |             Marti            |           Miercuri           |              Joi             |            Vineri            |\n'
+    table_str = '|           Interval           |             Luni             ' + \
+                '|             Marti            |           Miercuri           ' + \
+                '|              Joi             |            Vineri            |\n'
 
-    no_classes = len(timetable[(8, 10)]['Luni'])
+    no_classes = len(timetable_schedule[(8, 10)]['Luni'])
 
-    first_line_len = 187
-    delim = '-' * first_line_len + '\n'
+    delim = '-' * 187 + '\n'
     table_str = table_str + delim
-    
-    for interval in timetable:
-        s_interval = '|' + allign_string_with_spaces(f'{interval[0]} - {interval[1]}', max_len, 'center')
+
+    for interval in timetable_schedule:
+        s_interval = '|' + allign_string_with_spaces(
+            f'{interval[0]} - {interval[1]}', max_len, 'center')
 
         for class_idx in range(no_classes):
             if class_idx != 0:
                 s_interval += '|'
 
-            for day in timetable[interval]:
-                classes = timetable[interval][day]
+            for day in timetable_schedule[interval]:
+                classes = timetable_schedule[interval][day]
                 classroom = list(classes.keys())[class_idx]
 
                 s_interval += '|'
@@ -173,32 +215,58 @@ def pretty_print_timetable_aux_intervale(timetable : {(int, int) : {str : {str :
                 if not classes[classroom]:
                     s_interval += allign_string_with_spaces(f'{classroom} - goala', max_len, 'left')
                 else:
-                    prof, subject = classes[classroom]
-                    s_interval += allign_string_with_spaces(f'{subject} : ({classroom} - {profs_to_initials[prof]})', max_len, 'left')
-            
+                    teacher, subject = classes[classroom]
+                    s_interval += allign_string_with_spaces(f'{subject} : ({classroom} - \
+                                    {teachers_to_initials[teacher]})', max_len, 'left')
+
             s_interval += '|\n'
         table_str += s_interval + delim
 
     return table_str
 
-def pretty_print_timetable(timetable : dict, input_path : str) -> str:
-    '''
-    Poate primi fie un dictionar de zile conținând dicționare de intervale conținând dicționare de săli cu tupluri (profesor, materie)
-    fie un dictionar de intervale conținând dictionare de zile conținând dicționare de săli cu tupluri (profesor, materie)
-    
-    Pentru cazul în care o sală nu este ocupată la un moment de timp, se așteaptă 'None' în valoare, în loc de tuplu
-    '''
-    if 'Luni' in timetable:
-        return pretty_print_timetable_aux_zile(timetable, input_path)
-    else:
-        return pretty_print_timetable_aux_intervale(timetable, input_path)
+def pretty_print_timetable(timetable_schedule: dict, input_path: str) -> str:
+    ''' Receives either a dictionary of days containing dictionaries of intervals containing
+        dictionaries of classrooms with tuples (teacher, subject)   or a dictionary of intervals
+        containing dictionaries of days containing dictionaries of classrooms with tuples:
+        (teacher, subject).
+        For the case in which a classroom is not occupied at a certain time, 'None' is expected
+        as value, instead of a tuple. '''
+    if 'Luni' in timetable_schedule:
+        return pretty_print_timetable_aux_zile(timetable_schedule, input_path)
+    return pretty_print_timetable_aux_intervale(timetable_schedule, input_path)
 
 
 if __name__ == '__main__':
-    filename = f'inputs/orar_mic_exact.yaml'
+    FILENAME = 'inputs/orar_mic_exact.yaml'
 
-    timetable_specs = read_yaml_file(filename)
+    timetable_specs = read_yaml_file(FILENAME)
 
     acces_yaml_attributes(timetable_specs)
 
-    # print(pretty_print_timetable(timetable, filename))
+    timetable = {
+        'Luni': {
+            (8, 10): {
+                'Sala 1': None,
+                'Sala 2': ('Alexandru Popa', 'PL'),
+                'Sala 3': ('Andrei Ionescu', 'IA')
+            },
+            (10, 12): {
+                'Sala 1': ('Alexandru Popa', 'PL'),
+                'Sala 2': ('Andrei Ionescu', 'IA'),
+                'Sala 3': None
+            }
+        },
+        'Marti': {
+            (8, 10): {
+                'Sala 1': ('Alexandru Popa', 'PL'),
+                'Sala 2': ('Andrei Ionescu', 'IA'),
+                'Sala 3': None
+            },
+            (10, 12): {
+                'Sala 1': ('Alexandru Popa', 'PL'),
+                'Sala 2': None,
+                'Sala 3': ('Andrei Ionescu', 'IA')
+            }
+        }
+    }
+    print(pretty_print_timetable(timetable, FILENAME))
