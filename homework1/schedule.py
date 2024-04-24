@@ -22,22 +22,24 @@ class State:
     ) -> None:
 
         self.size = size
+        self.yaml_dict = utils.read_yaml_file(file_name)
         self.file_name = file_name
         self.schedule = schedule if schedule is not None else State.generate_schedule(self, size, seed)
         self.nconflicts = conflicts if conflicts is not None \
             else State.__compute_conflicts(self, self.size, self.schedule)
 
-    def apply_move(self, queen: int, new_row: int) -> State:
-        '''
-        Construiește o stare vecină în care dama queen este mutată pe linia new_row.
-        Numărul de conflicte este calculat prin diferența față de starea originală.
-        '''
-        return None
+    def change_slot(self, old_day: str, old_slot: str, new_day: str, new_slot: str, classroom: str, subject: str, teacher: str) -> State:
+        ''' Change the slot of a subject. '''
+        new_state = copy(self.schedule)
+        new_state[new_day][new_slot][classroom] = (teacher, subject)
+        new_state[old_day][old_slot][classroom] = None
+
+        return State(self.file_name, self.size, new_state)
 
     def change_teacher(self, day: str, slot: str, subject: str, new_teacher: str) -> State:
         ''' Change the teacher in a slot. '''
         new_state = copy(self.schedule)
-        # TODO: Implement the change of the teacher in a slot
+
         classroom = None
         for classroom in new_state[day][slot].keys():
             if new_state[day][slot][classroom] is not None and new_state[day][slot][classroom][1] == subject:
@@ -112,7 +114,6 @@ class State:
         # add the subject to the schedule
         self.schedule[day][slot][classroom] = (teacher, subject)
 
-    @staticmethod
     def generate_schedule(
         self,
         size: (int, int),
@@ -122,10 +123,9 @@ class State:
             Add random subjects and teachers to the schedule. '''
         random.seed(seed)
 
-        yaml_dict = utils.read_yaml_file(self.file_name)
-        students_per_subject = yaml_dict[utils.SUBJECTS]
-        classrooms_info = yaml_dict[utils.CLASSROOMS]
-        teachers_info = yaml_dict[utils.TEACHERS]
+        students_per_subject = self.yaml_dict[utils.SUBJECTS]
+        classrooms_info = self.yaml_dict[utils.CLASSROOMS]
+        teachers_info = self.yaml_dict[utils.TEACHERS]
 
         teachers = [teacher for teacher in teachers_info.keys()]
         classrooms = [classroom for classroom in classrooms_info.keys()]
@@ -165,11 +165,10 @@ class State:
                 _conflicts += 1
         return _conflicts
 
-    @staticmethod
     def __compute_conflicts(self, size: int, schedule: list[int]) -> int:
         ''' Computes the number of conflicts in the given schedule. '''
         _conflicts = 0
-        teachers_info = utils.read_yaml_file(self.file_name)[utils.TEACHERS]
+        teachers_info = self.yaml_dict[utils.TEACHERS]
 
         for day in DAYS_OF_THE_WEEK[:size[1]]:
             for slot in TIME_SLOTS[:size[0]]:
@@ -190,10 +189,35 @@ class State:
 
     def get_next_states(self) -> list[State]:
         ''' Returns a list of all possible states that can be reached from the current state. '''
-        # return (self.apply_move(col, row) for col in range(self.size)
-        # 		for row in range(self.size) if row != self.board[col])
-        # TODO: Implement the generation of the next possible states
-        return []
+        teachers_info = self.yaml_dict[utils.TEACHERS]
+        new_states = []
+
+        for day in DAYS_OF_THE_WEEK[:self.size[1]]:
+            for slot in TIME_SLOTS[:self.size[0]]:
+                for classroom in self.schedule[day][slot].keys():
+                    if self.schedule[day][slot][classroom] is not None:
+                        teacher, subject = self.schedule[day][slot][classroom]
+                        no_conflicts = self.__compute_conflicts_for_timeslot(day, slot, teacher, teachers_info)
+                        if no_conflicts > 0:
+                            # TODO: Make a list with all the possible teachers that can teach instead of the current one
+                            replacements = []
+                            for new_teacher in teachers_info.keys():
+                                if subject in teachers_info[new_teacher][utils.SUBJECTS] and \
+                                    all(self.schedule[day][slot][classroom] is None or \
+                                        self.schedule[day][slot][classroom][0] != new_teacher for classroom in self.schedule[day][slot].keys()) and \
+                                    len([info for info in self.schedule[day][slot].values() if info is not None and info[0] == new_teacher]) < 7 and \
+                                    day in teachers_info[new_teacher][utils.DAYS] and \
+                                    slot in teachers_info[new_teacher][utils.SLOTS]:
+                                    replacements.append(new_teacher)
+                            
+                            if not replacements:
+                                for new_day in DAYS_OF_THE_WEEK[:self.size[1]]:
+                                    for new_slot in TIME_SLOTS[:self.size[0]]:
+                                        if self.schedule[new_day][new_slot][classroom] is None:
+                                            new_states.append(self.change_slot(day, slot, new_day, new_slot, classroom, subject, teacher))
+                            for new_teacher in replacements:
+                                new_states.append(self.change_teacher(day, slot, subject, new_teacher))
+        return new_states
 
     def display(self) -> None:
         ''' Print the current schedule.'''
@@ -201,4 +225,4 @@ class State:
 
     def clone(self) -> State:
         ''' Returns a copy of the current schedule.	'''
-        return State(self.size, copy(self.schedule), self.nconflicts)
+        return State(self.file_name, self.size, copy(self.schedule), self.nconflicts)
