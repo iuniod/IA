@@ -9,6 +9,7 @@ SUBJECTS = 'Materii'
 TEACHERS = 'Profesori'
 CLASSROOMS = 'Sali'
 CONSTRAINTS = 'Constrangeri'
+CAPACITY = 'Capacitate'
 
 def process_teacher_constraints(constraints: list) -> (list, int):
     ''' Process the constraints of a teacher and return the days, slots and break limit. '''
@@ -19,7 +20,7 @@ def process_teacher_constraints(constraints: list) -> (list, int):
     for i, constraint in enumerate(constraints):
         if i < 5:
             if constraint[0] != '!':
-                days.append(10 * (i + 1))
+                days.append(constraint)
         else:
             if constraint[0:6] == '!Pauza':
                 break_limit = int(constraint[8:])
@@ -27,13 +28,12 @@ def process_teacher_constraints(constraints: list) -> (list, int):
                 index = constraint.index('-')
                 first = int(constraint[0:index])
                 last = int(constraint[index + 1:])
-                while first <= last:
-                    for day in days:
-                        slots.append(int(day + first / 2 - 3))
+                while first < last:
+                    slots.append((first, first + 2))
                     first += 2
         slots.sort()
 
-    return slots, break_limit if break_limit != -1 else None
+    return days, slots, break_limit if break_limit != -1 else None
 
 def read_yaml_file(file_path: str) -> dict:
     ''' Read a yaml file and return its content as a dictionary.'''
@@ -43,10 +43,11 @@ def read_yaml_file(file_path: str) -> dict:
 
     # code all the constraints in a more accessible way to check them
     for teacher in parse_file[TEACHERS]:
-        slots, break_limit = process_teacher_constraints(parse_file[TEACHERS][teacher][CONSTRAINTS])
+        days, slots, break_limit = process_teacher_constraints(parse_file[TEACHERS][teacher][CONSTRAINTS])
 
         subjects = parse_file[TEACHERS][teacher]['Materii']
-        parse_file[TEACHERS][teacher] = {'Sloturi': slots,
+        parse_file[TEACHERS][teacher] = { 'Zile': days,
+                                   'Sloturi': slots,
                                    'Materii': subjects,
                                    'Pauza': break_limit if break_limit != -1 else None}
     return parse_file

@@ -6,6 +6,7 @@ import random
 from schedule import State
 
 Result = tuple[bool, int, int, State]
+N_TRIALS = 3000
 
 def stochastic_hill_climbing(initial_state: State, max_iters: int = 1000) -> Result:
     ''' Stoachastic Hill Climbing algorithm. '''
@@ -50,8 +51,8 @@ def random_restart_hill_climbing(
 
     return is_final, total_iters, total_states, state
 
-if __name__ == '__main__':
-    N_TRIALS = 3000
+def run_test():
+    ''' Run the test for the Hill Climbing algorithm. '''
     size = (5, 5) #TODO: Get the size of the schedule from the input file
     wins, fails = 0, 0
     total_iters, total_states, distance = 0, 0, 0
@@ -72,6 +73,10 @@ if __name__ == '__main__':
             fails += 1
             distance += state.conflicts()
 
+    return wins, fails, total_iters, total_states, distance
+
+def print_statistics(wins: int, fails: int, total_iters: int, total_states: int, distance: int):
+    ''' Print the statistics of the Hill Climbing algorithm. '''
     PADDING = ' ' * (30 - len('Random Restart'))
     WIN_PERCENTAGE = (wins / N_TRIALS) * 100.
     print(f"Success rate for {'Random Restart'}: {PADDING}{wins} / {N_TRIALS} ({WIN_PERCENTAGE:.2f}%)")
@@ -85,3 +90,13 @@ if __name__ == '__main__':
     if fails > 0:
         print(f"Average distance to target (for fails): {' ':>9}{(distance / fails):.2f}")
         stat["dist"] = distance / fails
+
+if __name__ == '__main__':
+    # Uncomment the following lines to run the test
+    # print_statistics(*run_test())
+
+    # For testing purposes
+    FILENAME = 'inputs/orar_mic_exact.yaml'
+    state = State(FILENAME, (6, 5), seed=40)
+    
+    state.display()
