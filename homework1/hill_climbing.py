@@ -96,9 +96,12 @@ if __name__ == '__main__':
     # print_statistics(*run_test())
 
     # For testing purposes
-    FILENAME = 'inputs/orar_bonus_exact.yaml'
+    FILENAME = 'inputs/orar_mic_exact.yaml'
 
-    state = State(FILENAME, seed=seed)
-    print(f"Seed: {seed}")
+    state = State(FILENAME, seed=40)
     state.display()
     print(f"Number of conflicts: {state.conflicts()}")
+
+    new_state = state.change_teacher('Luni', (8, 10), 'PL', 'Andrei Moldovan')
+    new_state.display()
+    print(f"Number of conflicts: {new_state.conflicts()}")

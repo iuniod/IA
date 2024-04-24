@@ -34,11 +34,18 @@ class State:
         '''
         return None
 
-    def change_teacher(self, slot: int, new_teacher: str) -> State:
+    def change_teacher(self, day: str, slot: str, subject: str, new_teacher: str) -> State:
         ''' Change the teacher in a slot. '''
         new_state = copy(self.schedule)
         # TODO: Implement the change of the teacher in a slot
-        return State(self.size, new_state)
+        classroom = None
+        for classroom in new_state[day][slot].keys():
+            if new_state[day][slot][classroom] is not None and new_state[day][slot][classroom][1] == subject:
+                break
+
+        new_state[day][slot][classroom] = (new_teacher, subject)
+
+        return State(self.file_name, self.size, new_state)
 
     def __generate_empty_schedule(
         self,
