@@ -96,7 +96,9 @@ if __name__ == '__main__':
     # print_statistics(*run_test())
 
     # For testing purposes
-    FILENAME = 'inputs/orar_mic_exact.yaml'
-    state = State(FILENAME, (6, 5), seed=40)
-    
+    FILENAME = 'inputs/orar_bonus_exact.yaml'
+
+    state = State(FILENAME, seed=seed)
+    print(f"Seed: {seed}")
     state.display()
+    print(f"Number of conflicts: {state.conflicts()}")

@@ -10,6 +10,8 @@ TEACHERS = 'Profesori'
 CLASSROOMS = 'Sali'
 CONSTRAINTS = 'Constrangeri'
 CAPACITY = 'Capacitate'
+SLOTS = 'Sloturi'
+BREAK = 'Pauza'
 
 def process_teacher_constraints(constraints: list) -> (list, int):
     ''' Process the constraints of a teacher and return the days, slots and break limit. '''

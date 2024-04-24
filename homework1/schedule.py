@@ -25,7 +25,7 @@ class State:
         self.file_name = file_name
         self.schedule = schedule if schedule is not None else State.generate_schedule(self, size, seed)
         self.nconflicts = conflicts if conflicts is not None \
-            else State.__compute_conflicts(self.size, self.schedule)
+            else State.__compute_conflicts(self, self.size, self.schedule)
 
     def apply_move(self, queen: int, new_row: int) -> State:
         '''
@@ -93,6 +93,10 @@ class State:
             if all(self.schedule[day][slot][classroom] is None or \
                 self.schedule[day][slot][classroom][0] != teacher for classroom in classrooms)]
 
+        # check if the number of classes that a teacher has is not exceeded 7
+        potential_teachers = [teacher for teacher in potential_teachers \
+            if len([info for info in self.schedule[day][slot].values() if info is not None and info[0] == teacher]) < 7]
+
         if not potential_teachers:
             return
 
@@ -125,14 +129,47 @@ class State:
             self.__add_classroom(size, students_per_subject, classrooms_info, teachers_info, classrooms, teachers)
 
         return self.schedule
-       
 
-    @staticmethod
-    def __compute_conflicts(size: int, schedule: list[int]) -> int:
-        ''' Computes the number of conflicts in the given schedule. '''
+    def __compute_conflicts_for_timeslot(self, day: str, slot: str, teacher: str, teachers_info: dict[str, list[str]]) -> int:
+        ''' Computes the number of conflicts for a teacher in a given timeslot. '''
         _conflicts = 0
 
-        # TODO: Implement the computation of the number of conflicts
+        # TODO: Implement the computation of the number of conflicts for a teacher in a given timeslot
+        # check if the day is in their preferences
+        if day not in teachers_info[teacher][utils.DAYS]:
+            _conflicts += 1
+
+        # check if the slot is in their preferences
+        if slot not in teachers_info[teacher][utils.SLOTS]:
+            _conflicts += 1
+
+        # check if the teacher has a break more than they want
+        # get the teacher's next class slot
+        next_class = None
+        for next_slot in TIME_SLOTS[TIME_SLOTS.index(slot) + 1:]:
+            for classroom in self.schedule[day][next_slot].keys():
+                if self.schedule[day][next_slot][classroom] is not None and self.schedule[day][next_slot][classroom][0] == teacher:
+                    next_class = next_slot
+                break
+
+        if next_class is not None and teachers_info[teacher][utils.BREAK] is not None:
+            # check if the teacher has a break more than they want
+            if 2 * (next_class[0] - slot[0] - 1) > teachers_info[teacher][utils.BREAK]:
+                _conflicts += 1
+        return _conflicts
+
+    @staticmethod
+    def __compute_conflicts(self, size: int, schedule: list[int]) -> int:
+        ''' Computes the number of conflicts in the given schedule. '''
+        _conflicts = 0
+        teachers_info = utils.read_yaml_file(self.file_name)[utils.TEACHERS]
+
+        for day in DAYS_OF_THE_WEEK[:size[1]]:
+            for slot in TIME_SLOTS[:size[0]]:
+                for classroom in schedule[day][slot].keys():
+                    if schedule[day][slot][classroom] is not None:
+                        teacher, subject = schedule[day][slot][classroom]
+                        _conflicts += self.__compute_conflicts_for_timeslot(day, slot, teacher, teachers_info)
 
         return _conflicts
 
