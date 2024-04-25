@@ -1,7 +1,7 @@
 import yaml
 import argparse
 import sys
-from utils import read_yaml_file, get_profs_initials, pretty_print_timetable
+from utils import read_yaml_file, get_teachers_initials, pretty_print_timetable
 
 
 ##################### MACROURI #####################
@@ -49,7 +49,7 @@ def get_timetable(timetable_specs : dict, output_name : str, debug_flag : bool =
     '''
     timetable = {day : {eval(interval) : {} for interval in timetable_specs[INTERVALE]} for day in timetable_specs[ZILE]}
 
-    _, initials_to_prof = get_profs_initials(timetable_specs[PROFESORI])
+    _, initials_to_prof = get_teachers_initials(timetable_specs[PROFESORI])
     
     if debug_flag:
         print(initials_to_prof)
@@ -210,7 +210,7 @@ if __name__ == '__main__':
     name = sys.argv[1]
 
     input_name = f'inputs/{name}.yaml'
-    output_name = f'outputs/{name}.txt'
+    output_name = f'my_outputs/{name}.txt'
 
     timetable_specs = read_yaml_file(input_name)
 

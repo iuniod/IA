@@ -1,7 +1,6 @@
 """ Module that contains the implementation of a state. """
 from __future__ import annotations
-from copy import copy
-
+import copy
 import random
 import utils
 
@@ -22,15 +21,15 @@ class State:
     ) -> None:
 
         self.size = size
-        self.yaml_dict = utils.read_yaml_file(file_name)
+        self.yaml_dict = utils.read_yaml_file_for_hc(file_name)
         self.file_name = file_name
-        self.schedule = schedule if schedule is not None else State.generate_schedule(self, size, seed)
+        self.schedule = schedule if schedule is not None else State.generate_schedule(self.yaml_dict, size, seed)
         self.nconflicts = conflicts if conflicts is not None \
             else State.__compute_conflicts(self, self.size, self.schedule)
 
     def change_slot(self, old_day: str, old_slot: str, new_day: str, new_slot: str, classroom: str, subject: str, teacher: str) -> State:
         ''' Change the slot of a subject. '''
-        new_state = copy(self.schedule)
+        new_state = copy.deepcopy(self.schedule)
         new_state[new_day][new_slot][classroom] = (teacher, subject)
         new_state[old_day][old_slot][classroom] = None
 
@@ -38,7 +37,7 @@ class State:
 
     def change_teacher(self, day: str, slot: str, subject: str, new_teacher: str) -> State:
         ''' Change the teacher in a slot. '''
-        new_state = copy(self.schedule)
+        new_state = copy.deepcopy(self.schedule)
 
         classroom = None
         for classroom in new_state[day][slot].keys():
@@ -49,8 +48,23 @@ class State:
 
         return State(self.file_name, self.size, new_state)
 
+    def split_classroom(
+        self, day: str, slot: str, classroom: str,
+        new_day1: str, new_slot1: str, new_classroom1: str,
+        new_day2: str, new_slot2: str, new_classroom2: str
+        ) -> State:
+        ''' Split a classroom into two. '''
+        new_state = copy.deepcopy(self.schedule)
+
+        teacher, subject = new_state[day][slot][classroom]
+        new_state[new_day1][new_slot1][new_classroom1] = (teacher, subject)
+        new_state[new_day2][new_slot2][new_classroom2] = (teacher, subject)
+        new_state[day][slot][classroom] = None
+
+        return State(self.file_name, self.size, new_state)
+
+    @staticmethod
     def __generate_empty_schedule(
-        self,
         size: (int, int),
         classrooms: list[str]
         ) -> dict[str, dict[str, dict[str, tuple[str, str]]]]:
@@ -66,56 +80,9 @@ class State:
 
         return schedule
 
-    def __add_classroom(
-        self,
-        size: (int, int),
-        students_per_subject: dict[str, int],
-        classrooms_info: dict[str, int],
-        teachers_info: dict[str, list[str]],
-        classrooms: list[str],
-        teachers: list[str]
-        ) -> None:
-        ''' Add a classroom to the schedule. '''
-        # get a random subject that has students
-        subject = random.choice([subject for subject, students in students_per_subject.items() if students > 0])
-
-        # get a random day and slot
-        day = random.choice(DAYS_OF_THE_WEEK[:size[1]])
-        slot = random.choice(TIME_SLOTS[:size[0]])
-
-        # get a random classroom that is free in the given day and slot
-        potential_classrooms = [classroom for classroom, info in self.schedule[day][slot].items() if info is None]
-        # check if the classroom is for the given subject
-        potential_classrooms = [classroom for classroom in potential_classrooms if subject in classrooms_info[classroom][utils.SUBJECTS]]
-
-        if not potential_classrooms:
-            return
-
-        classroom = random.choice(potential_classrooms)
-        students_per_subject[subject] -= classrooms_info[classroom][utils.CAPACITY]
-
-        # get a random teacher that can teach the subject and is free in the given day and slot
-        potential_teachers = [teacher for teacher in teachers if subject in teachers_info[teacher][utils.SUBJECTS]]
-
-        # check if the teacher is not in another classroom at the same time
-        potential_teachers = [teacher for teacher in potential_teachers \
-            if all(self.schedule[day][slot][classroom] is None or \
-                self.schedule[day][slot][classroom][0] != teacher for classroom in classrooms)]
-
-        # check if the number of classes that a teacher has is not exceeded 7
-        potential_teachers = [teacher for teacher in potential_teachers \
-            if len([info for info in self.schedule[day][slot].values() if info is not None and info[0] == teacher]) < 7]
-
-        if not potential_teachers:
-            return
-
-        teacher = random.choice(potential_teachers)
-
-        # add the subject to the schedule
-        self.schedule[day][slot][classroom] = (teacher, subject)
-
+    @staticmethod
     def generate_schedule(
-        self,
+        yaml_dict: dict[str, dict[str, list[str]]],
         size: (int, int),
         seed: int
         ) -> dict[str, dict[str, dict[str, tuple[str, str]]]]:
@@ -123,19 +90,57 @@ class State:
             Add random subjects and teachers to the schedule. '''
         random.seed(seed)
 
-        students_per_subject = self.yaml_dict[utils.SUBJECTS]
-        classrooms_info = self.yaml_dict[utils.CLASSROOMS]
-        teachers_info = self.yaml_dict[utils.TEACHERS]
+        schedule = State.__generate_empty_schedule(size, yaml_dict[utils.CLASSROOMS])
 
-        teachers = [teacher for teacher in teachers_info.keys()]
-        classrooms = [classroom for classroom in classrooms_info.keys()]
+        students_per_subject = yaml_dict[utils.SUBJECTS]
 
-        self.schedule = self.__generate_empty_schedule(size, classrooms)
+        # as long as the number of students for each subject is not 0
+        iterations = 0
+        while any(students_per_subject.values()):
+            # get a random day, slot and subject that has students
+            day = random.choice(DAYS_OF_THE_WEEK[:size[1]])
+            slot = random.choice(TIME_SLOTS[:size[0]])
+            possible_subjects = [subject for subject, students in students_per_subject.items() if students > 0]
+            if not possible_subjects:
+                break
+            subject = random.choice(possible_subjects)
 
-        while not all (students <= 0 for students in students_per_subject.values()):
-            self.__add_classroom(size, students_per_subject, classrooms_info, teachers_info, classrooms, teachers)
+            # get a random classroom that can hold the subject
+            possible_classrooms = [classroom for classroom in schedule[day][slot].keys() if schedule[day][slot][classroom] is None and subject in yaml_dict[utils.CLASSROOMS][classroom][utils.SUBJECTS]]
+            if not possible_classrooms:
+                iterations += 1
+                continue
+            classroom = random.choice(possible_classrooms)
 
-        return self.schedule
+            # get a random teacher that can teach the subject
+            possible_teachers = []
+            for t in yaml_dict[utils.TEACHERS].keys():
+                # check if he can teach the subject
+                if subject in yaml_dict[utils.TEACHERS][t][utils.SUBJECTS]:
+                    # check if he is not already teaching in the same slot
+                    count = 0
+                    for c in schedule[day][slot].keys():
+                        if schedule[day][slot][c] is not None and schedule[day][slot][c][0] == t:
+                            count += 1
+                    if count == 0:
+                        # check if he teach more than 7 times in a week
+                        new_count = 0
+                        for d in DAYS_OF_THE_WEEK[:size[1]]:
+                            for s in TIME_SLOTS[:size[0]]:
+                                for c in schedule[d][s].keys():
+                                    if schedule[d][s][c] is not None and schedule[d][s][c][0] == t:
+                                        new_count += 1
+                        if new_count < 7:
+                            possible_teachers.append(t)
+            if not possible_teachers:
+                iterations += 1
+                continue
+            teacher = random.choice(possible_teachers)
+
+            students_per_subject[subject] -= yaml_dict[utils.CLASSROOMS][classroom][utils.CAPACITY]
+            schedule[day][slot][classroom] = (teacher, subject)
+
+        return schedule
 
     def __compute_conflicts_for_timeslot(self, day: str, slot: str, teacher: str, teachers_info: dict[str, list[str]]) -> int:
         ''' Computes the number of conflicts for a teacher in a given timeslot. '''
@@ -187,6 +192,53 @@ class State:
         ''' Returns True if the current schedule is a final one. '''
         return self.nconflicts == 0
 
+    def __possible_teacher_replacements(self, day: str, slot: str, classroom: str) -> list[str]:
+        ''' Returns a list of teachers that can replace the current teacher. '''
+        teachers_info = self.yaml_dict[utils.TEACHERS]
+        current_eacher, subject = self.schedule[day][slot][classroom]
+        replacements = []
+
+        for new_teacher in teachers_info.keys():
+            if subject in teachers_info[new_teacher][utils.SUBJECTS]:
+                # teacher can teach the subject
+                count = 0
+                for c in self.schedule[day][slot].keys():
+                    if self.schedule[day][slot][c] is not None and self.schedule[day][slot][c][0] == new_teacher:
+                        count += 1
+                if count == 0:
+                    # teacher is not in another classroom at the same time
+                    if day in teachers_info[new_teacher][utils.DAYS] and \
+                       slot in teachers_info[new_teacher][utils.SLOTS]:
+                        # teacher accepts the day or slot
+                        if sum(1 for d in DAYS_OF_THE_WEEK[:self.size[1]]
+                               for s in TIME_SLOTS[:self.size[0]]
+                               for c in self.schedule[d][s].keys()
+                               if self.schedule[d][s][c] is not None and self.schedule[d][s][c][0] == new_teacher) < 7:
+                            # teacher has less than 7 hours per week
+                            replacements.append(new_teacher)
+
+        return replacements
+
+    def __possible_timeslot_replacements(self, day: str, slot: str, classroom: str) -> list[(str, str)]:
+        ''' Returns a list of possible timeslots for the current subject. '''
+        teachers_info = self.yaml_dict[utils.TEACHERS]
+        teacher, subject = self.schedule[day][slot][classroom]
+        replacements = []
+
+        for new_day in DAYS_OF_THE_WEEK[:self.size[1]]:
+            for new_slot in TIME_SLOTS[:self.size[0]]:
+                if self.schedule[new_day][new_slot][classroom] is None and \
+                    (new_day in teachers_info[teacher][utils.DAYS] and \
+                    new_slot in teachers_info[teacher][utils.SLOTS]):
+                    count = 0
+                    for c in self.schedule[new_day][new_slot].keys():
+                        if self.schedule[new_day][new_slot][c] is not None and self.schedule[new_day][new_slot][c][0] == teacher:
+                            count += 1
+                    if count == 0:
+                        replacements.append((new_day, new_slot))
+
+        return replacements
+
     def get_next_states(self) -> list[State]:
         ''' Returns a list of all possible states that can be reached from the current state. '''
         teachers_info = self.yaml_dict[utils.TEACHERS]
@@ -200,29 +252,23 @@ class State:
                         no_conflicts = self.__compute_conflicts_for_timeslot(day, slot, teacher, teachers_info)
                         if no_conflicts > 0:
                             # TODO: Make a list with all the possible teachers that can teach instead of the current one
-                            replacements = []
-                            for new_teacher in teachers_info.keys():
-                                if subject in teachers_info[new_teacher][utils.SUBJECTS] and \
-                                    all(self.schedule[day][slot][classroom] is None or \
-                                        self.schedule[day][slot][classroom][0] != new_teacher for classroom in self.schedule[day][slot].keys()) and \
-                                    len([info for info in self.schedule[day][slot].values() if info is not None and info[0] == new_teacher]) < 7 and \
-                                    day in teachers_info[new_teacher][utils.DAYS] and \
-                                    slot in teachers_info[new_teacher][utils.SLOTS]:
-                                    replacements.append(new_teacher)
-                            
-                            if not replacements:
-                                for new_day in DAYS_OF_THE_WEEK[:self.size[1]]:
-                                    for new_slot in TIME_SLOTS[:self.size[0]]:
-                                        if self.schedule[new_day][new_slot][classroom] is None:
-                                            new_states.append(self.change_slot(day, slot, new_day, new_slot, classroom, subject, teacher))
+                            replacements = self.__possible_teacher_replacements(day, slot, classroom)
                             for new_teacher in replacements:
                                 new_states.append(self.change_teacher(day, slot, subject, new_teacher))
+                            
+                            replacements = self.__possible_timeslot_replacements(day, slot, classroom)
+                            for new_day, new_slot in replacements:
+                                new_states.append(self.change_slot(day, slot, new_day, new_slot, classroom, subject, teacher))
         return new_states
 
-    def display(self) -> None:
+    def display(self, output_file: str = None) -> None:
         ''' Print the current schedule.'''
-        print(utils.pretty_print_timetable(self.schedule, self.file_name))
+        if output_file is not None:
+            with open(output_file, 'a') as file:
+                file.write(utils.pretty_print_timetable(self.schedule, self.file_name))
+        else :
+            print(utils.pretty_print_timetable(self.schedule, self.file_name))
 
     def clone(self) -> State:
         ''' Returns a copy of the current schedule.	'''
-        return State(self.file_name, self.size, copy(self.schedule), self.nconflicts)
+        return State(self.file_name, self.size, copy.deepcopy(self.schedule), self.nconflicts)

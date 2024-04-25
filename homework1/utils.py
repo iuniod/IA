@@ -37,7 +37,7 @@ def process_teacher_constraints(constraints: list) -> (list, int):
 
     return days, slots, break_limit if break_limit != -1 else None
 
-def read_yaml_file(file_path: str) -> dict:
+def read_yaml_file_for_hc(file_path: str) -> dict:
     ''' Read a yaml file and return its content as a dictionary.'''
     parse_file = {}
     with open(file_path, 'r', encoding='utf-8') as file:
@@ -53,6 +53,13 @@ def read_yaml_file(file_path: str) -> dict:
                                    'Materii': subjects,
                                    'Pauza': break_limit if break_limit != -1 else None}
     return parse_file
+
+def read_yaml_file(file_path : str) -> dict:
+    '''
+    Citeste un fișier yaml și returnează conținutul său sub formă de dicționar
+    '''
+    with open(file_path, 'r') as file:
+        return yaml.safe_load(file)
 
 def acces_yaml_attributes(yaml_dict: dict):
     ''' Print the data from the yaml dictionary (in Romanian).'''
