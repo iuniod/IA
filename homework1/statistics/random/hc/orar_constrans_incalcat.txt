@@ -1,0 +1,248 @@
+Statistics for the Hill Climbing algorithm
+
+Starting test 1...
+Restarting test 1...
+Final evaluation: 23 / 69
+Final state evaluation: 23
+Final state constraints: 23
+Restarting test 2...
+Final evaluation: 19 / 64
+Final state evaluation: 19
+Final state constraints: 19
+Restarting test 3...
+Final evaluation: 21 / 65
+Final state evaluation: 21
+Final state constraints: 21
+Restarting test 4...
+Final evaluation: 21 / 54
+Final state evaluation: 21
+Final state constraints: 21
+Restarting test 5...
+Final evaluation: 25 / 69
+Final state evaluation: 25
+Final state constraints: 25
+Restarting test 6...
+Final evaluation: 17 / 62
+Final state evaluation: 17
+Final state constraints: 17
+Restarting test 7...
+Final evaluation: 18 / 60
+Final state evaluation: 18
+Final state constraints: 18
+Restarting test 8...
+Final evaluation: 28 / 67
+Final state evaluation: 28
+Final state constraints: 28
+Restarting test 9...
+Final evaluation: 29 / 77
+Final state evaluation: 29
+Final state constraints: 29
+Restarting test 10...
+Final evaluation: 22 / 60
+Final state evaluation: 22
+Final state constraints: 22
+Restarting test 11...
+Final evaluation: 26 / 70
+Final state evaluation: 26
+Final state constraints: 26
+Restarting test 12...
+Final evaluation: 26 / 60
+Final state evaluation: 26
+Final state constraints: 26
+Restarting test 13...
+Final evaluation: 27 / 60
+Final state evaluation: 27
+Final state constraints: 27
+Restarting test 14...
+Final evaluation: 23 / 63
+Final state evaluation: 23
+Final state constraints: 23
+Restarting test 15...
+Final evaluation: 20 / 60
+Final state evaluation: 20
+Final state constraints: 20
+Restarting test 16...
+Final evaluation: 16 / 58
+Final state evaluation: 16
+Final state constraints: 16
+Restarting test 17...
+Final evaluation: 18 / 55
+Final state evaluation: 18
+Final state constraints: 18
+Restarting test 18...
+Final evaluation: 27 / 64
+Final state evaluation: 27
+Final state constraints: 27
+Restarting test 19...
+Final evaluation: 26 / 71
+Final state evaluation: 26
+Final state constraints: 26
+Restarting test 20...
+Final evaluation: 20 / 66
+Final state evaluation: 20
+Final state constraints: 20
+Restarting test 21...
+Final evaluation: 21 / 68
+Final state evaluation: 21
+Final state constraints: 21
+Restarting test 22...
+Final evaluation: 26 / 66
+Final state evaluation: 26
+Final state constraints: 26
+Restarting test 23...
+Final evaluation: 28 / 68
+Final state evaluation: 28
+Final state constraints: 28
+Restarting test 24...
+Final evaluation: 18 / 63
+Final state evaluation: 18
+Final state constraints: 18
+Restarting test 25...
+Final evaluation: 12 / 54
+Final state evaluation: 12
+Final state constraints: 12
+Restarting test 26...
+Final evaluation: 22 / 69
+Final state evaluation: 22
+Final state constraints: 22
+Restarting test 27...
+Final evaluation: 21 / 66
+Final state evaluation: 21
+Final state constraints: 21
+Restarting test 28...
+Final evaluation: 19 / 69
+Final state evaluation: 19
+Final state constraints: 19
+Restarting test 29...
+Final evaluation: 28 / 59
+Final state evaluation: 28
+Final state constraints: 28
+Restarting test 30...
+Final evaluation: 25 / 62
+Final state evaluation: 25
+Final state constraints: 25
+Restarting test 31...
+Final evaluation: 19 / 71
+Final state evaluation: 19
+Final state constraints: 19
+Restarting test 32...
+Final evaluation: 15 / 65
+Final state evaluation: 15
+Final state constraints: 15
+Restarting test 33...
+Final evaluation: 30 / 59
+Final state evaluation: 30
+Final state constraints: 30
+Restarting test 34...
+Final evaluation: 16 / 55
+Final state evaluation: 16
+Final state constraints: 16
+Restarting test 35...
+Final evaluation: 27 / 61
+Final state evaluation: 27
+Final state constraints: 27
+Restarting test 36...
+Final evaluation: 14 / 56
+Final state evaluation: 14
+Final state constraints: 14
+Restarting test 37...
+Final evaluation: 21 / 63
+Final state evaluation: 21
+Final state constraints: 21
+Restarting test 38...
+Final evaluation: 14 / 61
+Final state evaluation: 14
+Final state constraints: 14
+Restarting test 39...
+Final evaluation: 19 / 72
+Final state evaluation: 19
+Final state constraints: 19
+Restarting test 40...
+Final evaluation: 22 / 64
+Final state evaluation: 22
+Final state constraints: 22
+Restarting test 41...
+Final evaluation: 25 / 61
+Final state evaluation: 25
+Final state constraints: 25
+Restarting test 42...
+Final evaluation: 13 / 59
+Final state evaluation: 13
+Final state constraints: 13
+Restarting test 43...
+Final evaluation: 18 / 56
+Final state evaluation: 18
+Final state constraints: 18
+Restarting test 44...
+Final evaluation: 22 / 62
+Final state evaluation: 22
+Final state constraints: 22
+Restarting test 45...
+Final evaluation: 22 / 63
+Final state evaluation: 22
+Final state constraints: 22
+Restarting test 46...
+Final evaluation: 25 / 69
+Final state evaluation: 25
+Final state constraints: 25
+Restarting test 47...
+Final evaluation: 17 / 60
+Final state evaluation: 17
+Final state constraints: 17
+Restarting test 48...
+Final evaluation: 14 / 61
+Final state evaluation: 14
+Final state constraints: 14
+Restarting test 49...
+Final evaluation: 14 / 62
+Final state evaluation: 14
+Final state constraints: 14
+Restarting test 50...
+Final evaluation: 27 / 60
+Final state evaluation: 27
+Final state constraints: 27
+Restarting test 51...
+Final evaluation: 15 / 51
+Final state evaluation: 15
+Final state constraints: 15
+Restarting test 52...
+Final evaluation: 20 / 60
+Final state evaluation: 20
+Final state constraints: 20
+Restarting test 53...
+Final evaluation: 28 / 71
+Final state evaluation: 28
+Final state constraints: 28
+Restarting test 54...
+Final evaluation: 26 / 72
+Final state evaluation: 26
+Final state constraints: 26
+Restarting test 55...
+Final evaluation: 23 / 64
+Final state evaluation: 23
+Final state constraints: 23
+Restarting test 56...
+Final evaluation: 26 / 67
+Final state evaluation: 26
+Final state constraints: 26
+Restarting test 57...
+Final evaluation: 20 / 71
+Final state evaluation: 20
+Final state constraints: 20
+Restarting test 58...
+Final evaluation: 22 / 59
+Final state evaluation: 22
+Final state constraints: 22
+Restarting test 59...
+Final evaluation: 21 / 62
+Final state evaluation: 21
+Final state constraints: 21
+Restarting test 60...
+Final evaluation: 22 / 59
+Final state evaluation: 22
+Final state constraints: 22
+Restarting test 61...
+Final evaluation: 19 / 55
+Final state evaluation: 19
+Final state constraints: 19
+Restarting test 62...

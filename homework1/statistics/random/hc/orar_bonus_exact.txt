@@ -1,0 +1,16 @@
+Statistics for the Hill Climbing algorithm
+
+Starting test 1...
+Restarting test 1...
+Final evaluation: 29 / 112
+Final state evaluation: 29
+Final state constraints: 29
+Restarting test 2...
+Final evaluation: 30 / 113
+Final state evaluation: 30
+Final state constraints: 30
+Restarting test 3...
+Final evaluation: 21 / 103
+Final state evaluation: 21
+Final state constraints: 21
+Restarting test 4...
