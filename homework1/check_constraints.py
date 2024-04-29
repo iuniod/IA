@@ -210,8 +210,8 @@ if __name__ == '__main__':
     name = sys.argv[1]
 
     input_name = f'inputs/{name}.yaml'
-    # output_name = f'outputs/random/hc/{name}.txt'
-    output_name = f'outputs/empty/hc/{name}.txt'
+    output_name = f'outputs/empty/astar/{name}.txt'
+    # output_name = f'outputs/empty/hc/{name}.txt'
 
     timetable_specs = read_yaml_file(input_name)
 

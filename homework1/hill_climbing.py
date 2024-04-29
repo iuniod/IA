@@ -5,8 +5,7 @@ from __future__ import annotations
 import random
 import threading
 import sys
-from random_state import State
-# from empty_state import State
+from state import State
 
 Result = tuple[bool, int, int, State]
 N_TRIALS = 1
@@ -46,7 +45,7 @@ def random_restart_hill_climbing(
     initial_state: State,
     statistics_file: str,
     output_file: str,
-    max_restarts: int = 100, #20
+    max_restarts: int = 20,
     run_max_iters: int = 3000,
 ) -> Result:
     ''' Random Restart Hill Climbing algorithm with stochastic hill climbing at each restart. '''
@@ -62,9 +61,6 @@ def random_restart_hill_climbing(
             stochastic_hill_climbing(state, statistics_file, run_max_iters)
         total_iters += iters
         total_states += states
-
-        # if best_state is None or state.eval() < best_state.eval():
-        #     best_state = state
 
         if best_state is None or (state.eval() <= best_state.eval() and \
             state.no_constraints() < best_state.no_constraints()):
@@ -139,37 +135,14 @@ if __name__ == '__main__':
                 'orar_constrans_incalcat',
                 'orar_bonus_exact']
 
-    # read from parameters
-    if len(sys.argv) == 1:
-        print(HELP_MESSAGE)
-        sys.exit(0)
-
-    if sys.argv[1] == '-h':
-        print(HELP_MESSAGE)
-        sys.exit(0)
-
-    state_type = sys.argv[1]
-    if state_type not in ('random', 'empty'):
-        print(HELP_MESSAGE)
-        sys.exit(0)
-
-    for i, nfile in enumerate(nfiles):
-        if state_type == 'random':
-            input_file = f'inputs/{nfile}.yaml'
-            statistics_file = f'statistics/random/hc/{nfile}.txt'
-            output_file = f'outputs/random/hc/{nfile}.txt'
-            thread = threading.Thread(target=thread_function,
-                args=(input_file, statistics_file, output_file))
-            thread.start()
-            threads.append(thread)
-        else:
-            input_file = f'inputs/{nfile}.yaml'
-            statistics_file = f'statistics/empty/hc/{nfile}.txt'
-            output_file = f'outputs/empty/hc/{nfile}.txt'
-            thread = threading.Thread(target=thread_function,
-                args=(input_file, statistics_file, output_file))
-            thread.start()
-            threads.append(thread)
+    for nfile in nfiles:
+        input_file = f'inputs/{nfile}.yaml'
+        statistics_file = f'statistics/hc/{nfile}.txt'
+        output_file = f'outputs/hc/{nfile}.txt'
+        thread = threading.Thread(target=thread_function,
+            args=(input_file, statistics_file, output_file))
+        thread.start()
+        threads.append(thread)
 
     for thread in threads:
         thread.join()

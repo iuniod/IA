@@ -1,0 +1,36 @@
+Statistics for the A* algorithm
+
+Current state: {'PA': 330, 'PCom': 330, 'PL': 300}
+Current state: {'PA': 330, 'PCom': 300, 'PL': 300}
+Current state: {'PA': 330, 'PCom': 300, 'PL': 270}
+Current state: {'PA': 330, 'PCom': 270, 'PL': 270}
+Current state: {'PA': 330, 'PCom': 240, 'PL': 270}
+Current state: {'PA': 330, 'PCom': 240, 'PL': 240}
+Current state: {'PA': 330, 'PCom': 210, 'PL': 240}
+Current state: {'PA': 330, 'PCom': 210, 'PL': 210}
+Current state: {'PA': 330, 'PCom': 180, 'PL': 210}
+Current state: {'PA': 330, 'PCom': 180, 'PL': 180}
+Current state: {'PA': 330, 'PCom': 150, 'PL': 180}
+Current state: {'PA': 330, 'PCom': 150, 'PL': 150}
+Current state: {'PA': 330, 'PCom': 120, 'PL': 150}
+Current state: {'PA': 330, 'PCom': 120, 'PL': 120}
+Current state: {'PA': 330, 'PCom': 90, 'PL': 120}
+Current state: {'PA': 330, 'PCom': 90, 'PL': 90}
+Current state: {'PA': 330, 'PCom': 60, 'PL': 90}
+Current state: {'PA': 330, 'PCom': 60, 'PL': 60}
+Current state: {'PA': 330, 'PCom': 30, 'PL': 60}
+Current state: {'PA': 330, 'PCom': 30, 'PL': 30}
+Current state: {'PA': 330, 'PCom': 0, 'PL': 30}
+Current state: {'PA': 330, 'PCom': 0, 'PL': 0}
+Current state: {'PA': 300, 'PCom': 0, 'PL': 0}
+Current state: {'PA': 270, 'PCom': 0, 'PL': 0}
+Current state: {'PA': 240, 'PCom': 0, 'PL': 0}
+Current state: {'PA': 210, 'PCom': 0, 'PL': 0}
+Current state: {'PA': 180, 'PCom': 0, 'PL': 0}
+Current state: {'PA': 150, 'PCom': 0, 'PL': 0}
+Current state: {'PA': 120, 'PCom': 0, 'PL': 0}
+Current state: {'PA': 90, 'PCom': 0, 'PL': 0}
+Current state: {'PA': 70, 'PCom': 0, 'PL': 0}
+Current state: {'PA': 50, 'PCom': 0, 'PL': 0}
+Current state: {'PA': 30, 'PCom': 0, 'PL': 0}
+Current state: {'PA': 10, 'PCom': 0, 'PL': 0}
