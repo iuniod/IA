@@ -1,10 +1,14 @@
 Statistics for the Hill Climbing algorithm
 
-Starting test 1...
 Restarting test 1...
 Final evaluation: 0 / 960
-Final state evaluation: 0
-Final state constraints: 0
-Success rate for Random Restart:                 1 / 1 (100.00%)
-Total number of states (for wins):               3,568
-Average number of iterations (for wins):         36.00
+Final state vs best state evaluation: 0 / 0
+Final state vs best state constraints: 3 / 3
+Restarting test 2...
+Final evaluation: 0 / 960
+Final state vs best state evaluation: 0 / 0
+Final state vs best state constraints: 2 / 2
+Restarting test 3...
+Final evaluation: 0 / 960
+Final state vs best state evaluation: 0 / 0
+Final state vs best state constraints: 0 / 0

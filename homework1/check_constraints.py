@@ -200,18 +200,22 @@ def check_optional_constraints(timetable : {str : {(int, int) : {str : (str, str
 if __name__ == '__main__':
 
     
-    if len(sys.argv) == 1:
-        print('\nSe rulează de exemplu:\n\npython3 check_constraints.py orar_mic_exact\n')
+    if len(sys.argv) != 3:
+        print('\nSe rulează de exemplu:\n\npython3 check_constraints.py astar orar_mic_exact\n')
         sys.exit(0)
 
     if sys.argv[1] == '-h':
-        print('\nSe rulează de exemplu:\n\npython3 check_constraints.py orar_mic_exact\n')
+        print('\nSe rulează de exemplu:\n\npython3 check_constraints.py astar orar_mic_exact\n')
 
-    name = sys.argv[1]
+    algorithm = sys.argv[1]
+    name = sys.argv[2]
+
+    if algorithm != 'astar' and algorithm != 'hc':
+        print('\nAlgoritmul trebuie să fie "astar" sau "hc"!\n')
+        sys.exit(0)
 
     input_name = f'inputs/{name}.yaml'
-    output_name = f'outputs/empty/astar/{name}.txt'
-    # output_name = f'outputs/empty/hc/{name}.txt'
+    output_name = f'outputs/{algorithm}/{name}.txt'
 
     timetable_specs = read_yaml_file(input_name)
 

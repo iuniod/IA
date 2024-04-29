@@ -1,86 +1,402 @@
 Statistics for the Hill Climbing algorithm
 
-Starting test 1...
 Restarting test 1...
 Final evaluation: 0 / 3060
-Final state evaluation: 0
-Final state constraints: 12
+Final state vs best state evaluation: 0 / 0
+Final state vs best state constraints: 12 / 12
 Restarting test 2...
-Final evaluation: 90 / 3060
-Final state evaluation: 90
-Final state constraints: 11
+Final evaluation: 0 / 3060
+Final state vs best state evaluation: 0 / 0
+Final state vs best state constraints: 16 / 12
 Restarting test 3...
 Final evaluation: 0 / 3060
-Final state evaluation: 0
-Final state constraints: 15
+Final state vs best state evaluation: 0 / 0
+Final state vs best state constraints: 16 / 12
 Restarting test 4...
 Final evaluation: 0 / 3060
-Final state evaluation: 0
-Final state constraints: 11
+Final state vs best state evaluation: 0 / 0
+Final state vs best state constraints: 10 / 10
 Restarting test 5...
-Final evaluation: 180 / 3060
-Final state evaluation: 180
-Final state constraints: 7
+Final evaluation: 30 / 3060
+Final state vs best state evaluation: 30 / 0
+Final state vs best state constraints: 16 / 10
 Restarting test 6...
 Final evaluation: 0 / 3060
-Final state evaluation: 0
-Final state constraints: 11
+Final state vs best state evaluation: 0 / 0
+Final state vs best state constraints: 15 / 10
 Restarting test 7...
 Final evaluation: 0 / 3060
-Final state evaluation: 0
-Final state constraints: 12
+Final state vs best state evaluation: 0 / 0
+Final state vs best state constraints: 12 / 10
 Restarting test 8...
-Final evaluation: 90 / 3060
-Final state evaluation: 90
-Final state constraints: 10
-Restarting test 9...
 Final evaluation: 0 / 3060
-Final state evaluation: 0
-Final state constraints: 14
+Final state vs best state evaluation: 0 / 0
+Final state vs best state constraints: 17 / 10
+Restarting test 9...
+Final evaluation: 90 / 3060
+Final state vs best state evaluation: 90 / 0
+Final state vs best state constraints: 8 / 10
 Restarting test 10...
-Final evaluation: 30 / 3060
-Final state evaluation: 30
-Final state constraints: 14
+Final evaluation: 0 / 3060
+Final state vs best state evaluation: 0 / 0
+Final state vs best state constraints: 15 / 10
 Restarting test 11...
 Final evaluation: 0 / 3060
-Final state evaluation: 0
-Final state constraints: 14
+Final state vs best state evaluation: 0 / 0
+Final state vs best state constraints: 17 / 10
 Restarting test 12...
 Final evaluation: 90 / 3060
-Final state evaluation: 90
-Final state constraints: 11
+Final state vs best state evaluation: 90 / 0
+Final state vs best state constraints: 7 / 10
 Restarting test 13...
-Final evaluation: 45 / 3060
-Final state evaluation: 45
-Final state constraints: 15
+Final evaluation: 0 / 3060
+Final state vs best state evaluation: 0 / 0
+Final state vs best state constraints: 9 / 9
 Restarting test 14...
-Final evaluation: 90 / 3060
-Final state evaluation: 90
-Final state constraints: 10
+Final evaluation: 0 / 3060
+Final state vs best state evaluation: 0 / 0
+Final state vs best state constraints: 17 / 9
 Restarting test 15...
-Final evaluation: 90 / 3060
-Final state evaluation: 90
-Final state constraints: 12
+Final evaluation: 0 / 3060
+Final state vs best state evaluation: 0 / 0
+Final state vs best state constraints: 13 / 9
 Restarting test 16...
-Final evaluation: 45 / 3060
-Final state evaluation: 45
-Final state constraints: 11
+Final evaluation: 0 / 3060
+Final state vs best state evaluation: 0 / 0
+Final state vs best state constraints: 11 / 9
 Restarting test 17...
 Final evaluation: 0 / 3060
-Final state evaluation: 0
-Final state constraints: 16
+Final state vs best state evaluation: 0 / 0
+Final state vs best state constraints: 10 / 9
 Restarting test 18...
 Final evaluation: 0 / 3060
-Final state evaluation: 0
-Final state constraints: 8
+Final state vs best state evaluation: 0 / 0
+Final state vs best state constraints: 18 / 9
 Restarting test 19...
-Final evaluation: 0 / 3060
-Final state evaluation: 0
-Final state constraints: 3
+Final evaluation: 90 / 3060
+Final state vs best state evaluation: 90 / 0
+Final state vs best state constraints: 7 / 9
 Restarting test 20...
 Final evaluation: 0 / 3060
-Final state evaluation: 0
-Final state constraints: 14
-Success rate for Random Restart:                 0 / 1 (0.00%)
-Total number of states (for wins):               0
-Average distance to target (for fails):          0.00
+Final state vs best state evaluation: 0 / 0
+Final state vs best state constraints: 16 / 9
+Restarting test 21...
+Final evaluation: 0 / 3060
+Final state vs best state evaluation: 0 / 0
+Final state vs best state constraints: 11 / 9
+Restarting test 22...
+Final evaluation: 45 / 3060
+Final state vs best state evaluation: 45 / 0
+Final state vs best state constraints: 15 / 9
+Restarting test 23...
+Final evaluation: 90 / 3060
+Final state vs best state evaluation: 90 / 0
+Final state vs best state constraints: 2 / 9
+Restarting test 24...
+Final evaluation: 0 / 3060
+Final state vs best state evaluation: 0 / 0
+Final state vs best state constraints: 15 / 9
+Restarting test 25...
+Final evaluation: 0 / 3060
+Final state vs best state evaluation: 0 / 0
+Final state vs best state constraints: 14 / 9
+Restarting test 26...
+Final evaluation: 45 / 3060
+Final state vs best state evaluation: 45 / 0
+Final state vs best state constraints: 14 / 9
+Restarting test 27...
+Final evaluation: 90 / 3060
+Final state vs best state evaluation: 90 / 0
+Final state vs best state constraints: 6 / 9
+Restarting test 28...
+Final evaluation: 0 / 3060
+Final state vs best state evaluation: 0 / 0
+Final state vs best state constraints: 15 / 9
+Restarting test 29...
+Final evaluation: 15 / 3060
+Final state vs best state evaluation: 15 / 0
+Final state vs best state constraints: 10 / 9
+Restarting test 30...
+Final evaluation: 90 / 3060
+Final state vs best state evaluation: 90 / 0
+Final state vs best state constraints: 9 / 9
+Restarting test 31...
+Final evaluation: 0 / 3060
+Final state vs best state evaluation: 0 / 0
+Final state vs best state constraints: 12 / 9
+Restarting test 32...
+Final evaluation: 0 / 3060
+Final state vs best state evaluation: 0 / 0
+Final state vs best state constraints: 11 / 9
+Restarting test 33...
+Final evaluation: 0 / 3060
+Final state vs best state evaluation: 0 / 0
+Final state vs best state constraints: 9 / 9
+Restarting test 34...
+Final evaluation: 0 / 3060
+Final state vs best state evaluation: 0 / 0
+Final state vs best state constraints: 13 / 9
+Restarting test 35...
+Final evaluation: 90 / 3060
+Final state vs best state evaluation: 90 / 0
+Final state vs best state constraints: 10 / 9
+Restarting test 36...
+Final evaluation: 15 / 3060
+Final state vs best state evaluation: 15 / 0
+Final state vs best state constraints: 13 / 9
+Restarting test 37...
+Final evaluation: 90 / 3060
+Final state vs best state evaluation: 90 / 0
+Final state vs best state constraints: 10 / 9
+Restarting test 38...
+Final evaluation: 0 / 3060
+Final state vs best state evaluation: 0 / 0
+Final state vs best state constraints: 16 / 9
+Restarting test 39...
+Final evaluation: 15 / 3060
+Final state vs best state evaluation: 15 / 0
+Final state vs best state constraints: 11 / 9
+Restarting test 40...
+Final evaluation: 180 / 3060
+Final state vs best state evaluation: 180 / 0
+Final state vs best state constraints: 8 / 9
+Restarting test 41...
+Final evaluation: 15 / 3060
+Final state vs best state evaluation: 15 / 0
+Final state vs best state constraints: 15 / 9
+Restarting test 42...
+Final evaluation: 90 / 3060
+Final state vs best state evaluation: 90 / 0
+Final state vs best state constraints: 11 / 9
+Restarting test 43...
+Final evaluation: 90 / 3060
+Final state vs best state evaluation: 90 / 0
+Final state vs best state constraints: 14 / 9
+Restarting test 44...
+Final evaluation: 90 / 3060
+Final state vs best state evaluation: 90 / 0
+Final state vs best state constraints: 8 / 9
+Restarting test 45...
+Final evaluation: 0 / 3060
+Final state vs best state evaluation: 0 / 0
+Final state vs best state constraints: 21 / 9
+Restarting test 46...
+Final evaluation: 15 / 3060
+Final state vs best state evaluation: 15 / 0
+Final state vs best state constraints: 13 / 9
+Restarting test 47...
+Final evaluation: 90 / 3060
+Final state vs best state evaluation: 90 / 0
+Final state vs best state constraints: 15 / 9
+Restarting test 48...
+Final evaluation: 0 / 3060
+Final state vs best state evaluation: 0 / 0
+Final state vs best state constraints: 18 / 9
+Restarting test 49...
+Final evaluation: 0 / 3060
+Final state vs best state evaluation: 0 / 0
+Final state vs best state constraints: 13 / 9
+Restarting test 50...
+Final evaluation: 0 / 3060
+Final state vs best state evaluation: 0 / 0
+Final state vs best state constraints: 16 / 9
+Restarting test 51...
+Final evaluation: 0 / 3060
+Final state vs best state evaluation: 0 / 0
+Final state vs best state constraints: 11 / 9
+Restarting test 52...
+Final evaluation: 0 / 3060
+Final state vs best state evaluation: 0 / 0
+Final state vs best state constraints: 16 / 9
+Restarting test 53...
+Final evaluation: 0 / 3060
+Final state vs best state evaluation: 0 / 0
+Final state vs best state constraints: 19 / 9
+Restarting test 54...
+Final evaluation: 90 / 3060
+Final state vs best state evaluation: 90 / 0
+Final state vs best state constraints: 9 / 9
+Restarting test 55...
+Final evaluation: 90 / 3060
+Final state vs best state evaluation: 90 / 0
+Final state vs best state constraints: 8 / 9
+Restarting test 56...
+Final evaluation: 0 / 3060
+Final state vs best state evaluation: 0 / 0
+Final state vs best state constraints: 9 / 9
+Restarting test 57...
+Final evaluation: 0 / 3060
+Final state vs best state evaluation: 0 / 0
+Final state vs best state constraints: 12 / 9
+Restarting test 58...
+Final evaluation: 0 / 3060
+Final state vs best state evaluation: 0 / 0
+Final state vs best state constraints: 16 / 9
+Restarting test 59...
+Final evaluation: 60 / 3060
+Final state vs best state evaluation: 60 / 0
+Final state vs best state constraints: 15 / 9
+Restarting test 60...
+Final evaluation: 0 / 3060
+Final state vs best state evaluation: 0 / 0
+Final state vs best state constraints: 18 / 9
+Restarting test 61...
+Final evaluation: 0 / 3060
+Final state vs best state evaluation: 0 / 0
+Final state vs best state constraints: 12 / 9
+Restarting test 62...
+Final evaluation: 60 / 3060
+Final state vs best state evaluation: 60 / 0
+Final state vs best state constraints: 12 / 9
+Restarting test 63...
+Final evaluation: 0 / 3060
+Final state vs best state evaluation: 0 / 0
+Final state vs best state constraints: 10 / 9
+Restarting test 64...
+Final evaluation: 0 / 3060
+Final state vs best state evaluation: 0 / 0
+Final state vs best state constraints: 15 / 9
+Restarting test 65...
+Final evaluation: 90 / 3060
+Final state vs best state evaluation: 90 / 0
+Final state vs best state constraints: 5 / 9
+Restarting test 66...
+Final evaluation: 0 / 3060
+Final state vs best state evaluation: 0 / 0
+Final state vs best state constraints: 14 / 9
+Restarting test 67...
+Final evaluation: 0 / 3060
+Final state vs best state evaluation: 0 / 0
+Final state vs best state constraints: 14 / 9
+Restarting test 68...
+Final evaluation: 0 / 3060
+Final state vs best state evaluation: 0 / 0
+Final state vs best state constraints: 12 / 9
+Restarting test 69...
+Final evaluation: 90 / 3060
+Final state vs best state evaluation: 90 / 0
+Final state vs best state constraints: 8 / 9
+Restarting test 70...
+Final evaluation: 0 / 3060
+Final state vs best state evaluation: 0 / 0
+Final state vs best state constraints: 9 / 9
+Restarting test 71...
+Final evaluation: 90 / 3060
+Final state vs best state evaluation: 90 / 0
+Final state vs best state constraints: 8 / 9
+Restarting test 72...
+Final evaluation: 0 / 3060
+Final state vs best state evaluation: 0 / 0
+Final state vs best state constraints: 17 / 9
+Restarting test 73...
+Final evaluation: 0 / 3060
+Final state vs best state evaluation: 0 / 0
+Final state vs best state constraints: 15 / 9
+Restarting test 74...
+Final evaluation: 90 / 3060
+Final state vs best state evaluation: 90 / 0
+Final state vs best state constraints: 9 / 9
+Restarting test 75...
+Final evaluation: 0 / 3060
+Final state vs best state evaluation: 0 / 0
+Final state vs best state constraints: 17 / 9
+Restarting test 76...
+Final evaluation: 0 / 3060
+Final state vs best state evaluation: 0 / 0
+Final state vs best state constraints: 16 / 9
+Restarting test 77...
+Final evaluation: 15 / 3060
+Final state vs best state evaluation: 15 / 0
+Final state vs best state constraints: 13 / 9
+Restarting test 78...
+Final evaluation: 90 / 3060
+Final state vs best state evaluation: 90 / 0
+Final state vs best state constraints: 10 / 9
+Restarting test 79...
+Final evaluation: 0 / 3060
+Final state vs best state evaluation: 0 / 0
+Final state vs best state constraints: 8 / 8
+Restarting test 80...
+Final evaluation: 0 / 3060
+Final state vs best state evaluation: 0 / 0
+Final state vs best state constraints: 10 / 8
+Restarting test 81...
+Final evaluation: 90 / 3060
+Final state vs best state evaluation: 90 / 0
+Final state vs best state constraints: 9 / 8
+Restarting test 82...
+Final evaluation: 90 / 3060
+Final state vs best state evaluation: 90 / 0
+Final state vs best state constraints: 5 / 8
+Restarting test 83...
+Final evaluation: 0 / 3060
+Final state vs best state evaluation: 0 / 0
+Final state vs best state constraints: 15 / 8
+Restarting test 84...
+Final evaluation: 0 / 3060
+Final state vs best state evaluation: 0 / 0
+Final state vs best state constraints: 13 / 8
+Restarting test 85...
+Final evaluation: 0 / 3060
+Final state vs best state evaluation: 0 / 0
+Final state vs best state constraints: 14 / 8
+Restarting test 86...
+Final evaluation: 30 / 3060
+Final state vs best state evaluation: 30 / 0
+Final state vs best state constraints: 14 / 8
+Restarting test 87...
+Final evaluation: 0 / 3060
+Final state vs best state evaluation: 0 / 0
+Final state vs best state constraints: 9 / 8
+Restarting test 88...
+Final evaluation: 0 / 3060
+Final state vs best state evaluation: 0 / 0
+Final state vs best state constraints: 6 / 6
+Restarting test 89...
+Final evaluation: 0 / 3060
+Final state vs best state evaluation: 0 / 0
+Final state vs best state constraints: 9 / 6
+Restarting test 90...
+Final evaluation: 0 / 3060
+Final state vs best state evaluation: 0 / 0
+Final state vs best state constraints: 13 / 6
+Restarting test 91...
+Final evaluation: 90 / 3060
+Final state vs best state evaluation: 90 / 0
+Final state vs best state constraints: 12 / 6
+Restarting test 92...
+Final evaluation: 0 / 3060
+Final state vs best state evaluation: 0 / 0
+Final state vs best state constraints: 14 / 6
+Restarting test 93...
+Final evaluation: 0 / 3060
+Final state vs best state evaluation: 0 / 0
+Final state vs best state constraints: 16 / 6
+Restarting test 94...
+Final evaluation: 180 / 3060
+Final state vs best state evaluation: 180 / 0
+Final state vs best state constraints: 5 / 6
+Restarting test 95...
+Final evaluation: 90 / 3060
+Final state vs best state evaluation: 90 / 0
+Final state vs best state constraints: 13 / 6
+Restarting test 96...
+Final evaluation: 90 / 3060
+Final state vs best state evaluation: 90 / 0
+Final state vs best state constraints: 6 / 6
+Restarting test 97...
+Final evaluation: 0 / 3060
+Final state vs best state evaluation: 0 / 0
+Final state vs best state constraints: 19 / 6
+Restarting test 98...
+Final evaluation: 0 / 3060
+Final state vs best state evaluation: 0 / 0
+Final state vs best state constraints: 11 / 6
+Restarting test 99...
+Final evaluation: 90 / 3060
+Final state vs best state evaluation: 90 / 0
+Final state vs best state constraints: 2 / 6
+Restarting test 100...
+Final evaluation: 0 / 3060
+Final state vs best state evaluation: 0 / 0
+Final state vs best state constraints: 11 / 6

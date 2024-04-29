@@ -16,19 +16,18 @@ class State:
     def __init__(
         self,
         file_name: str,
-        size: (int, int) = (6, 5),
+        size: (int, int) = None,
         yaml_dict: dict[str, dict[str, dict[str, str]]] = None,
         schedule: dict[str, dict[str, dict[str, tuple[str, str]]]] | None = None,
         count_techer_slots: dict[str, int] = None,
         students_per_subject: dict[str, int] = None,
-        cost_last_class: int = None,
-        seed: int = 47
+        cost_last_class: int = None
     ) -> None:
-        self.size = size
         self.file_name = file_name
         self.yaml_dict = utils.read_yaml_file_for_hc(file_name) if yaml_dict is None else yaml_dict
+        self.size = size if size is not None else (len(self.yaml_dict[utils.INTERVALS]), len(self.yaml_dict[utils.DAYS]))
         self.schedule = schedule if schedule is not None \
-            else self.generate_empty_schedule(size, self.yaml_dict[utils.CLASSROOMS])
+            else self.generate_empty_schedule(self.size, self.yaml_dict[utils.CLASSROOMS])
         self.students_per_subject = students_per_subject if students_per_subject is not None \
             else copy.deepcopy(self.yaml_dict[utils.SUBJECTS])
         self.count_techer_slots = count_techer_slots if count_techer_slots is not None \
@@ -239,11 +238,6 @@ class State:
         if len(new_states) == 0:
             new_states = self._get_neighbours(False)
 
-        return new_states
-
-    def get_next_states_astar(self) -> list[State]:
-        ''' Returns a list of all possible states that can be reached from the current state. '''
-        new_states = self._get_neighbours(False)
         return new_states
 
     def display(self, output_file: str = None) -> None:
