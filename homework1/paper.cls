@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesClass{llncs}[2018/03/10 v2.20
+\ProvidesClass{paper}[2018/03/10 v2.20
 ^^J LaTeX document class for Lecture Notes in Computer Science]
 % Options
 \let\if@envcntreset\iffalse
@@ -1194,4 +1194,4 @@ to0pt{\kern0.55\wd0\vrule height0.45\ht0\hss}\box0}}}}
 \setlength\tabcolsep{1.4\p@}
 
 \endinput
-%end of file llncs.cls
+%end of file paper.cls

@@ -22,414 +22,412 @@
 %
 \author{Cărămidă Iustina-Andreea - 332CA}
 %
-\institute{Facultatea de Automatică și Calculatoare \\
-Universitatea Politehnica București \\
+\institute{Faculty of Automatic Control and Computer Science \\
+University Politehnica of Bucharest \\
 \email{iustina.caramida@stud.acs.upb.ro}
 }
 %
 \maketitle              % typeset the header of the contribution
 %
 \begin{abstract}
-    Problema colorării nodurilor unui graf (\textit{graph coloring - GCP} sau \textit{colorarea grafurilor})
-    este una dintre cele mai importante probleme, fapt datorat numărului mare de situații din viața reală
-    care se pot rezuma la o problemă de colorare a unui graf. În această temă, voi prezenta câteva comparări 
-    între diferiți algoritmi dedicați acestei probleme, precum Greedy, Dsatur și RLF din 
-    punct de vedere al timpului de execuție, al memoriei folosite și al performanței în raport cu numărul 
-    de noduri și muchii.
+    With the rapid growth of student enrollment and the expansion of academic 
+    offerings in universities and colleges worldwide, the task of scheduling 
+    classes within existing timetables and facilities has become increasingly 
+    complex. Today, class scheduling requires consideration of multiple factors, 
+    including room availability, capacity, instructors' preferences, and more. This problem is considered to be 
+    NP-complete and has received some research during the past few years. 
+    Several formulations and algorithms have been proposed to solve scheduling
+    problems, most of which are based on local search techniques. In this paper, 
+    we propose to compare 2 different types of algorithms to solve the class
+    scheduling problem: the random restart Hill-Climbing algorithm and the A-Star algorithm.
 
-
-\keywords{Brute-Force \and Greedy \and DSatur \and RLF \and Colorarea grafurilor.}
+\keywords{NP-complete \and A Star \and Hill-Climbing \and searching algorithms \and class scheduling.}
 \end{abstract}
 
 % ------------------------------------------------------------------------------
 
-\section{Introducere}
-\subsection{Descrierea problemei}
+\section{Introduction}
+\subsection{Problem Declaration}
 
-\quad Colorarea grafurilor este o problemă centrală în teoria grafurilor \cite{1}. Ea 
-constă în alegerea unui set de culori pentru nodurile unui graf, astfel încât 
-niciun nod adiacent să nu primească aceeași culoare.
+\quad The Class Scheduling Problem represents a critical challenge in the field 
+of educational operational research.  Universities contend with an ever-growing 
+course catalog, necessitating the efficient allocation of a diverse range of 
+classes to classrooms with varying capacities. This optimization problem seeks 
+to construct a course schedule that adheres to a comprehensive set of university 
+constraints while simultaneously maximizing the effective and efficient 
+utilization of existing facilities.
 
-Problema colorării graficului a început cu încercarea lui 
-Francis Guthries de a colora toate țările pe harta Angliei. 
-Acesta a presupus inițial că patru culori sunt suficiente pentru a procesa orice 
-hartă, astfel încât să nu fie asociate două țări vecine
-cu aceeasi culoare. Această sarcină este doar una dintre cele peste 200 de probleme
-\cite{2}, legate de aria analizei grafice cromatice,
-iar această situație poate fi tradusă prin colorarea fiecărui vârf
-dintr-un graf în care marginile sale ar reprezenta vecinătatea
-dintre două regiuni \cite{3}.
+The complexity of the Class Scheduling Problem presents a multifaceted challenge due 
+to a confluence of factors. First, there is significant variety in the 
+number of students enrolled in each course.  Similarly, classroom capacities 
+exhibit a wide range of variation. These factors are further compounded by the 
+existence of course-specific classroom constraints. Additionally, faculty 
+members often express preferences regarding the day of the week, time slot, 
+and even break schedule for their assigned courses. These factors, combined 
+with the need to satisfy a multitude of university-specific regulations, render 
+the task of assigning courses to classrooms a highly intricate endeavor.
 
-Colorarea grafurilor este o problemă de tip NP-hard bine studiată cu aplicații 
-importante în optimizarea combinatorie și într-un domeniu de cercetare activ, cu 
-multe aplicații practice \cite{4} în inginerie, cum ar fi \textit{alocarea registrelor}, 
-\textit{atribuirea frecvenței}, \textit{potrivirea șablonului} și \textit{programări}. 
-În consecință, colorarea grafurilor a fost subiectul unor cercetări intense \cite{5} \cite{2}.
+Merely ensuring a classroom can accommodate a course's enrolled students is 
+insufficient. Such an approach would lead to suboptimal space utilization, 
+potentially hindering the educational experience and fostering student 
+dissatisfaction. Consider a scenario with two courses: one with six students 
+and another with nineteen. Furthermore, imagine two classrooms exist, one 
+seating twenty and another seating fifty. While technically feasible to 
+schedule either course in either room, a more strategic allocation would be to 
+assign the larger course to the larger classroom.
 
-Un exemplu de o problemă de colorare a grafurilor este planificarea examenelor, unde
-fiecare examen este reprezentat de un nod și fiecare legătură dintre nodiri reprezintă
-o interzicere de a planifica examenele. Astfel, colorarea grafului reprezintă planificarea
-examenelelor, astfel încât două examene care nu pot fi planificate în același timp să fie
-colorate diferit. În acest caz, numărul minim de culori necesare pentru a colora graful
-este egal cu numărul minim de zile necesare pentru a planifica examenele. \cite{6}
+This example exemplifies the multifaceted nature of Class Scheduling Problem. 
+Researchers continue to explore sophisticated methods to address this intricate 
+problem, with the ultimate goal of ensuring the smooth operation and optimal 
+resource allocation within universities.
 
-Colorarea grafurilor este asociată cu două tipuri de colorare: colorarea vârfurilor 
-și colorarea marginilor. Scopul ambelor tipuri de colorare este de a colora întregul graf fără
-conflicte. Prin urmare, vârfurile adiacente sau muchiile adiacente trebuie
-să fie în culori diferite. Numărul cel mai mic de culori necesare 
-pentru a colora graful se numește \textbf{număr cromatic}.
-Pe măsură ce numărul de vârfuri sau muchii dintr-un graf crește,
-complexitatea problemei crește și ea. Din această cauză, fiecare
-algoritmul nu poate găsi numărul cromatic exact  
-și pot fi, de asemenea, diferențe în timpul lor de execuție \cite{7}. Pentru a obține 
-o soluție mai bună pentru colorarea grafurilor, mulți algoritmi euristici și meta
-euristici au fost inventați \cite{8}.
+\subsection{Problem Statement}
+\textbf{\textit{Statement:}} Receiving a set of courses, each with a specific
+number of students,a set of rooms with a specific capacity, and a list of 
+instructors with their list of preferences, the goal is to assign each course to
+a room and a time slot, according to a list of constraints.
+
+There are 2 types of constraints that need to be satisfied:
+\begin{itemize}
+    \item \textbf{Hard constraints:} These constraints must be satisfied in order
+    for the solution to be valid. If any of these constraints are not satisfied, 
+    the solution is invalid.
+    \item \textbf{Soft constraints:} These constraints are not mandatory, but 
+    they are taken into account when evaluating the quality of the solution.
+\end{itemize}
+
+\subsubsection*{Hard constraints}
+\begin{itemize}
+    \item Within a designated time slot and in a given room, only one subject may be taught by a single instructor.
+    \item During any given time slot, an instructor may teach only one subject, and this instruction must occur within a singular room.
+    \item An instructor may conduct classes in a maximum of 7 time slots per week.
+    \item Within a specified time slot, a room may accommodate a number of students equal to or less than its predetermined maximum capacity.
+    \item All students enrolled in a particular subject must have designated class hours allocated for that subject.
+    \item Instructors are restricted to teaching only the subjects in which they are specialized.
+    \item All rooms are designated for classes pertaining only to the subjects for which they have been assigned
+\end{itemize}
+
+\subsubsection*{Soft constraints}
+\begin{itemize}
+    \item An instructor may express preferences regarding specific days of the week for teaching or may wish to avoid teaching on certain days.
+    \item An instructor may have preferences regarding specific time slots during the day for teaching or may wish to avoid teaching during certain time slots.
+    \item An instructor may prefer not to have a break exceeding a certain number of hours between consecutive classes.
+\end{itemize}
 % 
-\subsection{Specificarea algoritmilor aleși}
 
-\textbf{\textit{Cerință:}} Fie un graf neorientat G cu N noduri și M muchii. Problema cere să asociem o culoare 
-fiecărui nod, astfel încât oricare două noduri adiacente (conectate printr-o muchie directă) 
-să aibă culori diferite. Care este numărul minim de culori necesare pentru a colora 
-toate nodurile conform restricției menționate anterior? \cite{9}
+\subsection{Methods of Approach}
+\subsubsection{Random Restart Hill Climbing}
+is a local search algorithm commonly applied in optimization 
+problems. It begins with an initial solution and iteratively explores 
+neighboring solutions, selecting the one that improves the objective function 
+the most. This process continues until a local optimum is reached, where no 
+better solution can be found in the immediate neighborhood. When the algorithm
+reaches a local optimum, it restarts the search from a random initial solution.
+The algorithm terminates when a specified number of iterations have been
+completed or when a solution that satisfies all constraints is found.
 
-\subsubsection{Brute Force:}
-Când încercăm să oferim o soluție la această problemă, primul instinct este de a
-folosi o abordare ”Brute Force”. Acest lucru ar duce la o soluție, care ar fi 
-din punct de vedere al timpului de execuție exponențială, făcând această soluție 
-inutilă pentru cazuri mari. A spune că nu putem găsi un algoritm eficient 
-deoarece acesta nu există ar fi la fel ca și când am spune că problema nu are 
-nicio soluție eficientă \cite{10}.
-În prezent, există algoritmi care se ocupă să rezolve problema colorării grafurilor, 
-deși obțin un număr cromatic apropiat de ale grafului în schimbul unui timp
-rezonabil sau rezultate rapide care sunt suficient de utile \cite{11}.
+\subsubsection{A Star}
+is an informed search algorithm widely used for pathfinding and graph 
+traversal tasks. It intelligently combines both actual path costs and heuristic 
+estimates to guide the search towards the goal efficiently. A* maintains a 
+priority queue of nodes to be explored and selects the most promising node 
+based on a combination of the cost incurred so far and the estimated cost to 
+reach the goal. This allows A* to efficiently find the optimal path while 
+intelligently pruning the search space, making it highly effective for solving 
+a wide range of optimization problems.
 
-\subsubsection{Greedy Algorithm:}
-Logica algoritmului ia vârfurile grafului unul câte unul, urmând o ordine 
-(care poate fi aleatorie) și atribuie prima culoare disponibilă fiecărui vârf \cite{12}. 
-Deoarece este un algoritm euristic, soluția oferită de acesta poate să nu fie optimă.
-Cu toate acestea, o alegere corectă a ordinii vârfurilor pentru
-colorarea lor poate oferi o soluție optimă pentru orice graf. În
-practică, algoritmul Greedy produce soluții rapid practicabile, deși aceste soluții 
-pot fi “sărace” pe baza numărului de culori pe care algoritmul le cere, în comparație cu
-numărul cromatic al grafului.
 
-\subsubsection{DSatur Algorithm:}
-Algoritmul DSatur (abreviere din engleză pentru “Degree Saturation”), 
-propus de Brelaz (1979), se comportă foarte asemănător cu
-algoritmul Greedy, cu excepția că, în acest caz,
-ordonarea vârfurilor este generată de algoritmul însuși.
-La fel ca în algoritmul Greedy, ordonarea a fost decisă
-înainte ca orice vârf să fie colorat, ordinea vârfurilor fiind decisă euristic pe baza
-caracteristicilor colorării parțiale a grafului la
-momentul în care se selectează fiecare dintre vârfuri \cite{13}. 
-În cel mai rău caz, complexitatea sa are aceeași situație ca și în
-Algoritmul Greedy, deși în practică poate fi luat în considerare
-și faptul că monitorizare saturaţiei vârfurilor necolorate
-produce o complexitate puțin mai mare. Este de reținut că
-Algoritmul DSatur este \textbf{exact} pentru grafurile bipartite \cite{14}.
+\subsection{Evaluation}
+\quad Both algorithms will be evaluated based on the quality of the solutions they
+provide, the time required to find these solutions and the total number of
+states explored during the search. The quality of the solutions will be
+evaluated based on the number of constraints satisfied.  The time required to 
+find the solutions will be measured in milliseconds, and the total number of
+states explored will be counted during the search process.
 
-\subsubsection{RLF Algorithm:}
-Algoritmul RLF (abreviere din engleză pentru “Recursive Largest First”), propus
-de Leighton (1979), lucrează prin colorarea unui graf cu o singură culoare
-pentru fiecare iterație a algoritmului, în loc de un vârf per
-repetare. În fiecare iterație, algoritmul caută seturi de
-vârfuri independente din graf, care vor fi asociate
-cu aceeași culoare. Acel set independent a fost eliminat
-din graf, iar subgraful rămas va continua
-în același mod, până când subgraful menționat este gol, caz în care
-toate vârfurile vor fi atribuite unei culori, producând astfel o
-soluție ce satisface toate cerințele \cite{12}.
+There will be 5 types of tests, describe in \textit{Tests Description} section.
 
-\subsection{Evaluarea soluțiilor}
-Sursele vor fi testate pe grafuri de dimensiuni diferite, de la 10 la 2 000 de noduri,
-cu un număr de muchii de la 10 la 1 000 000. Pentru fiecare graf se va genera o
-configurație aleatoare de noduri și muchii, iar apoi se va testa performanța
-algoritmilor pe aceste grafuri. Pentru fiecare algoritm, se va calcula timpul de
-execuție și numărul de culori folosite pentru a colora graful.
+% ------------------------------------------------------------------------------
+\section{Algorithm Design}
+\subsection{State Representation}
 
-\section{Prezentarea soluțiilor}
-\subsection{Algoritmul Brute Force}
-Algoritmul Brute Force este un algoritm care se bazează pe forță bruta, adică
-parcurge toate posibilitățile de colorare a grafului și alege cea mai bună
-soluție. Complexitatea acestui algoritm este de $O(n^m)$, unde $n$ este numărul de noduri și $m$ este
-numărul de culori. Pentru grafuri cu un număr mare de noduri, complexitatea
-acestui algoritm este foarte mare, de aceea nu este folosit în practică. Pe de altă parte,
-algoritmul este exact, adică oferă întotdeauna o soluție optimă. Un pseudocod al
-algoritmului este prezentat în Pseudocodul~\ref{alg1}.
+The state representation for the Class Scheduling Problem consists of a
+schedule that assigns each course to a room and a time slot. The state is
+represented as a class that contains the following fields:
+\begin{itemize}
+    \item \textbf{file\_name:} The name of the file from which the data was read.
+    \item \textbf{yaml\_dict:} A dictionary containing the data read from the file.
+    \item \textbf{size:} A tuplet (days, time\_slots) representing the size of the schedule.
+    \item \textbf{schedule:} A dictionary that has the following structure: \{(day: str) : \{(time\_slot: (int, int)) : \{(classroom : str) : ((instructor : str), (subject : str))\}\}\}.
+    \item \textbf{strudents\_per\_subject:} A dictionary that contains the number of students for each subject that needs to be scheduled.
+    \item \textbf{count\_techer\_slots:} A dictionary that contains the number of scheduled slots for each instructor.
+    \item \textbf{trade\_off:} A number that represents the trade-off between the number of constraints satisfied and the the choosen classroom at each step (used in A Star).
+\end{itemize}
+
+\subsubsection{Initial State}
+The initial state is generated as an empty schedule, which is initialized with 
+the parameters derived from the input file, including the number of days, time 
+slots, and classrooms. Additionally, the number of students per subject is 
+obtained from the input file, while the count of scheduled slots for each 
+instructor is set to zero.
+
+This initial state serves as the starting point for the search algorithms, 
+enabling them to iteratively allocate courses to rooms and time slots until 
+a valid schedule is achieved.
+
+An alternative method for generating the initial state involves randomly 
+assigning courses, instructors to rooms and time slots in a manner that 
+adheres to the hard constraints. A comparative analysis of these two approaches 
+will be conducted in the \textit{Initial State Selection} section.
+
+\subsubsection{Generating Neighbors}
+The neighbors of a state are generated by considering all possible combinations 
+of assigning a course to a room, a time slot and an instructor, while ensuring 
+adherence to the hard constraints.
+
+In the initial phase, all potential neighbors that adhere to both the hard and 
+soft constraints are generated. Subsequently, in the event that no neighbors 
+satisfying all soft constraints are found, a secondary phase ensues where only 
+neighbors satisfying the hard constraints are generated. This strategy reduces 
+the total number of neighbors generated, allowing the algorithm to prioritize 
+those that satisfy all constraints. Consequently, the algorithm minimizes time 
+wastage by avoiding the generation of neighbors that would not be utilized, 
+resulting in a reduced number of states generated.
+
+\subsubsection{Initial State Selection}
+As previously mentioned, the initial state can be generated in two methodologies: either 
+as an empty schedule or through the random assignment of courses, instructors, 
+and rooms to time slots. The former method exhibits a greater degree of 
+determinism, initializing the schedule with vacant slots, whereas the latter 
+introduces stochasticity into the initial state generation process.
+
+Upon experimentation with both approaches, it became evident that the random 
+initialization method could often yield solutions that fail to adhere to all 
+specified soft constraints. This underscores the importance of carefully 
+considering all potential subsequent states that may arise from the current 
+state when designing the random initialization method.
+
+For instance, in instances where an instructor's preferences are violated within 
+a particular time slot, the algorithm should endeavor to substitute instructor with 
+another whose preferences remain unviolated for that time slot. Moreover, the 
+algorithm should endeavor to substitute the time slot with another or substitute
+the room with anothers that have the same capacity in total. This approach
+was found more difficult to implement. When tring to implement the first two
+substitutes, the algorithm was not able to find a solution that satisfies all the
+soft constraints and it took quite a lot of time to find a partial solution due to
+a large number of constraints that should be checked while creating the neighbors.
+On the other hand, this approach will always find a partial solution that 
+satisfies all the hard constraints. Thus, this one is recommended in cases 
+when the soft constraints are not that important.
+
+The method that I used in 
+the end was the empty schedule initialization. It is acknowledged that without 
+the random initialization component, the Hill-Climbing algorithm may struggle 
+to assign all students to a room, thereby violating a hard constraint. However,
+with  the inclusion of the random restart, the algorithm will always find a 
+solution that satisfies all the hard constraints, the soft ones being satisfied 
+in most of the cases. This approach is recommended in cases when the soft 
+constraints are more important than in the previous case and it is easier to 
+generate the neighbors.
+
+
+\subsection{Random Restart Hill Climbing}
+
+As previously mentioned, the Random Restart Hill Climbing algorithm is the 
+most suitable for this approach. The algorithm is initialized with an empty
+schedule and generates neighbors that adhere to the hard constraints. The
+algorithm iteratively explores the neighborhood of the current state, selecting
+randomly one of the neighbors that satisfies the most constraints. This process continues until
+a local optimum is reached, at which point the algorithm restarts the search.
+The algorithm terminates when a solution that
+satisfies all constraints is found or when a specified number of iterations / 
+restarts have been completed. A pseudocode of the algorithm is presented in Algorithm
+\ref{alg1}.
 
 \begin{algorithm}
-\caption{Brute Force Algorithm}
+\caption{Random Restart Hill Climbing Algorithm}
 \label{alg1}
 \begin{algorithmic}[1]
-\Procedure{BruteForce}{$G$} \Return $List\langle int\rangle $ 
-\State $List\langle int\rangle $ $colors = new List\langle int\rangle $ \Comment{List of colors}
-\State $int$ $maxColors = 0$ \Comment{Number of colors}
-\State $int$ $maxColorsIndex = 0$ \Comment{Index of the best solution}
+\Procedure{hill\_climbing}{$max\_restarts$} \Return $[is\_final, total\_iters, total\_states, best\_state] $ 
+\State $total\_iters = 0$
+\State $total\_states = 0$
+\State $best\_state = None$
+
+\For{$index$ in $range(max\_restarts)$}
+\State $state = InitialState()$
+\State $is\_final, iters, states, state = stochastic\_hill\_climbing(state)$
+\State $total\_iters += iters$
+\State $total\_states += states$
+
+\If{$is\_final$}
+\State \Return $[is\_final, total\_iters, total\_states, state]$
+\EndIf
+
+\If{$state\ does\ not\ have\ hard\ constraints$}
+\If{$best\_state == None$ or $state\ has\ less\ soft\ constraints$
+\hspace*{6em}$unsatisfied\ than\ best\_state$}
+
+\State $best\_state = state$
+\EndIf
+\EndIf
+\EndFor
+
+\State \Return $[is\_final, total\_iters, total\_states, best\_state]$
+
 \algstore{bkbreak}
 \end{algorithmic}
 \end{algorithm}
 
 \addtocounter{algorithm}{-1}
 \begin{algorithm}
-\caption{Brute Force Algorithm}
+\caption{Stochastic Hill Climbing}
 \begin{algorithmic}[1]
-\algrestore{bkbreak}
-\State $int$ $i = 0$ \Comment{Index of the current solution}
-\State $int$ $n = G.GetNumberOfNodes()$ \Comment{Number of nodes}
-\State $int$ $m = G.GetNumberOfColors()$ \Comment{Number of colors}
-\State $int$ $max = pow(m, n)$ \Comment{Number of possible solutions}
-\While{$i < max$}
-\State $colors = G.GetColors()$
-\State $int$ $currentColors = colors.Count()$
-\If{$currentColors > maxColors$}
-\State $maxColors = currentColors$
-\State $maxColorsIndex = i$
+\Procedure{stochastic\_hill\_climbing}{$state, max\__iters$} \Return $[is\_final, total\_iters, total\_states, best\_state] $ 
+\State $total\_iters = 0$
+\State $total\_states = 0$
+
+\While{$total\_iters < max\_iters$}
+\State $total\_iters += 1$
+
+\If{$state\ is\ final$}
+\Return $[True, total\_iters, total\_states, state]$
 \EndIf
-\State $i++$
+
+\State $neighbors = state.generate\_neighbors()$
+\State $total\_states += len(neighbors)$
+
+\If{$neighbors$ == $None$}
+\Return $[False, total\_iters, total\_states, state]$
+\EndIf
+
+\State $state = random.choice(from\ neighbors\ one\ of\ the\ neighbors\ with$ \\
+\hspace*{2em}$\text{minimum\ number\ of\ constraints\ unsatisfied)}$
 \EndWhile
-\State $colors = G.GetColors(maxColorsIndex)$
-\State \Return $colors$
+
+\State \Return $[False, total\_iters, total\_states, state]$
+
 \EndProcedure
 \end{algorithmic}
 \end{algorithm}
 
 
-\subsection{Algoritmul Greedy}
-Algoritmul Greedy este un algoritm care alege mereu cea mai bună soluție la
-momentul curent, fără a ține cont de soluțiile viitoare.
-Un pseudocod al algoritmului este prezentat în
-Pseudocodul~\ref{alg2}.
+\subsection{A Star}
+For the A Star algorithm, the state representation is the same as for the Random
+Restart Hill Climbing algorithm. The algorithm is initialized with an empty
+schedule and generates neighbors that adhere to the hard constraints. The 
+algorithm iteratively explores the neighborhood of the current state.
 
+The frontier represents a heap that contains the states that need to be explored.
+The diccovered is a dictionary that contains as keys the number of students that
+need to be scheduled for each subject and as values the cost of the state that
+brought us to this configuration.
+
+The function used in the A Star algorithm is:
+\begin{equation}
+    f(state) = g(state) + h(state)
+\end{equation}
+
+where
+
+\begin{equation}
+    h(state) = total\ number\ of\ students\ that\ are\ not\ assigned
+\end{equation}
+\begin{equation}
+    g(state) = number\ of\ constraints\ unsatisfied * weight + trade\_off
+\end{equation}
+\begin{equation}
+    trade\_off = \frac{number\ of\ classrooms(subject)}{total\ number\ of\ classrooms} 
+\end{equation}
+
+The heuristic function is admisible, because the return value is always less than
+or equal to the actual cost of the state to reach a final one, and is
+equal to 0 in the final states. On the other hand, the function h is not consistent,
+because a state from discovered can be added to the frontier with a smaller cost.
+
+The cost function is calculated as the number of constraints unsatisfied multiplied
+by a weight and the trade off. In cases where the number of constraints unsatisfied
+is equal, multiplying it by a weight will prioritize the states that have the trade
+off smaller. Moreover, when the number of constraints unsatisfied is different, the
+prioritization will be made based on the number of constraints unsatisfied, not on
+the trade off.
+
+The trade off is calculated as the number of classrooms that are assigned to a
+subject divided by the total number of classrooms. We want to prioritize adding
+a subject to a classroom that has fewer subjects assigned to it. For instance,
+if we have 2 subjects: A and B, 2 classrooms: 1 and 2, and classroom 1 is assigned
+to subject A and classroom 2 is assigned to both subjects, while tring to assign
+a subject to classroom 2 we will choose subject B (trade off = 0.5) instead of
+subject A (trade off = 1).
+
+The pseudocode of the algorithm is presented in Algorithm \ref{alg2}.
 
 \begin{algorithm} 
-\caption{Greedy Algorithm}
+\caption{A Star Algorithm}
 \label{alg2}
 \begin{algorithmic}[1]
-\Procedure{Greedy}{$G$}
-\Require{$S$ = Class Set, $V$ = Colorless vertices in random order}
-\Ensure{$S$ = $\emptyset$}
-\For{$v \in V$}
-\For{$i$ to $S.lenght$}
-\If {$NonConflitiveEdges(v \cup S_i)$}
-\State $AssignClass(v, S_i)$
-\State $Next Vertex$
+\Procedure{astar}{} \Return $[is\_final, total\_iters, total\_states, best\_state] $
+\State{$frontier = []$}
+\State{$discovered = \{\}$}
+\State{$state = InitialState()$}
+\State{$frontier.append((f(state), state))$}
+\State{$discovered[state] = 0$}
+\State{$total\_iters = 0$}
+\State{$total\_states = 1$}
+\While{$frontier$}
+\State{$current\_state = frontier.pop(1)$}
+\State{$total\_iters += 1$}
+\If{$current\_state\ is_final == 0$}
+\Return $[True, total\_iters, total\_states, current\_state]$
+\EndIf
+
+\State{$neighbors = current\_state.generate\_neighbors()$}
+\State{$total\_states += len(neighbors)$}
+\For{$neighbor$ in $neighbors$}
+\State{$new\_cost = g(neighbor) + h(neighbor)$}
+\State{students\_per\_subject = neighbor.students\_per\_subject}
+\If{$students\_per\_subject\ not\ in\ discovered$ or $new\_cost < discovered[students\_per\_subject]$}
+\State{$discovered[neighbor] = new\_cost$}
+\State{$frontier.append((new\_cost, neighbor))$}
 \EndIf
 \EndFor
-\If {$NotColored(v)$}
-\State $S_{i+1} = NewClass$
-\State $AssignClass(v, S_{i+1})$
-\State {Next Vertex}
-\EndIf
-\EndFor
+\EndWhile
+\State \Return $[False, total\_iters, total\_states, current\_state]$
 \EndProcedure
 \end{algorithmic}
 \end{algorithm}
 
-În algoritmul Greedy, așa cum se poate vedea în pseudocod,
-se folosește o permutare inițială care este generată aleatoriu și în
-care este colorat fiecare vârf, comparând în fiecare caz dacă acesta
-poate fi inclus într-o culoare fără a provoca conflicte. Pentru a analiza
-algoritmul în cel mai rău caz, vom presupune că fiecare vârf este 
-verificat cu fiecare culoare înainte de a fi colorat,
-ce ne dă un polinom care este
-\begin{equation} P(x) = n(n+1)/2. \end{equation} Polinomul
-se obţine din faptul că fiecare vârf, înainte de a fi colorat,
-trebuie să se compare cu toate culorile actuale:
-\begin{equation} P = 0 + 1 + 2 + . . . + n = n(n + 1)/2 \end{equation}
 
-În cele din urmă, vom avea o complexitate de $O(n^2)$, unde $n$ este numărul
-de noduri. Este necesar să afirmăm că algoritmul Greedy, deși calculează
-numărul cromatic aproximativ, acest lucru va depinde direct de permutarea
-inițială pe care o avem. Cu algoritmul următor vom vedea tehnici care ne
-permit să îmbunătățim modul de a alege vârfurile pentru a obține soluții
-mai bune și mai apropiate de numărul cromatic.
+\subsection{Complexities}
+The complexity of the Random Restart Hill Climbing algorithm is $O(n)$, where
+$n$ is the total number of iterations. The complexity of the A Star algorithm is
+$O(b^d)$, where $b$ is the branching factor and $d$ is the depth of the solution.
 
-\subsection{Algoritmul DSatur}
-Algoritmul DSatur este un algoritm care alege mereu nodul cu cea mai mare
-valoare de saturație, adică nodul care are cel mai mare număr de vecini cu
-aceeași culoare. Un pseudocod al algoritmului este prezentat în Pseudocodul~\ref{alg3}.
-\begin{algorithm}
-\caption{DSatur Algorithm}
-\label{alg3}
-\begin{algorithmic}[1]
-\Procedure{DSatur}{$G$}
-\Require{$S$ = Class Set, $V$ = Non-colored vertices}
-\Ensure{$S$ = $\emptyset$}
-\While {$V \neq \emptyset$}
-\State $v = MaxSaturation(V)$
-\For {$i$ to $S.lenght$}
-\If {$NonConflitiveEdges(v \cup S_i)$}
-\State $AssignClass(v, S_i)$
-\State {Next Vertex (break)}
-\EndIf
-\If {$NotColored(v)$}
-\State $S_{i+1} = NewClass$
-\State $AssignClass(v, S_{i+1})$
-\State $Remove(v, V)$
-\State {Next Vertex}
-\EndIf
-\EndFor
-\EndWhile
-\EndProcedure
-\end{algorithmic}
-\end{algorithm}
+The complexity of the generate neighbors function is $O(d*t*c*i*s)$, where $d$ is
+the number of days, $t$ is the number of time slots, $c$ is the number of classrooms,
+$i$ is the number of instructors and $s$ is the number of subjects. Because the number
+of days does not exceed 7 (the worst case) and the number of time slots does not exceed 12, 
+the complexity becomes $O(c*i*s)$.
 
-Se poate observa din pseudocod că acest algoritm este foarte asemănător cu algoritmul
-Greedy, însă puterea algoritmului DSatur constă în prioritatea dată nodurilor cu cea mai
-mare saturație. Astfel, aceste noduri mai restrânse sunt colorate înainte de restul nodurilor,
-care nu au aceste “restricții”. Complexitatea algoritmului este similară cu cea a algoritmului
-Greedy, deoarece este foarte asemănător în cod, însă are și calcule suplimentare pentru a
-obține saturația nodurilor, însă acestea nu afectează direct complexitatea totală a algoritmului,
-care este totuși $O(n^2)$. 
+\section{Evaluation}
+\subsection{Tests Description}
 
-Trebuie punctat faptul că, deși algoritmul DSatur are o performanță mai bună,
-acesta are și cazuri în care obține o soluție
-mai proastă decât algoritmul Greedy. Aceasta se poate observa în \cite{15} unde se arată că o
-distribuția neadecvată a vârfurilor este dificil de colorat cu algoritmul DSatur.
+\subsubsection{orar\_mic\_exact:} Contains 3 courses, 2 rooms, and 13 instructors. The
+number of students for each course are 300, 330, and 330. The capacity of the rooms are
+20 and 30. The instructors have few preferences.
+\subsubsection{orar\_mediu\_relaxat:} Contains 4 courses, 4 rooms, and 18 instructors. The
+number of students for each course is 660, 660, 665 and 685. The capacity of the rooms is
+25, 25, 35 and 70. The instructors have few preferences.
+\subsubsection{orar\_mare\_relaxat:} Contains 8 courses, 6 rooms, and 37 instructors. The
+number of students for each course is 470, 475, 475, 495, 500, 530, 535 and 550. The capacity of the rooms is
+25, 30, 30, 35, 85 and 85. The instructors have few preferences.
+\subsubsection{orar\_constrans\_incalcat:} Contains 4 courses, 2 rooms, and 17 instructors. The
+number of students for each course is 720, 750, 780 and 810. The capacity of the rooms is
+15 and 90. The instructors have a lot of preferences.
+\subsubsection{orar\_bonus\_exact:} Contains 5 courses, 5 rooms, and 23 instructors. The
+number of students for each course is 500, 510, 515, 520 and 545. The capacity of the rooms is
+15, 15, 15, 15 and 50. The instructors have a lot of preferences, including breaks constraints.
 
-\subsection{Algoritmul RLF}
-Algoritmul RLF caută să coloreze toate vârfurile disponibile în momentul în care
-acestea nu afectează niciun conflict al aceleiași culori. De asemenea, acordă
-prioritate vârfurilor care au un grad mai mare, acordând astfel prioritate tipului
-nostru de restricție prevăzut pentru această euristică. Algoritmul RLF are
-o complexitate în cel mai rău caz mai mare decât cea a algorimului Greedy sau
-DSatur, aceasta fiind o complexitate dovedită și de Leighton (1979) - $O(n^3)$.
-Cu toate acestea acest algoritm are și o îmbunătățire a calității soluțiilor pe
-care le oferă, deşi la un cost de calcul mai mare. Mai jos se poate observa pseudocodul~\ref{alg4} algoritmului RLF.
-
-\begin{algorithm}
-\caption{RLF Algorithm}
-\label{alg4}
-\begin{algorithmic}[1]
-\Procedure{RLF}{$G$}
-\Require{$S$ = Class Set, $V$ = Competent vertices, $W$ = = Non-Competent vertices}
-\Ensure{$S$ = $\emptyset$, $V$ = Vertices of a given graph, $W$ = $\emptyset$}
-\While {$V \neq \emptyset$}
-\State $S_i = NewClass$
-\While {$V \neq \emptyset$}
-\State $v = MaxSaturation(V)$
-\State $AssignClass(v, S_i)$
-\State $Add($ Adjacent Vertices $(v), W)$
-\State $Remove($ Adjacent Vertices $(v), W)$
-\EndWhile
-\State $V = W$
-\State $W = \emptyset$
-\EndWhile
-\EndProcedure
-\end{algorithmic}
-\end{algorithm}
-
-\subsection{Complexități}
-Mai jos, tabelul~\ref{tabel_complexitate} conține complexitățile algoritmilor
-prezentați mai sus.
-
-\begin{table}[h]
-\centering
-\caption{Complexități algoritmilor}
-\label{tabel_complexitate}
-\begin{tabular}{|c|c|c|c|c|}
-\hline
-
-\textbf{Algoritm} & \textbf{Complexitate} & \textbf{Complexitate} & \textbf{Complexitate} & \textbf{Complexitate} \\
- & \textbf{Brute Force} & \textbf{Greedy} & \textbf{DSatur} & \textbf{RLF} \\
-\hline
-\hline
-\textbf{Cazul bun} & $O(n^m)$ & $O(n)$ & $O(n)$ & $O(n)$ \\
-\hline
-\textbf{Cazul rău} & $O(n^m)$ & $O(n^2)$ & $O(n^2)$ & $O(n^3)$ \\
-\hline
-\end{tabular}
-\end{table}
-
-\section{Evaluare}
-\subsection{Grafuri de test și execuția algoritmilor}
-Pentru a evalua performanța algoritmilor de colorare, am folosit grafuri de test
-generate cu ajutorul unui generator de teste de pe Github, ce îl puteți accesa aici \cite{16}.
-Am generat 34 de teste prezentate în tabelul~\ref{tab1} pentru toți algoritmii
-prezentați mai sus.
-
-\begin{longtable}{@{}|c|c|c|c|@{}}
-    \hline\hline
-    numărul testului & tipul grafului  & numărul de noduri (N)  & numărul de muchii (M) \\
-    \hline
-    1 & graf gol  & 887  & 0 \\
-    2 &  & 1384 & 0 \\ \hline
-    3 & graf complet & 10 & 45 \\
-    4 &  & 50 & 1225 \\
-    5 &  & 100 & 4950 \\
-    6 &  & 500 & 124750 \\
-    7 &  & 1000 & 499500 \\
-    8 &  & 2000 & 1999000 \\ \hline
-    9 & graf bipartit & 10 & 21 \\
-    10 & complet & 50 & 504 \\
-    11 &  & 100 & 1771 \\
-    12 &  & 500 & 35275 \\
-    13 &  & 1000 & 164151 \\
-    14 &  & 2000 & 557775 \\ \hline
-    15 & arbore binar & 10 & 9 \\
-    16 &  & 50 & 49 \\
-    17 &  & 100 & 99 \\
-    18 &  & 500 & 499 \\
-    19 &  & 1000 & 999 \\
-    20 &  & 2000 & 1999 \\ \hline
-    21 & graf planar & 10 & 20 \\
-    22 &  & 50 & 100 \\
-    23 &  & 100 & 200 \\
-    24 &  & 500 & 1000 \\
-    25 &  & 1000 & 2000\\
-    26 &  & 2000 & 4000 \\ \hline
-    27 & graf cu număr & 1383 & 10 \\
-    28 & de muchii fixat & 886 & 100 \\
-    29 &  & 777 & 500 \\
-    30 &  & 915 & 1000 \\
-    31 &  & 1793 & 10000 \\
-    32 &  & 1386 & 100000 \\
-    33 &  & 1421 & 500000 \\
-    34 &  & 1763 & 1000000 \\
-    \hline
-    \caption{Grafuri de test}
-    \label{tab1}
-    \end{longtable}
-
-\subsubsection{Descrierea testelor \\}
-
-\textbf{Grafuri goale:} Acestea sunt grafuri care nu au nicio muchie. Numărul cromatic al acestor grafuri este 1, deoarece toate nodurile se pot colora la fel.
-
-\textbf{Grafuri complete:} Acestea sunt grafuri care au toate nodurile conectate
-între ele. Numărul cromatic al acestor grafuri este egal cu numărul de noduri.
-
-\textbf{Grafuri bipartite complete:} Acestea sunt grafuri bipartite (=  graf care
-poate fi împărțit în două multimi disjuncte
-de noduri astfel încât orice muchie din graf să unească un nod din prima mulțime
-cu un nod din a doua mulțime) care au proprietatea
-că pentru orice nod x din A şi orice nod y din B există muchia [x, y].
-Numărul cromatic al acestor grafuri este egal cu 2.
-
-\textbf{Arbori binari:} Aceștia sunt grafuri care au proprietatea că orice nod
-are cel mult 2 vecini. Numărul cromatic al acestor grafuri este egal cu 2.
-
-\textbf{Grafuri planare:} Acestea sunt grafuri care pot fi reprezentate pe o
-suprafață plană fără ca muchiile acestora să se intersecteze. Numărul cromatic
-al acestor grafuri este cel mult egal cu 4.
-
-\textbf{Grafuri cu număr de muchii fixat:} Acestea sunt grafuri care au un număr
-fix de muchii. Numărul cromatic al acestor grafuri nu se poate precalcula.
-
-
-\subsection{Specificațiile sistemului de calcul}
-Codul a fost builduit în C++, iar fiecare dintre algoritmii prezentați mai sus au fost
-evaluați folosind un Laptop cu următoarele specificații:
-\begin{itemize}
-\item Procesor: Intel(R) Core(TM) i7-10750H CPU @2.60GHz   2.59 GHz
-\item Memorie RAM: 16 GB
-\item Sistem de operare: Windows 10 Pro 64-bit
-\item Versiunea compilatorului: GCC 9.4.0
-\item Versiunea C++: C++17
-\item Versiunea IDE: Visual Studio 2019
-\item Versiunea CMake: 3.19.2
-\end{itemize}
-
-\subsection{Rezultatele evaluării soluțiilor}
+\subsection{Results}
 Pentru fiecare dintre algoritmii prezentați mai sus, am folosit \textit{hyperfine}
 pentru a evalua timpul de rulare al acestora și am salvat datele în câte un fișier
 MD. Excepție a făcut algoritmul Brute Force, căruia i-am calculat timpul de rulare
@@ -501,35 +499,6 @@ lăsat liber câmul respectiv.
 \textbf{3} & 10 & 45 & 10 & 10 & 10 & 10 & 10 \\ \hline 
 \textbf{4} & 50 & 1225 & 50 & 50 & 50 & 50 & 50 \\ \hline 
 \textbf{5} & 100 & 4950 & 100 & - & 100 & 100 & 100 \\ \hline 
-\textbf{6} & 500 & 124750 & 500 & - & 500 & 500 & 500 \\ \hline 
-\textbf{7} & 1000 & 499500 & 1000 & - & 1000 & 1000 & 1000 \\ \hline 
-\textbf{8} & 2000 & 1999000 & 2000 & - & 2000 & 2000 & 2000 \\ \hline 
-\textbf{9} & 10 & 21 & 2 & 2 & 2 & 2 & 2 \\ \hline 
-\textbf{10} & 50 & 504 & 2 & 2 & 2 & 2 & 2 \\ \hline 
-\textbf{11} & 100 & 1771 & 2 & 2 & 2 & 2 & 2 \\ \hline 
-\textbf{12} & 500 & 35275 & 2 & 2 & 2 & 2 & 2 \\ \hline 
-\textbf{13} & 1000 & 164151 & 2 & 2 & 2 & 2 & 2 \\ \hline 
-\textbf{14} & 2000 & 557775 & 2 & 2 & 2 & 2 & 2 \\ \hline 
-\textbf{15} & 10 & 9 & 2 & 2 & 3 & 2 & 3 \\ \hline 
-\textbf{16} & 50 & 49 & 2 & 2 & 3 & 2 & 3 \\ \hline 
-\textbf{17} & 100 & 99 & 2 & 2 & 4 & 2 & 4 \\ \hline 
-\textbf{18} & 500 & 499 & 2 & - & 4 & 2 & 4 \\ \hline 
-\textbf{19} & 1000 & 999 & 2 & - & 4 & 2 & 4 \\ \hline 
-\textbf{20} & 2000 & 1999 & 2 & - & 4 & 2 & 4 \\ \hline 
-\textbf{21} & 10 & 20 & - & 3 & 3 & 3 & 3 \\ \hline 
-\textbf{22} & 50 & 100 & - & 4 & 4 & 3 & 4 \\ \hline 
-\textbf{23} & 100 & 200 & - & - & 4 & 4 & 4 \\ \hline 
-\textbf{24} & 500 & 1000 & - & - & 4 & 3 & 4 \\ \hline 
-\textbf{25} & 1000 & 2000 & - & - & 4 & 4 & 4 \\ \hline 
-\textbf{26} & 2000 & 4000 & - & - & 4 & 4 & 4 \\ \hline 
-\textbf{27} & 1383 & 10 & - & 2 & 2 & 2 & 2 \\ \hline 
-\textbf{28} & 886 & 100 & - & 2 & 2 & 2 & 2 \\ \hline 
-\textbf{29} & 777 & 500 & - & 4 & 4 & 3 & 4 \\ \hline 
-\textbf{30} & 915 & 1000 & - & - & 4 & 3 & 4 \\ \hline 
-\textbf{31} & 1793 & 10000 & - & - & 8 & 6 & 8 \\ \hline 
-\textbf{32} & 1386 & 100000 & - & - & 40 & 35 & 40 \\ \hline 
-\textbf{33} & 1421 & 500000 & - & - & 167 & 153 & 167 \\ \hline 
-\textbf{34} & 1763 & 1000000 & - & - & 276 & 258 & 276 \\ \hline 
 \end{tabular}
 \end{table}
 
@@ -652,8 +621,6 @@ DSatur, dar este aproximativ exact.
     \href{https://citeseerx.ist.psu.edu/document?repid=rep1&type=pdf&doi=203a7b17267a28a06808bfb3b0b9571e32d15503}{A Comparison of Parallel Graph Coloring Algorithms}
     \bibitem{}
     \href{https://dergipark.org.tr/en/download/article-file/254140}{A Performance Comparison of Graph Coloring Algorithms}
-    % \bibitem{}
-    % \href{https://github.com/brrcrites/graph-coloring}{Graph coloring C++ library}
     \bibitem{}
     \href{https://curs.upb.ro/2022/mod/folder/view.php?id=77105}{Moodle - Analiza algoritmilor}
     % 

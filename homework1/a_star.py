@@ -23,7 +23,6 @@ def astar(input_file: str, statistics_file: str, output_file: str) -> None:
         next_states = current.get_next_states()
         with open(statistics_file, 'a', encoding='utf-8') as file:
             file.write(f"Current state: {current.students_per_subject}\n")
-            # file.write(f"Next states: {[neighbour.students_per_subject for neighbour in next_states]}\n")
         for neighbour in next_states:
             new_cost = neighbour.g()
             students = str(neighbour.students_per_subject)

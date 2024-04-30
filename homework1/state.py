@@ -21,7 +21,7 @@ class State:
         schedule: dict[str, dict[str, dict[str, tuple[str, str]]]] | None = None,
         count_techer_slots: dict[str, int] = None,
         students_per_subject: dict[str, int] = None,
-        cost_last_class: int = None
+        trade_off: int = None
     ) -> None:
         self.file_name = file_name
         self.yaml_dict = utils.read_yaml_file_for_hc(file_name) if yaml_dict is None else yaml_dict
@@ -32,7 +32,7 @@ class State:
             else copy.deepcopy(self.yaml_dict[utils.SUBJECTS])
         self.count_techer_slots = count_techer_slots if count_techer_slots is not None \
             else {teacher: 0 for teacher in self.yaml_dict[utils.TEACHERS]}
-        self.cost_last_class = cost_last_class if cost_last_class is not None else 0
+        self.trade_off = trade_off if trade_off is not None else 0
 
     @staticmethod
     def generate_empty_schedule(
@@ -119,7 +119,7 @@ class State:
 
     def g(self):
         ''' Returns the cost to reach the current state. '''
-        return 100 * self.no_constraints() + self.cost_last_class
+        return 100 * self.no_constraints() + self.trade_off
 
     def get_schedule(self) -> dict[str, dict[str, dict[str, tuple[str, str]]]]:
         ''' Returns the current schedule. '''
@@ -220,7 +220,7 @@ class State:
                             no_classrooms_for_subject = len([c for c in self.yaml_dict[utils.CLASSROOMS] \
                                 if subject in self.yaml_dict[utils.CLASSROOMS][c][utils.SUBJECTS]])
                             no_classrooms = len(self.yaml_dict[utils.CLASSROOMS])
-                            new_state.cost_last_class = 1 - (no_unassigned / no_empty_capacity) + \
+                            new_state.trade_off = 1 - (no_unassigned / no_empty_capacity) + \
                                 (no_classrooms_for_subject / no_classrooms)
                             new_state.schedule[day][slot][classroom] = (teacher, subject)
                             new_state.students_per_subject[subject] -= \
