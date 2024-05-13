@@ -1,86 +1,76 @@
 Statistics for the Hill Climbing algorithm
 
-Starting test 1...
 Restarting test 1...
-Final evaluation: 0 / 2590
-Final state evaluation: 0
-Final state constraints: 11
+Final evaluation: 75 / 2590
 Restarting test 2...
-Final evaluation: 60 / 2590
-Final state evaluation: 60
-Final state constraints: 13
-Restarting test 3...
-Final evaluation: 0 / 2590
-Final state evaluation: 0
-Final state constraints: 17
-Restarting test 4...
-Final evaluation: 0 / 2590
-Final state evaluation: 0
-Final state constraints: 26
-Restarting test 5...
 Final evaluation: 15 / 2590
-Final state evaluation: 15
-Final state constraints: 18
-Restarting test 6...
-Final evaluation: 30 / 2590
-Final state evaluation: 30
-Final state constraints: 21
-Restarting test 7...
+Restarting test 3...
 Final evaluation: 90 / 2590
-Final state evaluation: 90
-Final state constraints: 18
+Restarting test 4...
+Final evaluation: 15 / 2590
+Restarting test 5...
+Final evaluation: 0 / 2590
+Restarting test 6...
+Final evaluation: 0 / 2590
+Final state vs best state evaluation: 0 / 0
+Final state vs best state constraints: 17 / 24
+Restarting test 7...
+Final evaluation: 0 / 2590
+Final state vs best state evaluation: 0 / 0
+Final state vs best state constraints: 29 / 17
 Restarting test 8...
 Final evaluation: 0 / 2590
-Final state evaluation: 0
-Final state constraints: 17
+Final state vs best state evaluation: 0 / 0
+Final state vs best state constraints: 24 / 17
 Restarting test 9...
 Final evaluation: 0 / 2590
-Final state evaluation: 0
-Final state constraints: 18
+Final state vs best state evaluation: 0 / 0
+Final state vs best state constraints: 29 / 17
 Restarting test 10...
-Final evaluation: 30 / 2590
-Final state evaluation: 30
-Final state constraints: 17
-Restarting test 11...
 Final evaluation: 45 / 2590
-Final state evaluation: 45
-Final state constraints: 16
-Restarting test 12...
-Final evaluation: 0 / 2590
-Final state evaluation: 0
-Final state constraints: 13
-Restarting test 13...
+Final state vs best state evaluation: 45 / 0
+Final state vs best state constraints: 21 / 17
+Restarting test 11...
 Final evaluation: 15 / 2590
-Final state evaluation: 15
-Final state constraints: 14
+Final state vs best state evaluation: 15 / 0
+Final state vs best state constraints: 17 / 17
+Restarting test 12...
+Final evaluation: 30 / 2590
+Final state vs best state evaluation: 30 / 0
+Final state vs best state constraints: 16 / 17
+Restarting test 13...
+Final evaluation: 120 / 2590
+Final state vs best state evaluation: 120 / 0
+Final state vs best state constraints: 17 / 17
 Restarting test 14...
 Final evaluation: 0 / 2590
-Final state evaluation: 0
-Final state constraints: 16
+Final state vs best state evaluation: 0 / 0
+Final state vs best state constraints: 17 / 17
 Restarting test 15...
-Final evaluation: 90 / 2590
-Final state evaluation: 90
-Final state constraints: 15
-Restarting test 16...
-Final evaluation: 30 / 2590
-Final state evaluation: 30
-Final state constraints: 28
-Restarting test 17...
-Final evaluation: 0 / 2590
-Final state evaluation: 0
-Final state constraints: 12
-Restarting test 18...
-Final evaluation: 0 / 2590
-Final state evaluation: 0
-Final state constraints: 16
-Restarting test 19...
 Final evaluation: 45 / 2590
-Final state evaluation: 45
-Final state constraints: 17
+Final state vs best state evaluation: 45 / 0
+Final state vs best state constraints: 16 / 17
+Restarting test 16...
+Final evaluation: 15 / 2590
+Final state vs best state evaluation: 15 / 0
+Final state vs best state constraints: 22 / 17
+Restarting test 17...
+Final evaluation: 75 / 2590
+Final state vs best state evaluation: 75 / 0
+Final state vs best state constraints: 16 / 17
+Restarting test 18...
+Final evaluation: 45 / 2590
+Final state vs best state evaluation: 45 / 0
+Final state vs best state constraints: 16 / 17
+Restarting test 19...
+Final evaluation: 50 / 2590
+Final state vs best state evaluation: 50 / 0
+Final state vs best state constraints: 21 / 17
 Restarting test 20...
-Final evaluation: 60 / 2590
-Final state evaluation: 60
-Final state constraints: 13
-Success rate for Random Restart:                 0 / 1 (0.00%)
-Total number of states (for wins):               0
-Average distance to target (for fails):          60.00
+Final evaluation: 30 / 2590
+Final state vs best state evaluation: 30 / 0
+Final state vs best state constraints: 24 / 17
+Final evaluation: False
+Total iterations: 2221
+Total states: 1603927
+Final state constraints: 17

@@ -2,5 +2,7 @@ Statistics for the Hill Climbing algorithm
 
 Restarting test 1...
 Final evaluation: 0 / 4030
-Final state vs best state evaluation: 0 / 0
-Final state vs best state constraints: 0 / 0
+Final evaluation: True
+Total iterations: 76
+Total states: 72621
+Final state constraints: 0

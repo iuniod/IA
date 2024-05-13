@@ -207,21 +207,20 @@ class State:
                                 continue
 
                             new_state = self.clone()
-                            # number of students unassigned to the subject
-                            no_unassigned = new_state.students_per_subject[subject]
-                            # number of empty seats in all the classrooms that can host the subject
-                            no_empty_capacity = 0
-                            for d in DAYS_OF_THE_WEEK[:self.size[1]]:
-                                for s in TIME_SLOTS[:self.size[0]]:
-                                    for c in self.yaml_dict[utils.CLASSROOMS]:
-                                        if subject in self.yaml_dict[utils.CLASSROOMS][c][utils.SUBJECTS] and \
-                                            self.schedule[d][s][c] is None:
-                                            no_empty_capacity += self.yaml_dict[utils.CLASSROOMS][c][utils.CAPACITY]
+                            # # number of students unassigned to the subject
+                            # no_unassigned = new_state.students_per_subject[subject]
+                            # # number of empty seats in all the classrooms that can host the subject
+                            # no_empty_capacity = 0
+                            # for d in DAYS_OF_THE_WEEK[:self.size[1]]:
+                            #     for s in TIME_SLOTS[:self.size[0]]:
+                            #         for c in self.yaml_dict[utils.CLASSROOMS]:
+                            #             if subject in self.yaml_dict[utils.CLASSROOMS][c][utils.SUBJECTS] and \
+                            #                 self.schedule[d][s][c] is None:
+                            #                 no_empty_capacity += self.yaml_dict[utils.CLASSROOMS][c][utils.CAPACITY]
                             no_classrooms_for_subject = len([c for c in self.yaml_dict[utils.CLASSROOMS] \
                                 if subject in self.yaml_dict[utils.CLASSROOMS][c][utils.SUBJECTS]])
                             no_classrooms = len(self.yaml_dict[utils.CLASSROOMS])
-                            new_state.trade_off = 1 - (no_unassigned / no_empty_capacity) + \
-                                (no_classrooms_for_subject / no_classrooms)
+                            new_state.trade_off = no_classrooms_for_subject / no_classrooms
                             new_state.schedule[day][slot][classroom] = (teacher, subject)
                             new_state.students_per_subject[subject] -= \
                                 self.yaml_dict[utils.CLASSROOMS][classroom][utils.CAPACITY]

@@ -45,7 +45,7 @@ University Politehnica of Bucharest \\
 \end{abstract}
 
 % ------------------------------------------------------------------------------
-
+\pagebreak
 \section{Introduction}
 \subsection{Problem Declaration}
 
@@ -207,7 +207,7 @@ specified soft constraints. This underscores the importance of carefully
 considering all potential subsequent states that may arise from the current 
 state when designing the random initialization method.
 
-For instance, in instances where an instructor's preferences are violated within 
+For instance, in instances where an instructor\'s preferences are violated within 
 a particular time slot, the algorithm should endeavor to substitute instructor with 
 another whose preferences remain unviolated for that time slot. Moreover, the 
 algorithm should endeavor to substitute the time slot with another or substitute
@@ -241,8 +241,7 @@ randomly one of the neighbors that satisfies the most constraints. This process 
 a local optimum is reached, at which point the algorithm restarts the search.
 The algorithm terminates when a solution that
 satisfies all constraints is found or when a specified number of iterations / 
-restarts have been completed. A pseudocode of the algorithm is presented in Algorithm
-\ref{alg1}.
+restarts have been completed. A pseudocode of the algorithm is presented in Algorithm 1.
 
 \begin{algorithm}
 \caption{Random Restart Hill Climbing Algorithm}
@@ -301,7 +300,7 @@ restarts have been completed. A pseudocode of the algorithm is presented in Algo
 \EndIf
 
 \State $state = random.choice(from\ neighbors\ one\ of\ the\ neighbors\ with$ \\
-\hspace*{2em}$\text{minimum\ number\ of\ constraints\ unsatisfied)}$
+\hspace*{2em}$minimum\ number\ of\ constraints\ unsatisfied)$
 \EndWhile
 
 \State \Return $[False, total\_iters, total\_states, state]$
@@ -309,6 +308,7 @@ restarts have been completed. A pseudocode of the algorithm is presented in Algo
 \EndProcedure
 \end{algorithmic}
 \end{algorithm}
+
 
 
 \subsection{A Star}
@@ -359,7 +359,7 @@ to subject A and classroom 2 is assigned to both subjects, while tring to assign
 a subject to classroom 2 we will choose subject B (trade off = 0.5) instead of
 subject A (trade off = 1).
 
-The pseudocode of the algorithm is presented in Algorithm \ref{alg2}.
+The pseudocode of the algorithm is presented in Algorithm 2.
 
 \begin{algorithm} 
 \caption{A Star Algorithm}
@@ -396,11 +396,11 @@ The pseudocode of the algorithm is presented in Algorithm \ref{alg2}.
 \end{algorithmic}
 \end{algorithm}
 
-
 \subsection{Complexities}
 The complexity of the Random Restart Hill Climbing algorithm is $O(n)$, where
 $n$ is the total number of iterations. The complexity of the A Star algorithm is
 $O(b^d)$, where $b$ is the branching factor and $d$ is the depth of the solution.
+
 
 The complexity of the generate neighbors function is $O(d*t*c*i*s)$, where $d$ is
 the number of days, $t$ is the number of time slots, $c$ is the number of classrooms,
@@ -428,124 +428,123 @@ number of students for each course is 500, 510, 515, 520 and 545. The capacity o
 15, 15, 15, 15 and 50. The instructors have a lot of preferences, including breaks constraints.
 
 \subsection{Results}
-Pentru fiecare dintre algoritmii prezentați mai sus, am folosit \textit{hyperfine}
-pentru a evalua timpul de rulare al acestora și am salvat datele în câte un fișier
-MD. Excepție a făcut algoritmul Brute Force, căruia i-am calculat timpul de rulare
-doar pentru testele 1-2, 3, 9-14, 15-16, deoarece pentru celelalte teste timpul de
-rulare era prea mare.
+For the Hill-Climbing algorithm, the number of restarts was established at 100,
+while the maximum number of iterations for all tests was capped at 1000. In the 
+case of the A* algorithm, a weight of 100 was applied.
 
-Pentru fiecare set de date, am făcut un grafic cu timpul de rulare al fiecărui
-algoritm, iar rezultatele sunt prezentate în Figurile \ref{fig:empty_graphs} - \ref{fig:fixed_edge_number_graphs}.
+Each test involved the execution of both algorithms. The ensuing tables depict 
+the outcomes across various categories: the count of unsatisfied soft 
+constraints, the time taken to attain a solution, the total number of states 
+explored during the search, and the iterations needed to reach a solution. 
+Additionally, for the Hill Climbing algorithm, the number of restarts executed 
+until a solution was obtained is delineated.
 
-De asemenea, în tabelul \ref{tab:results} sunt prezentate rezultatele obținute
-pentru fiecare set de date în raport cu numărul cromatic teoretic al grafurilor (
-    acest număr a putut fi precalculat doar pentru testr 1-26
-).
-Pentru anumite teste care au fost prea costisitoare în timp pentru algoritmul Brute Force, am
-lăsat liber câmul respectiv.
-\pagebreak
+The outcomes for the Hill Climbing algorithm are categorized based on the 
+number of restarts.
+
+Moreover, the individual results for each test are presented in the following
+tables 1 and 2.
 
 \begin{figure}[!]
 \centering
-\includegraphics[width=0.8\textwidth]{./graphics/fig1.png}
-\caption{Graficele timpului de rulare pentru grafuri goale}
+\includegraphics[width=0.8\textwidth]{./images/iterations.png}
+\caption{Number of iterations required to find the solution}
 \label{fig:empty_graphs}
 \end{figure}
 
 \begin{figure}[!]
 \centering
-\includegraphics[width=0.8\textwidth]{./graphics/fig2.png}
-\caption{Graficele timpului de rulare pentru grafuri complete}
+\includegraphics[width=0.8\textwidth]{./images/states.png}
+\caption{Total number of states explored during the search}
 \label{fig:complete_graphs}
 \end{figure}
 
 \begin{figure}[!]
 \centering
-\includegraphics[width=0.8\textwidth]{./graphics/fig3.png}
-\caption{Graficele timpului de rulare pentru grafuri bipartite complete}
+\includegraphics[width=0.8\textwidth]{./images/times.png}
+\caption{Time required to find the solution}
 \label{fig:bipartite_complete_graphs}
 \end{figure}
 
 \begin{figure}[!]
 \centering
-\includegraphics[width=0.8\textwidth]{./graphics/fig4.png}
-\caption{Graficele timpului de rulare pentru arbori binari}
+\includegraphics[width=0.8\textwidth]{./images/constraints.png}
+\caption{Number of soft constraints unsatisfied}
 \label{fig:binary_tree_graphs}
 \end{figure}
 
 \begin{figure}[!]
 \centering
-\includegraphics[width=0.8\textwidth]{./graphics/fig5.png}
-\caption{Graficele timpului de rulare pentru grafuri planare}
+\includegraphics[width=0.8\textwidth]{./images/restarts.png}
+\caption{Number of restarts until a solution was found for Hill Climbing}
 \label{fig:planar_graphs}
-\end{figure}
-
-\begin{figure}[!]
-\centering
-\includegraphics[width=0.8\textwidth]{./graphics/fig6.png}
-\caption{Graficele timpului de rulare pentru grafuri cu număr de muchii fixat}
-\label{fig:fixed_edge_number_graphs}
 \end{figure}
 
 \begin{table}[!]
 \centering
-\caption{Rezultatele obținute pentru fiecare set de date}
-\label{tab:results}
+\caption{Results obtained for the Hill Climbing algorithm}
+\label{tab:results_hc}
 \begin{tabular}{|c|c|c|c|c|c|c|c|}
 \hline
-\textbf{Nr. set} & \textbf{Nr. noduri} & \textbf{Nr. muchii} & \textbf{Nr. cromatic} & \textbf{Brute Force} & \textbf{Greedy} & \textbf{DSatur} & \textbf{RLF} \\ \hline
-\textbf{1} & 887 & 0 & 1 & 1 & 1 & 1 & 1 \\ \hline 
-\textbf{2} & 1384 & 0 & 1 & 1 & 1 & 1 & 1 \\ \hline
-\textbf{3} & 10 & 45 & 10 & 10 & 10 & 10 & 10 \\ \hline 
-\textbf{4} & 50 & 1225 & 50 & 50 & 50 & 50 & 50 \\ \hline 
-\textbf{5} & 100 & 4950 & 100 & - & 100 & 100 & 100 \\ \hline 
+\textbf{No. set} & \textbf{No. iterations} & \textbf{No. states} & \textbf{Time mm.ss.ms} & \textbf{No. unsatisfied constraints} & \textbf{No. restars} \\ \hline
+\textbf{1} & 106 & 9989 & 0.4.317 & 0 & 3  \\ \hline 
+\textbf{2} & 71 & 53875 & 0.34.053 & 0 & 1 \\ \hline
+\textbf{3} & 76 & 72621 & 0.77.753 & 0 & 1  \\ \hline 
+\textbf{4} & 5889 & 1228027 & 10.40.491 & 6 & 100 \\ \hline 
+\textbf{5} & 2221 & 1603927 & 22.47.289 & 5 & 20 \\ \hline 
 \end{tabular}
 \end{table}
 
-\subsection{Interpretarea rezultatelor}
-În raport cu timpul de execuție, avem următoarele observații:
-\begin{itemize}
-    \item Algoritmul Brute Force este cel mai lent, \textbf{nu} se folosește
-    în practică deloc.
-    \item Algoritmul Greedy pe toate tipurile de grafuri este cel mai rapid.
-    \item Algoritmul DSatur este mai rapid decât algoritmul Brute Force, dar
-    mai lent decât algoritmul Greedy.
-    \item Algoritmul RLF pe grafuri goale este mai lent și decât algoritmul
-    Brute Force, pe grafuri planare și arbori binari este mai lent decât DSatur, 
-    iar pe restul de grafuri este între Greedy și DSatur (aici au apărut cazuri
-    care în teorie nu sunt adevărate din cauza complexității agoritmului (vezi \ref{tabel_complexitate}).
-    Acest lucru se datorează faptului că nu s-au putut genera teste suficient de
-    mari și rulate de un număr suficient de ori pentru a se observa diferența dintre algoritmi.)
+\begin{table}[!]
+\centering
+\caption{Results obtained for the A Star algorithm}
+\label{tab:results_astar}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\textbf{No. set} & \textbf{No. iterations} & \textbf{No. states} & \textbf{Time mm.ss.ms} & \textbf{No. unsatisfied constraints} \\ \hline
+\textbf{1} & 146 & 17073 & 0.8.537 & 0  \\ \hline
+\textbf{2} & 158 & 183159 & 2.12.937 & 0  \\ \hline
+\textbf{3} & 2883 & 2171276 & 52.49.856 & 0  \\ \hline
+\textbf{4} & 91 & 12368 & 0.8.172 & 0  \\ \hline
+\textbf{5} & 2542 & 1385784 & 27.15.878 & 0  \\ \hline
+\end{tabular}
+\end{table}
 
-\end{itemize}
+\subsection{Observations}
 
-În raport cu numărul cromatic, se poate observa cu ușurință faptul că algoritmul
-Brute Force este un algoritm exact, iar restul sunt aproximări (deși în teste 
-nu se observă o diferență între numărul cromatic teoretic și rezultatul de la algoritmul DSatur, dacă
-am fi avut un număr mai mare de teste cu numărul cromatic precalculat, ar fi apărut diferența).
-Dintre toți1 algoritmii euristici, algoritmul DSatur este cel mai exact.
+The Hill Climbing algorithm exhibits faster performance compared to the A* 
+algorithm primarily due to its local search nature. The Hill Climbing algorithm
+is more efficient in terms of the number of iterations required to reach a
+solution.
 
-\section{Concluzii}
-În cadrul acestei teme am observat 4 algoritmi diferiți de colorare a grafurilor.
+The A* algorithm, while slower, is more effective in terms of the number of
+unsatisfied constraints. The A* algorithm consistently yields solutions that
+satisfy all constraints, whereas the Hill Climbing algorithm occasionally
+encounters unsatisfied constraints.
 
-Se poate afirma că nu există o soluție complet generală pentru colorarea grafurilor.
-Fiecare din cele prezentate mai sus vin cu avantajele și dezavantajele lor.
+Recognizing the prolonged duration required to attain a solution for 
+orar\_bonus\_exact using the Hill Climbing algorithm, the number of 
+restarts was reduced to 20.
 
-Algoritmul Brute Force este cel mai lent, dar este exact, algoritmul Greedy este
-cel mai rapid, dar nu este exact, algoritmul DSatur deși este mai lent decât Greedy,
-este cel mai exact dintre algoritmi, iar algoritmul RLF este mai lent decât Brute Force și 
-DSatur, dar este aproximativ exact.
+The A Star algorithm is more suitable for scenarios similar to orar\_mic\_exact,
+orar\_mediu\_relaxat, and orar\_constrans\_incalcat, where the number of
+neighbors generated is smaller. In contrast, the Hill Climbing algorithm is
+more appropriate for scenarios similar to orar\_mare\_relaxat and orar\_bonus\_exact,
+where the number of neighbors generated is larger.
 
-În practică:
-\begin{itemize}
-    \item Dacă lucrați cu grafice bipartite sau ciclice, algoritmul Greedy nu este
-    suficient de eficient; pe de altă parte, algoritmul RLF este destul de exact și total
-    recomandat pentru aceste cazuri.
-    \item Dacă prioritar este timpul, se poate înclina spre utilizarea algoritmul Greedy.
-    \item Dacă prioritatea este un număr mai apropiat de cel cromatic, trebuie
-    să se utilizeze algoritmul DSatur.
+\section{Conclusions}
 
-\end{itemize}
+In summary, within our implementation of the Class Scheduling Problem, 
+the Hill Climbing algorithm outperforms the A* algorithm in terms of efficiency.
+A* achieves slower solution discovery, but with no unsatisfied constraints. 
+Conversely, Hill Climbing is faster, but may occasionally encounter unsatisfied
+constraints. The Hill Climbing algorithm is more suitable for scenarios where
+the soft constraints are less significant and the time required to find a
+solution is a critical factor. In contrast, the A* algorithm is more appropriate
+for scenarios where the soft constraints are more significant and the quality of
+the solution is paramount.
+
+
 \pagebreak
 % ------------------------------------------------------------------------------
 
@@ -559,70 +558,16 @@ DSatur, dar este aproximativ exact.
 % \bibliography{mybibliography}
 %
 \begin{thebibliography}{8}
-
-    \bibitem{1}
-    J. Bondy and U. Murty, Graph Theory - Graduate Texts in Mathematic.
-    Springer, 2008.
-    \bibitem{2}
-    Z. \`{A}d\`{a}m Mann and A. Szajk\`{o}, “Average-case complexity of backtrack
-    search for coloring sparse random graphs,” Journal of Computer and
-    System Sciences, vol. 79, no. 8, pp. 1287–1301, 2013.
-    \bibitem{3}
-    “Backtrack: An o(1) expected time algorithm for the graph coloring
-    problem,” Information Processing Letters, vol. 18, no. 3, pp. 119–121,
-    1984.
-    \bibitem{4}
-    N. Barnier and P. Brisset, “Graph coloring for air traffic flow management,” 
-    Annals of Operations Research, vol. 130, 03 2002.
-    \bibitem{5}
-    “The application of a graph coloring method to an examination scheduling problem,” 
-    Institute for Operations Research and the Management
-    Sciences (INFORMS), vol. 11, no. 5.
-    \bibitem{6}
-    \href{http://www.ijimt.org/papers/359-D0129.pdf}{University Exam Scheduling System Using Graph
-    Coloring Algorithm and RFID Technology}
-    \bibitem{7}
-    A. Murat and B. Nurdan, “A performance comparison of graph coloring algorithms,” 
-    International Conference on Advanced Technology
-    Sciences (ICAT’16), vol. 4, pp. 1–19, 12 2016
-    \bibitem{8}
-    Z. Mann, “Complexity of coloring random graphs: An experimental
-    study of the hardest region,” Journal of Experimental Algorithmics,
-    vol. 23, pp. 1–19, 03 2018
-    \bibitem{9}
-    \href{https://acs-aa-challenge.github.io/acs-aa-challenge/18-np-2-colouring/}{Enunțul problemei}
-    \bibitem{10}
-    M. Garey and D. Johnson, Computer and Intractability: A Guide to the
-    Theory of NP-Completeness, 01 1979.
-    \bibitem{11}
-    D. Porumbel, J.-K. Hao, and P. Kuntz, “An evolutionary approach with
-    diversity guarantee and well-informed grouping recombination for graph
-    coloring,” Computers Operations Research, vol. 37, pp. 1822–1832, 10
-    2010.
-    \bibitem{12}
-    L. Ouerfelli and H. Bouziri, “Greedy algorithms for dynamic graph coloring,” 2011 International Conference on Communications, Computing
-    and Control Applications, CCCA 2011, 03 2011.
-    \bibitem{13}
-    \`{A}. E. Eiben, J. K. Van Der Hauw, and J. I. van Hemert, “Graph coloring
-    with adaptive evolutionary algorithms,” Journal of Heuristics, vol. 4,
-    no. 1, pp. 25–46, 1998.
-    \bibitem{14}
-    D. Br\`{e}laz, “New methods to color the vertices of a graph,”  Commun.
-    ACM, vol. 22, pp. 251–256, 04 1979.
-    \bibitem{15}
-    R. Janczewski, K. Manuszewski, and K. Piwakowski, “The smallest
-    hard-to-color graph for algorithm dsatur,” Discrete Mathematics, vol.
-    236, pp. 151–165, 06 2001.
-    \bibitem{16}
-    \href{https://github.com/ifsmirnov/jngen}{GitHub - Jngen: preparing tests made simpler}
     \bibitem{}
-    \href{https://en.wikipedia.org/wiki/Graph_coloring}{Graph coloring - Wikipedia}
+    \href{https://en.wikipedia.org/wiki/A*_search_algorithm#Complexity}{A* search algorithm - Wikipedia}
     \bibitem{}
-    \href{https://citeseerx.ist.psu.edu/document?repid=rep1&type=pdf&doi=203a7b17267a28a06808bfb3b0b9571e32d15503}{A Comparison of Parallel Graph Coloring Algorithms}
+    \href{https://en.wikipedia.org/wiki/Hill_climbing}{Hill Climbing - Wikipedia}
     \bibitem{}
-    \href{https://dergipark.org.tr/en/download/article-file/254140}{A Performance Comparison of Graph Coloring Algorithms}
+    \href{https://curs.upb.ro/2023/course/view.php?id=13749}{Moodle - Artifical Intelligence Course}
     \bibitem{}
-    \href{https://curs.upb.ro/2022/mod/folder/view.php?id=77105}{Moodle - Analiza algoritmilor}
-    % 
+    \href{https://www.researchgate.net/profile/Kian-Pokorny/publication/262277120_Multiple_constraint_satisfaction_problems_using_the_A-star_A_search_algorithm_classroom_scheduling_with_preferences/links/5e57f530299bf1bdb8408b03/Multiple-constraint-satisfaction-problems-using-the-A-star-A-search-algorithm-classroom-scheduling-with-preferences.pdf}{Multiple constraint satisfaction problems using the A-star search algorithm}
+    \bibitem{}
+    \href{https://d1wqtxts1xzle7.cloudfront.net/68245993/14443-libre.pdf?1626958962=&response-content-disposition=inline%3B+filename%3DCourses_timetabling_based_on_hill_climbi.pdf&Expires=1714507660&Signature=JDd-gaDdE4E7s5P66Op535FyEuysvPoA5o4fcwak4NWT1sQNtVh50ooYa9eSrHu~aHR-Ulabenz910uDjozKpgHivCFkhipTT5bJJL9MensZTSib8TBVzGtBU9lycqCVwilt21Udi0DMgfhERDSgCcR4vO8hmlFlxOLg1exD1fNLE8kxt4S0H2Qfb3nQEHu3kLsicuJNk8wfF~eWpEDUlWsjW9J9IpxuLWP0OICQ7ZReWtx37dHnPN2PTVmFs815NMNi-jyLV0gWWBTAOL7Hn7A5VSg-l~s2e8RAoCjPAYQDRnnznIzOElRy2nTsgkW3mZDzlsntJ3lFur2KquwqNg__&Key-Pair-Id=APKAJLOHF5GGSLRBV4ZA}{Courses timetabling based on hill climbing algorithm}
+    
     \end{thebibliography}
 \end{document}

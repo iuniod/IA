@@ -2,8 +2,6 @@ Statistics for the Hill Climbing algorithm
 
 Restarting test 1...
 Final evaluation: 0 / 3060
-Final state vs best state evaluation: 0 / 0
-Final state vs best state constraints: 12 / 12
 Restarting test 2...
 Final evaluation: 0 / 3060
 Final state vs best state evaluation: 0 / 0
@@ -15,7 +13,7 @@ Final state vs best state constraints: 16 / 12
 Restarting test 4...
 Final evaluation: 0 / 3060
 Final state vs best state evaluation: 0 / 0
-Final state vs best state constraints: 10 / 10
+Final state vs best state constraints: 10 / 12
 Restarting test 5...
 Final evaluation: 30 / 3060
 Final state vs best state evaluation: 30 / 0
@@ -51,7 +49,7 @@ Final state vs best state constraints: 7 / 10
 Restarting test 13...
 Final evaluation: 0 / 3060
 Final state vs best state evaluation: 0 / 0
-Final state vs best state constraints: 9 / 9
+Final state vs best state constraints: 9 / 10
 Restarting test 14...
 Final evaluation: 0 / 3060
 Final state vs best state evaluation: 0 / 0
@@ -315,7 +313,7 @@ Final state vs best state constraints: 10 / 9
 Restarting test 79...
 Final evaluation: 0 / 3060
 Final state vs best state evaluation: 0 / 0
-Final state vs best state constraints: 8 / 8
+Final state vs best state constraints: 8 / 9
 Restarting test 80...
 Final evaluation: 0 / 3060
 Final state vs best state evaluation: 0 / 0
@@ -351,7 +349,7 @@ Final state vs best state constraints: 9 / 8
 Restarting test 88...
 Final evaluation: 0 / 3060
 Final state vs best state evaluation: 0 / 0
-Final state vs best state constraints: 6 / 6
+Final state vs best state constraints: 6 / 8
 Restarting test 89...
 Final evaluation: 0 / 3060
 Final state vs best state evaluation: 0 / 0
@@ -400,3 +398,7 @@ Restarting test 100...
 Final evaluation: 0 / 3060
 Final state vs best state evaluation: 0 / 0
 Final state vs best state constraints: 11 / 6
+Final evaluation: True
+Total iterations: 5889
+Total states: 1228027
+Final state constraints: 6
