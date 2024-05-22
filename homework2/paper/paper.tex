@@ -6,6 +6,8 @@
 \usepackage[noend]{algpseudocode}
 \usepackage{multirow}
 \usepackage{longtable}
+\usepackage{float}
+\usepackage{array}
 
 % Used for displaying a sample figure. If possible, figure files should
 % be included in EPS format.
@@ -151,6 +153,278 @@ Ultimately, the research aims to contribute to the responsible and effective use
 of ML for tackling complex problems across various fields.
 % ------------------------------------------------------------------------------
 \section{Exploratory Data Analysis}
+
+\subsection{Datasets attributes description}
+The initial and crucial step in developing any machine learning algorithm 
+involves a thorough understanding of the data it will be trained on. This 
+understanding is achieved through a comprehensive analysis of the datasets' 
+characteristics. In this vein, the following sub sections will delve into the 
+specific attributes of the two datasets employed in this study: stroke 
+prediction and salary prediction.
+
+A detailed description of each salary prediction attribute is provided in Table
+\ref{tab:salary_attributes_description} and of each stroke  prediction attribute
+in Table \ref{tab:stroke_attributes_description}.
+
+\begin{center}
+    \begin{longtable}{ |>{\centering\arraybackslash}p{3cm}||>{\centering\arraybackslash}p{2cm}|>{\centering\arraybackslash}p{6cm}| }
+        \hline
+        \multicolumn{3}{|c|}{List of all attributes in the Salary Prediction dataset} \\
+        \hline
+        Attribute name & Type & Details \\
+        \hline
+        fnl & numeric & Socio-economic characteristic of the population from which the individual comes \\
+        \hline
+        hpw & numeric & Number of work hours per week \\
+        \hline
+        relation & categorical & The type of relationship in which the individual is involved \\
+        \hline
+        gain & numeric & Capital gain \\
+        \hline
+        country & categorical & Country of origin \\
+        \hline
+        job & categorical & The individual's job \\
+        \hline
+        edu\_int & numeric & Number of years of study \\
+        \hline
+        years & numeric & Age of the individual \\
+        \hline
+        loss & numeric & Loss of capital \\
+        \hline
+        work\_type & categorical & The job's type \\
+        \hline
+        partner & categorical & The type of partner the individual has \\
+        \hline
+        edu & categorical & The individual's type of education \\
+        \hline
+        gender & categorical & Individual's gender \\
+        \hline
+        race & categorical & Individual's race \\
+        \hline
+        prod & numeric & Capital production \\
+        \hline
+        gtype & categorical & Type of employment contract \\
+        \hline
+        \caption{Salary Prediction Attributes}
+        \label{tab:salary_attributes_description}
+   \end{longtable}
+\end{center}
+
+\begin{center}
+    \begin{longtable}{ |>{\centering\arraybackslash}m{3.5cm}||>{\centering\arraybackslash}m{2cm}|>{\centering\arraybackslash}m{3.5cm}||>{\centering\arraybackslash}m{2.5cm}| }
+        \hline
+        \multicolumn{4}{|c|}{List of all attributes in the Stroke Prediction dataset} \\
+        \hline
+        Attribute name & Type & Details & Possible values \\
+        \hline
+        mean\_blood\_sugar\_ level & numeric & The average value of blood glucose throughout the duration observation of the subject & \\
+        \hline
+        cardiovascular\_issues & categorical & Whether or not the subject has a medical history cardiovascular & 0, 1 \\
+        \hline
+        job\_category & categorical & The field in which the person works & child, entrepreneurial, N\_work\_history, private\_sector, public\_sector \\
+        \hline
+        body\_mass\_indicator & numeric & Body mass index, which indicates if the person is underweight, within limits normal, overweight or obese & \\
+        \hline
+        sex & categorical & The gender of the person & F, M\\
+        \hline
+        tobacco\_usage & categorical & Current or past smoker indicator &  ex-smoker, smoker, non-smoker\\
+        \hline
+        high\_blood\_pressure & categorical & Binary attribute indicating whether a person suffer from high blood pressure or not & 0, 1 \\
+        \hline
+        married & categorical & Binary attribute indicating whether the person a ever been married & Y, N \\
+        \hline
+        living\_area & categorical & The type of area where he lived most of his life & City, Countryside \\
+        \hline
+        years\_old & numeric & The person's age in years & \\
+        \hline
+        chaotic\_sleep & categorical & Binary attribute for a sleep program irregular & 0, 1 \\
+        \hline
+        analysis\_results & numeric & The results of medical analyzes of the person, which may include various measurements and indicators relevant to her health & \\
+        \hline
+        biological\_age\_index & numeric & An index that estimates the biological age of a person based on different factors such as lifestyle, health status, measured in an unknown unit & \\
+        \hline
+        cerebrovascular\_ accident & categorical & Binary indicator indicating whether the person a had a stroke or not & 0, 1 \\
+        \hline
+        \caption{Stroke Prediction Attributes}
+        \label{tab:stroke_attributes_description}
+   \end{longtable}
+\end{center}
+
+\subsection{Exploration of Attribute Types and Value Ranges}
+Prior to applyinga machine learning model to a dataset, a crucial step involves
+in identifying the types of attributes (features) present and their corresponding
+values ranges. This anaysis is essential for selecting appropriate algorithms 
+and ensuring optimalmodel performance. In the following pharagraphs we will
+describe three primary attribute types.
+\begin{itemize}
+    \item \textit{Continuous Numeric Attributes:}
+    These attributes possess numerical values that can theoretically take on any 
+    value within a specific range. Examples might include: age, weight, temperature etc.
+    \item \textit{Discrete Nominal Attributes:}
+    These attributes represent categorical data with distinct, non-ordered values. 
+    Examples include days of the week (Monday, Tuesday, etc.) or types of diseases 
+    (cancer, diabetes, etc.).
+    \item \textit{Ordinal Attributes:}
+    These attributes represent categorical data with values that exhibit an inherent 
+    order. However, the difference between consecutive values may not be interpretable 
+    in terms of a consistent unit.  Examples include customer satisfaction ratings 
+    (1-star, 2-star, etc.) or movie ratings (G, PG, PG-13, etc.). In ordinal 
+    attributes, the numerical value itself might not be as important as the relative 
+    order it represents.
+\end{itemize}
+
+Using the \textit{analysys\_attributes.py} script, we can identify the 
+Continuous Numeric Attributes and Discrete Nominal Attributes in a specific 
+dataset. The script will output statistics that can be showed in Tables 
+\ref{tab:continuous_numeric_attributes_salary} and 
+\ref{tab:continuous_numeric_attributes_stroke} for numeric attributes and
+Table \ref{tab:discrete_nominal_attributes_salary} and 
+\ref{tab:discrete_nominal_attributes_stroke} for nominal attributes.
+
+Moreover, the total number of items in the full dataset is 9999 for the Salary
+Prediction dataset and 5110 for the Stroke Prediction dataset.
+
+
+\begin{center}
+    \begin{longtable}{ |>{\centering\arraybackslash}m{0.95cm}||>{\centering\arraybackslash}m{1.75cm}|>{\centering\arraybackslash}m{1.75cm}|>{\centering\arraybackslash}m{1.75cm}|>{\centering\arraybackslash}m{1.75cm}|>{\centering\arraybackslash}m{1.75cm}|>{\centering\arraybackslash}m{1.75cm}|>{\centering\arraybackslash}m{1.75cm} |}
+        \hline
+        \multicolumn{8}{|c|}{List of all Continuous Numeric Attributes in the Salary Prediction dataset} \\
+        \hline
+         & fnl & hpw & gain & edu\_int & years & loss & prod \\
+        \hline\hline
+        count & 9.999000e +03 & 9199.00000 & 9999.00000 & 9999.00000 & 9999.00000 & 9999.00000 & 9999.00000 \\
+        \hline
+        mean &  1.903529e +05 & 40.416241 & 979.853385 & 14.262026 & 38.646865 & 84.111411 & 2014.9275 93 \\
+        \hline
+        std & 1.060709e +05 & 12.517356 & 7003.7953 82 & 24.770835 & 13.745101 & 3394.0354 84 & 14007.6044 96 \\
+        \hline
+        min & 1.921400e +04 & 1.000000 & 0.000000 & 1.000000 & 17.000000 & 0.000000 & -28.000000 \\
+        \hline
+        25\% & 1.182825e +05 & 40.000000 & 0.000000 & 9.000000 & 28.000000 & 0.000000 & 42.000000 \\
+        \hline
+        50\% & 1.784720e +05 & 40.000000 & 0.000000 & 10.000000 & 37.000000 & 0.000000 & 57.000000 \\
+        \hline
+        75\% & 2.373110e +05 & 45.000000 & 0.000000 & 13.000000 & 48.000000 & 0.000000 & 77.000000 \\
+        \hline
+        max & 1.455435e +06 & 99.00000 & 99999.0000 & 206.000000 & 90.000000 & 3770.00000 & 200125.000 \\
+        \hline
+        \caption{Continuous Numeric Attributes in Salary Prediction Dataset}
+        \label{tab:continuous_numeric_attributes_salary} \\
+   \end{longtable}
+\end{center}
+
+\begin{center}
+    \begin{longtable}{ |>{\centering\arraybackslash}m{1cm}||>{\centering\arraybackslash}m{2.25cm}|>{\centering\arraybackslash}m{2.25cm}|>{\centering\arraybackslash}m{2.25cm}|>{\centering\arraybackslash}m{2.25cm}|>{\centering\arraybackslash}m{2.25cm}|}
+        \hline
+        \multicolumn{6}{|c|}{List of all Continuous Numeric Attributes in the Stroke Prediction dataset} \\
+        \hline
+        & mean\_blood\_ sugar\_level & cardiovascular\_ issues & body\_mass\_ indicator & high\_ blood\_pressure & years\_old \\
+        \hline\hline
+        count & 5110.000000 & 5110.000000 & 4909.000000 & 5110.000000 & 5110.000000 \\
+        \hline
+        mean & 106.147677 & 0.054012 & 28.893237 & 0.097456 & 46.568665 \\
+        \hline
+        std & 45.283560 & 0.226063 & 7.854067 & 0.296607 & 26.593912 \\
+        \hline
+        min & 55.120000 & 0.000000 & 10.300000 & 0.000000 & 0.080000 \\
+        \hline
+        25\% & 77.245000 & 0.000000 & 23.500000 & 0.000000 & 26.000000 \\
+        \hline
+        50\% & 91.885000 & 0.000000 & 28.100000 & 0.000000 & 47.000000 \\
+        \hline
+        75\% & 114.090000 & 0.000000 & 33.100000 & 0.000000 & 63.750000 \\
+        \hline
+        max & 271.740000 & 1.000000 & 97.600000 & 1.000000 & 134.000000 \\
+        \hline
+    \end{longtable}
+    \begin{longtable}{ |>{\centering\arraybackslash}m{1cm}||>{\centering\arraybackslash}m{2.5cm}|>{\centering\arraybackslash}m{2.5cm}|>{\centering\arraybackslash}m{2.5cm}|>{\centering\arraybackslash}m{2.5cm}|}
+        \hline
+        \multicolumn{5}{|c|}{List of all Continuous Numeric Attributes in the Stroke Prediction dataset} \\
+        \hline
+        & chaotic\_sleep & analysis\_ results & biological\_ age\_index & cerebrovascular\_ accident \\
+        \hline\hline
+        count & 5110.000000 & 4599.000000 & 5110.000000 & 5110.000000 \\
+        \hline
+        mean & 0.054012 & 323.523446 & 134.784256 & 0.048728 \\
+        \hline
+        std & 0.226063 & 101.577442 & 50.399352 & 0.215320 \\
+        \hline
+        min & 0.000000 & 104.829714 & -15.109456 & 0.000000 \\
+        \hline
+        25\% & 0.000000 & 254.646209 & 96.710581 & 0.000000 \\
+        \hline
+        \hline
+        50\% & 0.000000 & 301.031628 & 136.374631 & 0.000000 \\
+        \hline
+        \hline
+        75\% & 0.000000 & 362.822769 & 172.507322 & 0.000000 \\
+        \hline
+        max & 1.000000 & 756.807975 & 266.986321 & 1.000000 \\
+        \hline
+        \caption{Continuous Numeric Attributes in Stroke Prediction Dataset}
+        \label{tab:continuous_numeric_attributes_stroke} \\
+   \end{longtable}
+\end{center}
+
+\begin{center}
+    \begin{longtable}{ |>{\centering\arraybackslash}m{5cm}|||>{\centering\arraybackslash}m{3cm}|>{\centering\arraybackslash}m{3cm}|}
+        \hline
+        \multicolumn{3}{|c|}{List of all Discrete Nominal Attributes in the Salary Prediction dataset} \\
+        \hline
+        & Non-missing count & Unique values count \\
+        \hline\hline
+        \hline
+        country & 9999 & 41 \\
+        \hline
+        job & 9999 & 14 \\
+        \hline
+        work\_type & 9999 & 9 \\
+        \hline
+        partner & 9999 & 7 \\
+        \hline
+        edu & 9999 & 16 \\
+        \hline
+        gender & 9199 & 2 \\
+        \hline
+        race & 9999 & 5 \\
+        \hline
+        gtype & 9999 & 2 \\
+        \hline
+        money & 9999 & 2 \\
+        \hline
+        \caption{Discrete Nominal Attributes in Salary Prediction Dataset}
+        \label{tab:discrete_nominal_attributes_salary} \\
+    \end{longtable}
+\end{center}
+
+\begin{center}
+    \begin{longtable}{ |>{\centering\arraybackslash}m{5cm}|||>{\centering\arraybackslash}m{3cm}|>{\centering\arraybackslash}m{3cm}|}
+        \hline
+        \multicolumn{3}{|c|}{List of all Discrete Nominal Attributes in the Stroke Prediction dataset} \\
+        \hline
+        & Non-missing count & Unique values count \\
+        \hline\hline
+        job\_category & 5110 & 5 \\
+        \hline
+        sex & 5110 & 2 \\
+        \hline
+        tobacco\_usage & 5110 & 4 \\
+        \hline
+        married & 4599 &2 \\
+        \hline
+        living\_area & 5110 & 2 \\
+        \hline
+
+        \caption{Discrete Nominal Attributes in Stroke Prediction Dataset}
+        \label{tab:discrete_nominal_attributes_stroke} \\
+    \end{longtable}
+\end{center}
+
+\subsection{Investigation of Class Distribution}
+TODO
+
+\subsection{Analysis of Feature Correlations}
+TODO
 
 % ------------------------------------------------------------------------------
 \section{Data Preprocessing}
