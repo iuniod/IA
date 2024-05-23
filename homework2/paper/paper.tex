@@ -273,7 +273,7 @@ describe three primary attribute types.
     order it represents.
 \end{itemize}
 
-Using the \textit{analysys\_attributes.py} script, we can identify the 
+Using the \textit{analysis\_attributes.py} script, we can identify the 
 Continuous Numeric Attributes and Discrete Nominal Attributes in a specific 
 dataset. The script will output statistics that can be showed in Tables 
 \ref{tab:continuous_numeric_attributes_salary} and 
@@ -314,65 +314,114 @@ Prediction dataset and 5110 for the Stroke Prediction dataset.
 \end{center}
 
 \begin{center}
-    \begin{longtable}{ |>{\centering\arraybackslash}m{1cm}||>{\centering\arraybackslash}m{2.25cm}|>{\centering\arraybackslash}m{2.25cm}|>{\centering\arraybackslash}m{2.25cm}|>{\centering\arraybackslash}m{2.25cm}|>{\centering\arraybackslash}m{2.25cm}|}
-        \hline
-        \multicolumn{6}{|c|}{List of all Continuous Numeric Attributes in the Stroke Prediction dataset} \\
-        \hline
-        & mean\_blood\_ sugar\_level & cardiovascular\_ issues & body\_mass\_ indicator & high\_ blood\_pressure & years\_old \\
-        \hline\hline
-        count & 5110.000000 & 5110.000000 & 4909.000000 & 5110.000000 & 5110.000000 \\
-        \hline
-        mean & 106.147677 & 0.054012 & 28.893237 & 0.097456 & 46.568665 \\
-        \hline
-        std & 45.283560 & 0.226063 & 7.854067 & 0.296607 & 26.593912 \\
-        \hline
-        min & 55.120000 & 0.000000 & 10.300000 & 0.000000 & 0.080000 \\
-        \hline
-        25\% & 77.245000 & 0.000000 & 23.500000 & 0.000000 & 26.000000 \\
-        \hline
-        50\% & 91.885000 & 0.000000 & 28.100000 & 0.000000 & 47.000000 \\
-        \hline
-        75\% & 114.090000 & 0.000000 & 33.100000 & 0.000000 & 63.750000 \\
-        \hline
-        max & 271.740000 & 1.000000 & 97.600000 & 1.000000 & 134.000000 \\
-        \hline
-    \end{longtable}
-    \begin{longtable}{ |>{\centering\arraybackslash}m{1cm}||>{\centering\arraybackslash}m{2.5cm}|>{\centering\arraybackslash}m{2.5cm}|>{\centering\arraybackslash}m{2.5cm}|>{\centering\arraybackslash}m{2.5cm}|}
+    \begin{longtable}{ |>{\centering\arraybackslash}m{1cm}||>{\centering\arraybackslash}m{3cm}|>{\centering\arraybackslash}m{3cm}|>{\centering\arraybackslash}m{3cm}|>{\centering\arraybackslash}m{3cm}|}
         \hline
         \multicolumn{5}{|c|}{List of all Continuous Numeric Attributes in the Stroke Prediction dataset} \\
         \hline
-        & chaotic\_sleep & analysis\_ results & biological\_ age\_index & cerebrovascular\_ accident \\
+        & mean\_blood\_ sugar\_level & cardiovascular\_ issues & body\_mass\_ indicator & high\_ blood\_pressure \\
         \hline\hline
-        count & 5110.000000 & 4599.000000 & 5110.000000 & 5110.000000 \\
+        count & 5110.000000 & 5110.000000 & 4909.000000 & 5110.000000 \\
         \hline
-        mean & 0.054012 & 323.523446 & 134.784256 & 0.048728 \\
+        mean & 106.147677 & 0.054012 & 28.893237 & 0.097456 \\
         \hline
-        std & 0.226063 & 101.577442 & 50.399352 & 0.215320 \\
+        std & 45.283560 & 0.226063 & 7.854067 & 0.296607 \\
         \hline
-        min & 0.000000 & 104.829714 & -15.109456 & 0.000000 \\
+        min & 55.120000 & 0.000000 & 10.300000 & 0.000000 \\
         \hline
-        25\% & 0.000000 & 254.646209 & 96.710581 & 0.000000 \\
+        25\% & 77.245000 & 0.000000 & 23.500000 & 0.000000 \\
         \hline
+        50\% & 91.885000 & 0.000000 & 28.100000 & 0.000000 \\
         \hline
-        50\% & 0.000000 & 301.031628 & 136.374631 & 0.000000 \\
+        75\% & 114.090000 & 0.000000 & 33.100000 & 0.000000 \\
         \hline
+        max & 271.740000 & 1.000000 & 97.600000 & 1.000000 \\
         \hline
-        75\% & 0.000000 & 362.822769 & 172.507322 & 0.000000 \\
+    \end{longtable}
+    \begin{longtable}{ |>{\centering\arraybackslash}m{1cm}||>{\centering\arraybackslash}m{3cm}|>{\centering\arraybackslash}m{3cm}|>{\centering\arraybackslash}m{3cm}|>{\centering\arraybackslash}m{3cm}|}
         \hline
-        max & 1.000000 & 756.807975 & 266.986321 & 1.000000 \\
+        \multicolumn{5}{|c|}{List of all Continuous Numeric Attributes in the Stroke Prediction dataset} \\
+        \hline
+        & years\_old & chaotic\_sleep & analysis\_results & biological\_age\_index \\
+        \hline\hline
+        count & 5110.000000 & 5110.000000 & 4599.000000 & 5110.000000 \\
+        \hline
+        mean & 46.568665 & 0.054012 & 323.523446 & 134.784256 \\
+        \hline
+        std & 26.593912 & 0.226063 & 101.577442 & 50.399352 \\
+        \hline
+        min & 0.080000 & 0.000000 & 104.829714 & -15.109456 \\
+        \hline
+        25\% & 26.000000 & 0.000000 & 254.646209 & 96.710581 \\
+        \hline
+        50\% & 47.000000 & 0.000000 & 301.031628 & 136.374631 \\
+        \hline
+        75\% & 63.750000 & 0.000000 & 362.822769 & 172.507322 \\
+        \hline
+        max & 134.000000 & 1.000000 & 756.807975 & 266.986321 \\
         \hline
         \caption{Continuous Numeric Attributes in Stroke Prediction Dataset}
         \label{tab:continuous_numeric_attributes_stroke} \\
    \end{longtable}
 \end{center}
 
+An initial inspection of the data reveals that there are missing attributes in 
+both the Salary Prediction and Stroke Prediction datasets. The Salary Prediction 
+dataset is missing the \textit{'hpw'} attribute, while the Stroke Prediction dataset is
+missing two attributes: \textit{'body\_mass\_indicator'} and 
+\textit{'analysis\_results'}.
+
+To better understand the distribution of the continuous numeric attributes 
+within the datasets, boxplots have been generated for each attribute. These 
+visualizations are located in the \textit{'plots'} folder at the root of the 
+project directory. The name of each boxplot starts with \textit{'box\_plot\_'}.
+
+Boxplots are a standardized method for visually representing the distribution of
+data.  They provide insights into several key characteristics of the data, 
+including the median, quartiles, and outliers.
+
+In the Figure \ref{fig:boxplot_example_salary} we can see a boxplot for the 
+\textit{years} attribute in the Salary Prediction dataset. The box in the middle
+of the plot contains the middle 50\% of the data, and the line in the middle
+represents the median. The whiskers extend to the minimum and maximum values
+within 1.5 times the interquartile range (the difference between the first and
+third quartiles). Points outside this range are considered outliers.
+
+Also, in Figure \ref{fig:boxplot_example_stroke} we can see a boxplot for the
+\textit{body\_mass\_indicator} attribute in the Stroke Prediction dataset.
+As described above, the boxplot provides a visual representation of the data's
+distribution, highlighting key statistical measures such as the median, quartiles,
+and potential outliers. These information is also presented in the tables
+\ref{tab:continuous_numeric_attributes_salary} and
+\ref{tab:continuous_numeric_attributes_stroke}. One of the main insights that
+can be derived from the boxplot is the presence of outliers, which are data points
+that lie significantly outside the range of the rest of the data. Outliers can
+have a significant impact on the performance of machine learning models, and
+identifying and handling them appropriately is an essential step in the data
+preprocessing process.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{../plots/box_plot_years_SalaryPrediction_full.png}
+    \caption{Boxplot for the \textit{years} attribute in the Salary Prediction dataset}
+    \label{fig:boxplot_example_salary}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{../plots/box_plot_body_mass_indicator_AVC_full.png}
+    \caption{Boxplot for the \textit{body\_mass\_indicator} attribute in the Stroke Prediction dataset}
+    \label{fig:boxplot_example_stroke}
+\end{figure}
+
+
 \begin{center}
-    \begin{longtable}{ |>{\centering\arraybackslash}m{5cm}|||>{\centering\arraybackslash}m{3cm}|>{\centering\arraybackslash}m{3cm}|}
+    \begin{longtable}{ |>{\centering\arraybackslash}m{5cm}||>{\centering\arraybackslash}m{3cm}|>{\centering\arraybackslash}m{3cm}|}
         \hline
         \multicolumn{3}{|c|}{List of all Discrete Nominal Attributes in the Salary Prediction dataset} \\
         \hline
         & Non-missing count & Unique values count \\
         \hline\hline
+        relation & 9999 & 6 \\
         \hline
         country & 9999 & 41 \\
         \hline
@@ -390,15 +439,13 @@ Prediction dataset and 5110 for the Stroke Prediction dataset.
         \hline
         gtype & 9999 & 2 \\
         \hline
-        money & 9999 & 2 \\
-        \hline
         \caption{Discrete Nominal Attributes in Salary Prediction Dataset}
         \label{tab:discrete_nominal_attributes_salary} \\
     \end{longtable}
 \end{center}
 
 \begin{center}
-    \begin{longtable}{ |>{\centering\arraybackslash}m{5cm}|||>{\centering\arraybackslash}m{3cm}|>{\centering\arraybackslash}m{3cm}|}
+    \begin{longtable}{ |>{\centering\arraybackslash}m{5cm}||>{\centering\arraybackslash}m{3cm}|>{\centering\arraybackslash}m{3cm}|}
         \hline
         \multicolumn{3}{|c|}{List of all Discrete Nominal Attributes in the Stroke Prediction dataset} \\
         \hline
@@ -420,11 +467,172 @@ Prediction dataset and 5110 for the Stroke Prediction dataset.
     \end{longtable}
 \end{center}
 
+From the Discret Nominal Attributes tables we can see that each dataset contains
+only one attribute with missing values. The Salary Prediction dataset is missing
+the \textit{gender} attribute, while the Stroke Prediction dataset is missing the
+\textit{married} attribute. Also, the number of unique values for each attribute
+descibes the diversity of the data. For example, the \textit{country} attribute
+in the Salary Prediction dataset has 41 unique values, indicating that the data
+contains information from 41 different countries.
+
+In the historigrams for the discrete nominal attributes, we can see the
+distribution of the unique values for each attribute. These visualizations can
+provide insights into the frequency of each category within the dataset, which
+can be useful for understanding the data's composition and identifying potential
+imbalances or biases. The histograms for the discrete nominal attributes are
+located in the \textit{'plots'} folder at the root of the project directory.
+The name of each histogram starts with \textit{'histogram\_'}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{../plots/histogram_work_type_SalaryPrediction_full.png}
+    \caption{Histogram for the \textit{work\_type} attribute in the Salary Prediction dataset}
+    \label{fig:histogram_example_salary}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{../plots/histogram_tobacco_usage_AVC_full.png}
+    \caption{Histogram for the \textit{tobacco\_usage} attribute in the Stroke Prediction dataset}
+    \label{fig:histogram_example_stroke}
+\end{figure}
+
+In Figure \ref{fig:histogram_example_salary} we can see a histogram of the
+\textit{work\_type} attribute in the Salary Prediction dataset. The dominance of
+the 'Priv' category indicates a severe class imbalance. For classification tasks,
+the model might predict Priv most of the time since it's the majority class, 
+leading to a high overall accuracy but poor precision, recall, and F1 scores 
+for minority classes.
+
+Also, in Figure \ref{fig:histogram_example_stroke} we can see a histogram of the
+\textit{tobacco\_usage} attribute in the Stroke Prediction dataset. The histogram 
+shows that the majority of individuals are non-smokers, with a significant portion 
+having undefined tobacco usage status. This imbalance and the presence of missing 
+data need to be addressed appropriately.
+
 \subsection{Investigation of Class Distribution}
-TODO
+In machine learning, it is common practice to split a dataset into two distinct
+subsets: a training set and a test set. This division is crucial for ensuring 
+ robustness and generalizability of the models developed using the data.
+
+\begin{itemize}
+    \item \textbf{Training Set:} The primary purpose of the training set is to 
+    train the machine 
+    learning model. The model learns from patterns and relationships within the data 
+    to develop a predictive capability.
+    \item \textbf{Test Set:} The test set, unseen by the model during training, 
+    serves to evaluate the model's generalizability. By applying the trained 
+    model to the test set, we can assess its performance on new, unseen data. 
+    This helps prevent overfitting, where the model performs well on the 
+    training data but fails to generalize to real-world scenarios.
+\end{itemize}
+
+Looking at how data is distributed is key. Imbalanced data, where some classes 
+have far more examples than others, throws off classification tasks:
+high accuracy can hide poor performance on rare classes; models struggle to 
+learn patterns from underrepresented classes; inaccurate predictions, especially 
+for the minority class.
+
+By checking the distribution, we can address imbalance:
+\begin{itemize}
+    \item Balance the data: Oversample rare examples or undersample common ones.
+    \item Cost-sensitive learning: Penalize the model more for mistakes on rare classes.
+    \item Better metrics: Use precision, recall, and F1-score to get a clearer picture.
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{../plots/distribution_edu_Salary_Prediction.png}
+    \caption{Distribution of the \textit{edu} attribute in the Salary Prediction dataset}
+    \label{fig:distribution_example_salary}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{../plots/distribution_tobacco_usage_Stroke_Prediction.png}
+    \caption{Distribution of the \textit{tobacco\_usage} attribute in the Stroke Prediction dataset}
+    \label{fig:distribution_example_stroke}
+\end{figure}
+
+In the \textit{'plots'} folder at the root of the project directory we can find
+the distribution of each class in the datasets. The name of each plot starts
+with \textit{'distribution\_'}. Here is an example of the distribution of the
+\textit{edu} attribute in the Salary Prediction dataset in Figure
+\ref{fig:distribution_example_salary}. Also, the distribution of the
+\textit{tobacco\_usage} attribute in the Stroke Prediction dataset is shown in
+Figure \ref{fig:distribution_example_stroke}.
 
 \subsection{Analysis of Feature Correlations}
-TODO
+Feature correlation analysis is a critical step in understanding the relationships
+between different attributes in a dataset. By examining how attributes are related
+to each other, we can identify patterns, dependencies, and redundancies that can
+inform feature selection, model building, and interpretation.
+
+Correlation analysis typically involves calculating correlation coefficients
+between pairs of attributes. The correlation coefficient quantifies the strength
+and direction of the linear relationship between two variables. A correlation
+coefficient close to 1 indicates a strong positive relationship, while a value
+close to -1 indicates a strong negative relationship. A correlation coefficient
+near 0 suggests no linear relationship between the variables.
+
+In the \textit{'correlation\_analysis.py'} script, we calculate the correlation
+coefficients between all pairs of continuous numeric attributes in the datasets,
+generating a correlation matrix for each dataset. Moreover, we calculate the 
+Cramér's V coefficient for all pairs of discrete nominal attributes in the datasets,
+generating a Cramér's V matrix for each dataset to measure the association between
+categorical variables. In Figures \ref{fig:correlation_matrix_example_salary} and
+\ref{fig:correlation_matrix_example_stroke} we can see the correlation matrix for
+the Salary Prediction and Stroke Prediction datasets, respectively, for the continuous
+numeric attributes. In Figures \ref{fig:cramer_v_matrix_example_salary} and
+\ref{fig:cramer_v_matrix_example_stroke} we can see the Cramér's V matrix for
+the discrete nominal attributes.
+
+The correlation matrix and Cramér's V matrix provide valuable insights into the
+relationships between attributes in the datasets.By examining these matrices, we
+can see that Figure \ref{fig:correlation_matrix_example_salary} the \textit{prod}
+attribute is highly correlated with the \textit{gain} attribute, while the
+\textit{years} attribute is negatively correlated with the \textit{fnl} attribute.
+
+In Figure \ref{fig:correlation_matrix_example_stroke} we can see that the
+\textit{cardiovascular\_issues} attribute is highly correlated with the
+\textit{chaotic\_sleep} attribute, while the \textit{body\_mass\_indicator} 
+attribute is negatively correlated with the \textit{cerebrovascular\_accident}
+attribute.
+
+The Cramér's V matrix in Figures \ref{fig:cramer_v_matrix_example_salary} and
+\ref{fig:cramer_v_matrix_example_stroke} provides insights into the association
+between discrete nominal attributes. For example, in the Salary Prediction dataset,
+the \textit{gtype} attribute is strongly associated with the \textit{gender} attribute,
+while in the Stroke Prediction dataset, there are no strong associations between
+the discrete nominal attributes.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{../plots/correlation_matrix_SalaryPrediction_full.png}
+    \caption{Correlation matrix for the Salary Prediction dataset}
+    \label{fig:correlation_matrix_example_salary}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{../plots/correlation_matrix_AVC_full.png}
+    \caption{Correlation matrix for the Stroke Prediction dataset}
+    \label{fig:correlation_matrix_example_stroke}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{../plots/cramer_v_matrix_SalaryPrediction_full.png}
+    \caption{Cramér's V matrix for the Salary Prediction dataset}
+    \label{fig:cramer_v_matrix_example_salary}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{../plots/cramer_v_matrix_AVC_full.png}
+    \caption{Cramér's V matrix for the Stroke Prediction dataset}
+    \label{fig:cramer_v_matrix_example_stroke}
+\end{figure}
 
 % ------------------------------------------------------------------------------
 \section{Data Preprocessing}
@@ -446,15 +654,14 @@ TODO
 % ---- Bibliography ----
 \begin{thebibliography}{8}
     \bibitem{}
-    \href{https://en.wikipedia.org/wiki/A*_search_algorithm#Complexity}{A* search algorithm - Wikipedia}
+    \href{https://en.wikipedia.org/wiki/Correlation}{Wikipedia - Correlation}
     \bibitem{}
-    \href{https://en.wikipedia.org/wiki/Hill_climbing}{Hill Climbing - Wikipedia}
+    \href{https://thinkingneuron.com/how-to-measure-the-correlation-between-two-categorical-variables-in-python/}{Thinking Neuron - How to Measure the Correlation Between Two Categorical Variables in Python}
     \bibitem{}
-    \href{https://curs.upb.ro/2023/course/view.php?id=13749}{Moodle - Artifical Intelligence Course}
+    \href{https://www.stratascratch.com/blog/chi-square-test-in-python-a-technical-guide/}{StrataScratch - Chi-Square Test in Python: A Technical Guide}
     \bibitem{}
-    \href{https://www.researchgate.net/profile/Kian-Pokorny/publication/262277120_Multiple_constraint_satisfaction_problems_using_the_A-star_A_search_algorithm_classroom_scheduling_with_preferences/links/5e57f530299bf1bdb8408b03/Multiple-constraint-satisfaction-problems-using-the-A-star-A-search-algorithm-classroom-scheduling-with-preferences.pdf}{Multiple constraint satisfaction problems using the A-star search algorithm}
+    \href{https://en.wikipedia.org/wiki/Cram\%C3\%A9r\%27s\_V}{Wikipedia - Cramér's V}
     \bibitem{}
-    \href{https://d1wqtxts1xzle7.cloudfront.net/68245993/14443-libre.pdf?1626958962=&response-content-disposition=inline%3B+filename%3DCourses_timetabling_based_on_hill_climbi.pdf&Expires=1714507660&Signature=JDd-gaDdE4E7s5P66Op535FyEuysvPoA5o4fcwak4NWT1sQNtVh50ooYa9eSrHu~aHR-Ulabenz910uDjozKpgHivCFkhipTT5bJJL9MensZTSib8TBVzGtBU9lycqCVwilt21Udi0DMgfhERDSgCcR4vO8hmlFlxOLg1exD1fNLE8kxt4S0H2Qfb3nQEHu3kLsicuJNk8wfF~eWpEDUlWsjW9J9IpxuLWP0OICQ7ZReWtx37dHnPN2PTVmFs815NMNi-jyLV0gWWBTAOL7Hn7A5VSg-l~s2e8RAoCjPAYQDRnnznIzOElRy2nTsgkW3mZDzlsntJ3lFur2KquwqNg__&Key-Pair-Id=APKAJLOHF5GGSLRBV4ZA}{Courses timetabling based on hill climbing algorithm}
     
     \end{thebibliography}
 \end{document}

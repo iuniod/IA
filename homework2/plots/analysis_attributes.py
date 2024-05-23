@@ -23,7 +23,7 @@ def analyze_csv(file_path, if_save=False):
                 plt.figure()
                 df.boxplot(column=col)
                 plt.title(f'Box plot for {col}')
-                plt.savefig(f'box_plot_{col}_{os.path.basename(file_path).split(".")[0]}.png', dpi=300)
+                plt.savefig(f'plots/box_plot_{col}_{os.path.basename(file_path).split(".")[0]}.png', dpi=300)
                 plt.close()
 
     else:
@@ -56,7 +56,7 @@ def analyze_csv(file_path, if_save=False):
                 if len(df[col].unique()) > 10:
                     plt.xticks(rotation=45)
                 plt.tight_layout()
-                plt.savefig(f'histogram_{col}_{os.path.basename(file_path).split(".")[0]}.png', dpi=300)
+                plt.savefig(f'plots/histogram_{col}_{os.path.basename(file_path).split(".")[0]}.png', dpi=300)
     else:
         print("No categorical/ordinal attributes found for histograms.")
 
@@ -73,16 +73,11 @@ def analyze_csv(file_path, if_save=False):
             
 
 if __name__ == "__main__":
-    # get the file path from the parameter passed to the script
-    if len(sys.argv) < 2:
-        print("Usage: python numerical_attributes.py <file_path1> <file_path2> ...")
-        sys.exit(1)
+    file = './tema2_SalaryPrediction/SalaryPrediction_full.csv'
+    analyze_csv(file, if_save=True)
+    print(f"\nAnalysis completed for {file}\n")
 
-    # analyze each file
-    for file_path in sys.argv[1:]:
-        if not os.path.exists(file_path):
-            print(f"File not found: {file_path}")
-            continue
-        analyze_csv(file_path, if_save=True)
-        print(f"\nAnalysis completed for {file_path}\n")
+    file = './tema2_AVC/AVC_full.csv'
+    analyze_csv(file, if_save=True)
+    print(f"\nAnalysis completed for {file}\n")
 
