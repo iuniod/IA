@@ -36,9 +36,9 @@ University Politehnica of Bucharest \\
     diverse datasets. We explore the effectiveness of two algorithms, Linear 
     Regression and Multi-Layered Perceptron (MLP), on predicting both health 
     outcomes and financial well-being. Specifically, we utilize a stroke 
-    prediction dataset to assess the model\'s ability to identify individuals at 
+    prediction dataset to assess the model's ability to identify individuals at 
     risk of stroke. Additionally, we employ a salary prediction dataset to 
-    evaluate the model\'s capacity to classify individuals earning above a 
+    evaluate the model's capacity to classify individuals earning above a 
     specific income threshold (e.g., \$50,000 per year). Through comparative 
     analysis, this research aims to elucidate the strengths and limitations of 
     each algorithm when applied to these contrasting data types, offering 
@@ -211,7 +211,7 @@ in Table \ref{tab:stroke_attributes_description}.
 \end{center}
 
 \begin{center}
-    \begin{longtable}{ |>{\centering\arraybackslash}m{3.5cm}||>{\centering\arraybackslash}m{2cm}|>{\centering\arraybackslash}m{3.5cm}||>{\centering\arraybackslash}m{2.5cm}| }
+    \begin{longtable}{ |>{\centering\arraybackslash}m{3.5cm}||>{\centering\arraybackslash}m{2cm}|>{\centering\arraybackslash}m{3.5cm}|>{\centering\arraybackslash}m{2.5cm}| }
         \hline
         \multicolumn{4}{|c|}{List of all attributes in the Stroke Prediction dataset} \\
         \hline
@@ -251,10 +251,10 @@ in Table \ref{tab:stroke_attributes_description}.
 \end{center}
 
 \subsection{Exploration of Attribute Types and Value Ranges}
-Prior to applyinga machine learning model to a dataset, a crucial step involves
+Prior to applying a machine learning model to a dataset, a crucial step involves
 in identifying the types of attributes (features) present and their corresponding
 values ranges. This anaysis is essential for selecting appropriate algorithms 
-and ensuring optimalmodel performance. In the following pharagraphs we will
+and ensuring optimal model performance. In the following pharagraphs we will
 describe three primary attribute types.
 \begin{itemize}
     \item \textit{Continuous Numeric Attributes:}
@@ -274,12 +274,12 @@ describe three primary attribute types.
 \end{itemize}
 
 Using the \textit{analysis\_attributes.py} script, we can identify the 
-Continuous Numeric Attributes and Discrete Nominal Attributes in a specific 
-dataset. The script will output statistics that can be showed in Tables 
+Continuous Numeric Attributes and Discrete Nominal Attributes in the  
+datasets. The script will output statistics that can be showed in Tables 
 \ref{tab:continuous_numeric_attributes_salary} and 
 \ref{tab:continuous_numeric_attributes_stroke} for numeric attributes and
 Table \ref{tab:discrete_nominal_attributes_salary} and 
-\ref{tab:discrete_nominal_attributes_stroke} for nominal attributes.
+\ref{tab:discrete_nominal_attributes_stroke} for discrete attributes.
 
 Moreover, the total number of items in the full dataset is 9999 for the Salary
 Prediction dataset and 5110 for the Stroke Prediction dataset.
@@ -365,9 +365,9 @@ Prediction dataset and 5110 for the Stroke Prediction dataset.
 \end{center}
 
 An initial inspection of the data reveals that there are missing attributes in 
-both the Salary Prediction and Stroke Prediction datasets. The Salary Prediction 
-dataset is missing the \textit{'hpw'} attribute, while the Stroke Prediction dataset is
-missing two attributes: \textit{'body\_mass\_indicator'} and 
+both the Salary Prediction and Stroke Prediction datasets. In the Salary Prediction 
+datase the \textit{'hpw'} attribute is missing, while int the Stroke Prediction dataset
+two attributes are missing: \textit{'body\_mass\_indicator'} and 
 \textit{'analysis\_results'}.
 
 To better understand the distribution of the continuous numeric attributes 
@@ -390,7 +390,7 @@ Also, in Figure \ref{fig:boxplot_example_stroke} we can see a boxplot for the
 \textit{body\_mass\_indicator} attribute in the Stroke Prediction dataset.
 As described above, the boxplot provides a visual representation of the data's
 distribution, highlighting key statistical measures such as the median, quartiles,
-and potential outliers. These information is also presented in the tables
+and potential outliers. These information is also presented in Tables
 \ref{tab:continuous_numeric_attributes_salary} and
 \ref{tab:continuous_numeric_attributes_stroke}. One of the main insights that
 can be derived from the boxplot is the presence of outliers, which are data points
@@ -467,10 +467,11 @@ preprocessing process.
     \end{longtable}
 \end{center}
 
-From the Discret Nominal Attributes tables we can see that each dataset contains
-only one attribute with missing values. The Salary Prediction dataset is missing
-the \textit{gender} attribute, while the Stroke Prediction dataset is missing the
-\textit{married} attribute. Also, the number of unique values for each attribute
+From the Discret Nominal Attributes tables (Tables \ref{tab:discrete_nominal_attributes_salary} and \ref{tab:discrete_nominal_attributes_stroke})
+we can see that each dataset contains
+only one attribute with missing values. In the Salary Prediction dataset 
+the \textit{gender} attribute is missing, while the Stroke Prediction dataset the
+\textit{married} attribute is missing. Also, the number of unique values for each attribute
 descibes the diversity of the data. For example, the \textit{country} attribute
 in the Salary Prediction dataset has 41 unique values, indicating that the data
 contains information from 41 different countries.
@@ -540,27 +541,31 @@ By checking the distribution, we can address imbalance:
     \item Better metrics: Use precision, recall, and F1-score to get a clearer picture.
 \end{itemize}
 
+In Figures \ref{fig:distribution_salary} and \ref{fig:distribution_stroke} we can
+see the distribution of each class in the datasets. The class distributions provide
+insights into the balance of the data and can help guide the selection of appropriate
+strategies for handling imbalanced classes. For example, in the Stroke Prediction
+dataset, the \textit{cerebrovascular\_accident} class is highly imbalanced, with
+a significantly higher number of negative instances compared to positive instances.
+This imbalance can impact the model's ability to learn patterns from the minority
+class and may require resampling techniques or cost-sensitive learning to address.
+On the other hand, the Salary Prediction dataset exhibits a more balanced distribution
+of the \textit{money} class, which may require less intervention to handle class
+imbalance.
+
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{../plots/distribution_edu_Salary_Prediction.png}
-    \caption{Distribution of the \textit{edu} attribute in the Salary Prediction dataset}
-    \label{fig:distribution_example_salary}
+    \includegraphics[width=0.8\textwidth]{../plots/distribution_SalaryPrediction.png}
+    \caption{Distribution of the \textit{money} class in the Salary Prediction dataset}
+    \label{fig:distribution_salary}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{../plots/distribution_tobacco_usage_Stroke_Prediction.png}
-    \caption{Distribution of the \textit{tobacco\_usage} attribute in the Stroke Prediction dataset}
-    \label{fig:distribution_example_stroke}
+    \includegraphics[width=0.8\textwidth]{../plots/distribution_AVC.png}
+    \caption{Distribution of the \textit{cerebrovascular\_accident} class in the Stroke Prediction dataset}
+    \label{fig:distribution_stroke}
 \end{figure}
-
-In the \textit{'plots'} folder at the root of the project directory we can find
-the distribution of each class in the datasets. The name of each plot starts
-with \textit{'distribution\_'}. Here is an example of the distribution of the
-\textit{edu} attribute in the Salary Prediction dataset in Figure
-\ref{fig:distribution_example_salary}. Also, the distribution of the
-\textit{tobacco\_usage} attribute in the Stroke Prediction dataset is shown in
-Figure \ref{fig:distribution_example_stroke}.
 
 \subsection{Analysis of Feature Correlations}
 Feature correlation analysis is a critical step in understanding the relationships
@@ -587,6 +592,13 @@ numeric attributes. In Figures \ref{fig:cramer_v_matrix_example_salary} and
 \ref{fig:cramer_v_matrix_example_stroke} we can see the Cramér's V matrix for
 the discrete nominal attributes.
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{../plots/correlation_matrix_SalaryPrediction_full.png}
+    \caption{Correlation matrix for the Salary Prediction dataset}
+    \label{fig:correlation_matrix_example_salary}
+\end{figure}
+\pagebreak
 The correlation matrix and Cramér's V matrix provide valuable insights into the
 relationships between attributes in the datasets.By examining these matrices, we
 can see that Figure \ref{fig:correlation_matrix_example_salary} the \textit{prod}
@@ -599,26 +611,19 @@ In Figure \ref{fig:correlation_matrix_example_stroke} we can see that the
 attribute is negatively correlated with the \textit{cerebrovascular\_accident}
 attribute.
 
-The Cramér's V matrix in Figures \ref{fig:cramer_v_matrix_example_salary} and
-\ref{fig:cramer_v_matrix_example_stroke} provides insights into the association
-between discrete nominal attributes. For example, in the Salary Prediction dataset,
-the \textit{gtype} attribute is strongly associated with the \textit{gender} attribute,
-while in the Stroke Prediction dataset, there are no strong associations between
-the discrete nominal attributes.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{../plots/correlation_matrix_SalaryPrediction_full.png}
-    \caption{Correlation matrix for the Salary Prediction dataset}
-    \label{fig:correlation_matrix_example_salary}
-\end{figure}
-
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{../plots/correlation_matrix_AVC_full.png}
     \caption{Correlation matrix for the Stroke Prediction dataset}
     \label{fig:correlation_matrix_example_stroke}
 \end{figure}
+
+The Cramér's V matrix in Figures \ref{fig:cramer_v_matrix_example_salary} and
+\ref{fig:cramer_v_matrix_example_stroke} provides insights into the association
+between discrete nominal attributes. For example, in the Salary Prediction dataset,
+the \textit{gtype} attribute is strongly associated with the \textit{gender} attribute,
+while in the Stroke Prediction dataset, there are no strong associations between
+the discrete nominal attributes.
 
 \begin{figure}[H]
     \centering
@@ -653,6 +658,8 @@ the discrete nominal attributes.
 
 % ---- Bibliography ----
 \begin{thebibliography}{8}
+    \bibitem{}
+    \href{https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html}{Pandas - DataFrame}
     \bibitem{}
     \href{https://en.wikipedia.org/wiki/Correlation}{Wikipedia - Correlation}
     \bibitem{}
