@@ -1,0 +1,9 @@
+cardiovascular_issues
+job_category
+sex
+tobacco_usage
+high_blood_pressure
+married
+living_area
+chaotic_sleep
+cerebrovascular_accident

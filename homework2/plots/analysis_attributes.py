@@ -13,7 +13,11 @@ def analyze_csv(file_path, if_save=False):
     print(desc_stats)
     
     # Generate box plots for numerical attributes
-    numerical_cols = df.select_dtypes(include=['number']).columns
+    with open(os.path.join(os.path.dirname(file_path), 'numeric_attributes.txt'), 'r') as f:
+        numerical_cols = f.read().splitlines()
+
+    print("\nNumerical Attributes:")
+    print(numerical_cols)
     
     if len(numerical_cols) > 0:
         # Create a box plot for each numerical attribute
@@ -30,8 +34,12 @@ def analyze_csv(file_path, if_save=False):
         print("No numerical attributes found for box plots.")
     
      # Analyze categorical/ordinal attributes
-    categorical_cols = df.select_dtypes(include=['object', 'category']).columns
-    
+    with open(os.path.join(os.path.dirname(file_path), 'categorical_attributes.txt'), 'r') as f:
+        categorical_cols = f.read().splitlines()
+
+    print("\nCategorical/Ordinal Attributes:")
+    print(categorical_cols)
+
     if len(categorical_cols) > 0:
         categorical_stats = {}
         for col in categorical_cols:
@@ -73,11 +81,13 @@ def analyze_csv(file_path, if_save=False):
             
 
 if __name__ == "__main__":
-    file = './tema2_SalaryPrediction/SalaryPrediction_full.csv'
+    # file = './tema2_SalaryPrediction/SalaryPrediction_full.csv'
+    file = './tema2_SalaryPrediction/preprocessed_outliers_SalaryPrediction_train.csv'
     analyze_csv(file, if_save=True)
     print(f"\nAnalysis completed for {file}\n")
 
-    file = './tema2_AVC/AVC_full.csv'
+    # file = './tema2_AVC/AVC_full.csv'
+    file = './tema2_AVC/preprocessed_outliers_AVC_train.csv'
     analyze_csv(file, if_save=True)
     print(f"\nAnalysis completed for {file}\n")
 

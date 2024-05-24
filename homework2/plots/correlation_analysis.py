@@ -7,7 +7,8 @@ import os
 
 def numerical_features(file_name):
 	file = pd.read_csv(file_name)
-	cols = file.select_dtypes(include=['number']).columns
+	with open(os.path.join(os.path.dirname(file_name), 'numeric_attributes.txt'), 'r') as f:
+		cols = f.read().splitlines()
 
 	# Create a correlation matrix
 	corr_matrix = file[cols].corr()
@@ -19,11 +20,15 @@ def numerical_features(file_name):
 	plt.xticks(np.arange(len(cols)), cols, rotation=45)
 	plt.yticks(np.arange(len(cols)), cols)
 	plt.title(f'Correlation Matrix for {os.path.basename(file_name).split(".")[0]} dataset')
-	# make the plot bigger
 	fig = plt.gcf()
 	fig.set_size_inches(15, 10.5)
 	plt.savefig(f'plots/correlation_matrix_{os.path.basename(file_name).split(".")[0]}.png', dpi=300)
 	plt.close()
+
+	for i in range(len(cols)):
+		for j in range(i+1, len(cols)):
+			if corr_matrix.iloc[i, j] > 0.8:
+				print(f'High correlation between {cols[i]} and {cols[j]}')
 
 def cramers_v(confusion_matrix):
     chi2 = chi2_contingency(confusion_matrix)[0]
@@ -49,12 +54,11 @@ def cramers_v_matrix(df):
 
 def cathegorical_features(file_name):
 	file = pd.read_csv(file_name)
-	cols = file.select_dtypes(include=['object', 'category']).columns
+	with open(os.path.join(os.path.dirname(file_name), 'categorical_attributes.txt'), 'r') as f:
+		cols = f.read().splitlines()
 
 	corelation = cramers_v_matrix(file[cols])
 
-	# print(f'Cramer\'s V matrix:\n{corelation}')
-	# print high corelation values in a plot
 	plt.figure()
 	plt.matshow(corelation, cmap='coolwarm')
 	plt.colorbar()

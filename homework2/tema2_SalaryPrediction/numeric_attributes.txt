@@ -1,0 +1,7 @@
+fnl
+hpw
+gain
+edu_int
+years
+loss
+prod

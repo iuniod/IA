@@ -205,6 +205,8 @@ in Table \ref{tab:stroke_attributes_description}.
         \hline
         gtype & categorical & Type of employment contract \\
         \hline
+        money & categorical & Whether the individual earns more than \$50,000 per year \\
+        \hline
         \caption{Salary Prediction Attributes}
         \label{tab:salary_attributes_description}
    \end{longtable}
@@ -314,54 +316,31 @@ Prediction dataset and 5110 for the Stroke Prediction dataset.
 \end{center}
 
 \begin{center}
-    \begin{longtable}{ |>{\centering\arraybackslash}m{1cm}||>{\centering\arraybackslash}m{3cm}|>{\centering\arraybackslash}m{3cm}|>{\centering\arraybackslash}m{3cm}|>{\centering\arraybackslash}m{3cm}|}
+    \begin{longtable}{ |>{\centering\arraybackslash}m{0.95cm}||>{\centering\arraybackslash}m{2.45cm}|>{\centering\arraybackslash}m{2.45cm}|>{\centering\arraybackslash}m{2.45cm}|>{\centering\arraybackslash}m{2.45cm}|>{\centering\arraybackslash}m{2.45cm}| }
         \hline
-        \multicolumn{5}{|c|}{List of all Continuous Numeric Attributes in the Stroke Prediction dataset} \\
+        \multicolumn{6}{|c|}{List of all Continuous Numeric Attributes in the Stroke Prediction dataset} \\
         \hline
-        & mean\_blood\_ sugar\_level & cardiovascular\_ issues & body\_mass\_ indicator & high\_ blood\_pressure \\
+        & mean\_blood\_ sugar\_level & body\_mass\_ indicator & years\_old & analysis\_results & biological\_age\_ index \\
         \hline\hline
-        count & 5110.000000 & 5110.000000 & 4909.000000 & 5110.000000 \\
+        count & 5110.000000 & 4909.000000 & 5110.000000 & 4599.000000 & 5110.000000 \\
         \hline
-        mean & 106.147677 & 0.054012 & 28.893237 & 0.097456 \\
+        mean & 106.147677 & 28.893237 & 46.568665 & 323.523446 & 134.784256 \\
         \hline
-        std & 45.283560 & 0.226063 & 7.854067 & 0.296607 \\
+        std & 45.283560 & 7.854067 & 26.593912 & 101.577442 & 50.399352 \\
         \hline
-        min & 55.120000 & 0.000000 & 10.300000 & 0.000000 \\
+        min & 55.120000 & 10.300000 & 0.080000 & 104.829714 & -15.109456 \\
         \hline
-        25\% & 77.245000 & 0.000000 & 23.500000 & 0.000000 \\
+        25\% & 77.245000 & 23.500000 & 26.000000 & 254.646209 & 96.710581 \\
         \hline
-        50\% & 91.885000 & 0.000000 & 28.100000 & 0.000000 \\
+        50\% & 91.885000 & 28.100000 & 47.000000 & 301.031628 & 136.374631 \\
         \hline
-        75\% & 114.090000 & 0.000000 & 33.100000 & 0.000000 \\
+        75\% & 114.090000 & 33.100000 & 63.750000 & 362.822769 & 172.507322 \\
         \hline
-        max & 271.740000 & 1.000000 & 97.600000 & 1.000000 \\
-        \hline
-    \end{longtable}
-    \begin{longtable}{ |>{\centering\arraybackslash}m{1cm}||>{\centering\arraybackslash}m{3cm}|>{\centering\arraybackslash}m{3cm}|>{\centering\arraybackslash}m{3cm}|>{\centering\arraybackslash}m{3cm}|}
-        \hline
-        \multicolumn{5}{|c|}{List of all Continuous Numeric Attributes in the Stroke Prediction dataset} \\
-        \hline
-        & years\_old & chaotic\_sleep & analysis\_results & biological\_age\_index \\
-        \hline\hline
-        count & 5110.000000 & 5110.000000 & 4599.000000 & 5110.000000 \\
-        \hline
-        mean & 46.568665 & 0.054012 & 323.523446 & 134.784256 \\
-        \hline
-        std & 26.593912 & 0.226063 & 101.577442 & 50.399352 \\
-        \hline
-        min & 0.080000 & 0.000000 & 104.829714 & -15.109456 \\
-        \hline
-        25\% & 26.000000 & 0.000000 & 254.646209 & 96.710581 \\
-        \hline
-        50\% & 47.000000 & 0.000000 & 301.031628 & 136.374631 \\
-        \hline
-        75\% & 63.750000 & 0.000000 & 362.822769 & 172.507322 \\
-        \hline
-        max & 134.000000 & 1.000000 & 756.807975 & 266.986321 \\
+        max & 271.740000 & 97.600000 & 134.000000 & 756.807975 & 266.986321 \\
         \hline
         \caption{Continuous Numeric Attributes in Stroke Prediction Dataset}
         \label{tab:continuous_numeric_attributes_stroke} \\
-   \end{longtable}
+    \end{longtable}
 \end{center}
 
 An initial inspection of the data reveals that there are missing attributes in 
@@ -439,6 +418,8 @@ preprocessing process.
         \hline
         gtype & 9999 & 2 \\
         \hline
+        money & 9999 & 2 \\
+        \hline
         \caption{Discrete Nominal Attributes in Salary Prediction Dataset}
         \label{tab:discrete_nominal_attributes_salary} \\
     \end{longtable}
@@ -451,15 +432,23 @@ preprocessing process.
         \hline
         & Non-missing count & Unique values count \\
         \hline\hline
+        cardiovascular\_issues & 5110 & 2 \\
+        \hline
         job\_category & 5110 & 5 \\
         \hline
         sex & 5110 & 2 \\
         \hline
         tobacco\_usage & 5110 & 4 \\
         \hline
+        high\_blood\_pressure & 5110 & 2 \\
+        \hline
         married & 4599 &2 \\
         \hline
         living\_area & 5110 & 2 \\
+        \hline
+        chaotic\_sleep & 5110 & 2 \\
+        \hline
+        cerebrovascular\_accident & 5110 & 2 \\
         \hline
 
         \caption{Discrete Nominal Attributes in Stroke Prediction Dataset}
@@ -600,16 +589,15 @@ the discrete nominal attributes.
 \end{figure}
 \pagebreak
 The correlation matrix and Cramér's V matrix provide valuable insights into the
-relationships between attributes in the datasets.By examining these matrices, we
+relationships between attributes in the datasets. By examining these matrices, we
 can see that Figure \ref{fig:correlation_matrix_example_salary} the \textit{prod}
 attribute is highly correlated with the \textit{gain} attribute, while the
 \textit{years} attribute is negatively correlated with the \textit{fnl} attribute.
 
 In Figure \ref{fig:correlation_matrix_example_stroke} we can see that the
-\textit{cardiovascular\_issues} attribute is highly correlated with the
-\textit{chaotic\_sleep} attribute, while the \textit{body\_mass\_indicator} 
-attribute is negatively correlated with the \textit{cerebrovascular\_accident}
-attribute.
+\textit{mean\_blood\_sugar\_level} attribute is highly correlated with the
+\textit{analysis\_results} attribute, while the \textit{body\_mass\_indicator} 
+attribute is negatively correlated with the \textit{analysis\_results} attribute.
 
 \begin{figure}[H]
     \centering
@@ -622,8 +610,8 @@ The Cramér's V matrix in Figures \ref{fig:cramer_v_matrix_example_salary} and
 \ref{fig:cramer_v_matrix_example_stroke} provides insights into the association
 between discrete nominal attributes. For example, in the Salary Prediction dataset,
 the \textit{gtype} attribute is strongly associated with the \textit{gender} attribute,
-while in the Stroke Prediction dataset, there are no strong associations between
-the discrete nominal attributes.
+while in the Stroke Prediction dataset, the \textit{cardiovascular\_issues} attribute is strongly
+associated with the \textit{chaotic\_sleep} attribute.
 
 \begin{figure}[H]
     \centering
@@ -641,6 +629,105 @@ the discrete nominal attributes.
 
 % ------------------------------------------------------------------------------
 \section{Data Preprocessing}
+As highlighted in the previous section, high-quality data is the cornerstone of 
+effective machine learning models. However, real-world datasets often exhibit 
+various imperfections that can impede model performance.  Our exploration of the 
+datasets revealed the presence of several such issues, including:
+
+\begin{itemize}
+    \item Missing values for specific attributes.
+    \item Extreme values (outliers) within certain attributes.
+    \item Redundant attributes with high correlation.
+    \item Inconsistent value ranges for numeric attributes.
+\end{itemize}
+
+These imperfections necessitate data preprocessing, a crucial step aimed at 
+transforming the raw data into a clean and consistent format. This section 
+delves into the specific data preprocessing techniques employed in this study. 
+By addressing these issues, we aim to optimize the data for subsequent machine 
+learning algorithms, ultimately enhancing their effectiveness in extracting 
+valuable insights. 
+
+As a note, all the scripts for data preprocessing are located in the \textit{'preprocessing'}
+folder at the root of the project directory.
+
+\subsection{Handling Missing Values}
+Missing data, a common issue in real-world datasets, necessitates the application
+of imputation procedures to address these missing values.  Imputation techniques 
+can be categorized as either univariate or multivariate:
+
+\begin{itemize}
+    \item \textit{Univariate Imputation:} This approach focuses solely on the attribute with missing 
+    values. Common univariate techniques include replacing missing values with the 
+    mean, median, or most frequent value within the attribute. These methods are 
+    simple to implement but may not effectively capture the underlying relationships 
+    between attributes.
+    \item \textit{Multivariate Imputation:} This more sophisticated approach leverages the values 
+    of other attributes within a sample to estimate the missing value. Techniques 
+    like regression analysis are often employed to establish relationships between 
+    the missing attribute and the remaining attributes. Based on these relationships, 
+    a predicted value can be imputed for the missing data point.  Multivariate 
+    imputation offers a more nuanced approach but requires careful consideration 
+    of the relationships between attributes and potential biases in the imputation 
+    process.
+\end{itemize}
+
+In the \textit{'impute\_values.py'} script, in the \textit{'missing\_values'} function,
+we used the \textit{IterativeImputer}
+class from the \textit{sklearn.impute} module to apply multivariate imputation to
+address missing values in the datasets for continuous numeric attributes. The script
+uses the most frequent value strategy for categorical attributes. The imputed datasets
+are saved in the same folder as the original datasets, with the prefix
+\textit{'preprocessed\_missing\_'}.
+
+\subsection{Outlier Detection and Treatment}
+Outliers, data points that deviate significantly from the rest of the dataset,
+can adversely affect the performance of machine learning models. Outliers can
+skew statistical measures, distort relationships between attributes, and lead to
+poor generalization of the model. Detecting and treating outliers is essential
+for ensuring the robustness and reliability of the model.
+
+We purpose to impute the outliers using the \textit{IsolationForest} algorithm
+from the \textit{sklearn.ensemble} module. The script \textit{'outlier\_detection.py'}
+detects outliers in the continuous numeric attributes of the datasets and replaces
+them with the imputed values. The preprocessed datasets with imputed outliers are
+saved in the same folder as the original datasets, with the prefix
+\textit{'preprocessed\_outliers\_'}.
+
+\subsection{Analysis of Attribute Correlations}
+As previously discussed, attribute correlations can provide valuable insights
+into the relationships between different attributes in the dataset. By identifying
+highly correlated attributes, we can eliminate redundant information and reduce
+the dimensionality of the data, leading to more efficient model training and
+improved interpretability.
+
+We choose to remove highly correlated attributes found in the section of
+Exploratory Data Analysis. These attributes are:
+
+\begin{itemize}
+    \item \textit{prod}: it is correlated with \textit{gain} in the Salary Prediction dataset.
+    \item \textit{analysis\_results}: it is correlated with \textit{body\_mass\_indicator} in the Stroke Prediction dataset.
+    \item \textit{gtype}: it is correlated with \textit{gender} in the Salary Prediction dataset.
+    \item 
+\end{itemize}
+
+The script \textit{'remove\_correlated\_attributes.py'}
+removes those attributes from the train dataset and saves the preprocessed dataset
+in the same folder as the original datasets, with the prefix \textit{'preprocessed\_correlated\_'}.
+
+\subsection{Normalization and Standardization}
+The numerical attributes in the dataset can vary significantly in their value scales. For example, 
+some attributes may have values in the thousands, while others have values in the single digits. 
+This disparity in scales can significantly affect algorithms like Logistic Regression.
+
+In algorithms like Logistic Regression, which rely on a linear combination of attribute values,
+attributes with larger numerical values can disproportionately influence the model. This dominance 
+can lead to biased results and reduce the model's effectiveness.
+
+To mitigate this issue, it is essential to standardize the values of the numeric attributes. 
+Standardization adjusts the scales of the attributes, ensuring that each one contributes equally 
+to the model's predictions. This process improves the performance and accuracy of the model by 
+creating a more balanced and fair representation of the data.
 
 % ------------------------------------------------------------------------------
 \section{Algorithms Designs}

@@ -1,0 +1,5 @@
+mean_blood_sugar_level
+body_mass_indicator
+years_old
+analysis_results
+biological_age_index

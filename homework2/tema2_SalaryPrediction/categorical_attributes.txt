@@ -1,0 +1,10 @@
+relation
+country
+job
+work_type
+partner
+edu
+gender
+race
+gtype
+money
