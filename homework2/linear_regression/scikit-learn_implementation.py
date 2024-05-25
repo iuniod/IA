@@ -80,12 +80,16 @@ if __name__ == "__main__":
 	plt.xlabel('Predicted')
 	plt.ylabel('Actual')
 	plt.tight_layout()
-	
+
+	# check if the directory exists
+	if not os.path.exists(f'./tema2_{dataset}/LinearRegression'):
+		os.makedirs(f'./tema2_{dataset}/LinearRegression')
+
 	# Save the confusion matrix
-	plt.savefig(f'./tema2_{dataset}/confusion_matrix.png')
+	plt.savefig(f'./tema2_{dataset}/LinearRegression/confusion_matrix_scikit-learn.png')
 
 	# Save the metrics
-	with open(f'./tema2_{dataset}/metrics.txt', 'w') as f:
+	with open(f'./tema2_{dataset}/LinearRegression/metrics_scikit-learn.txt', 'w') as f:
 		f.write(f"Training accuracy: {train_accuracy}\n")
 		f.write(f"Training precision: {train_precision}\n")
 		f.write(f"Training recall: {train_recall}\n")
