@@ -50,6 +50,6 @@ if __name__ == '__main__':
 	standardize(train_file, test_file)
 
 	# Stroke Prediction dataset
-	# train_file = './tema2_AVC/preprocessed_correlated_AVC_train.csv'
-	# test_file = './tema2_AVC/preprocessed_correlated_AVC_test.csv'
-	# standardize(train_file, test_file)
+	train_file = './tema2_AVC/preprocessed_correlated_AVC_train.csv'
+	test_file = './tema2_AVC/preprocessed_correlated_AVC_test.csv'
+	standardize(train_file, test_file)
