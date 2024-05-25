@@ -1,0 +1,8 @@
+Training accuracy: 0.8373546693336668
+Training precision: 0.8290541883235106
+Training recall: 0.8373546693336668
+Training f1: 0.830394045629078
+Test accuracy: 0.8245
+Test precision: 0.8153343768386585
+Test recall: 0.8245
+Test f1: 0.8173516342857143

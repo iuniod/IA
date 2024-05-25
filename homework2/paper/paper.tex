@@ -33,7 +33,7 @@ University Politehnica of Bucharest \\
 %
 \begin{abstract}
     This study investigates the applicability of machine learning techniques on 
-    diverse datasets. We explore the effectiveness of two algorithms, Linear 
+    diverse datasets. We explore the effectiveness of two algorithms, Logistic 
     Regression and Multi-Layered Perceptron (MLP), on predicting both health 
     outcomes and financial well-being. Specifically, we utilize a stroke 
     prediction dataset to assess the model's ability to identify individuals at 
@@ -49,7 +49,7 @@ University Politehnica of Bucharest \\
 
 \keywords{\textit{Machine Learning \and Heterogeneous Data \and Comparative Analysis \and
 Prediction Modeling \and Data Analysis Techniques \and Stroke Prediction \and
-Salary Prediction \and Linear Regression \and Multi-Layered Perceptron \and 
+Salary Prediction \and Logistic Regression \and Multi-Layered Perceptron \and 
 DataPreprocessing} }
 
 \end{abstract}
@@ -65,7 +65,7 @@ Different data types possess unique characteristics, and understanding these
 nuances is essential for selecting the most appropriate ML algorithms. Data can 
 be structured (organized in tables) or unstructured (text, images), numerical 
 or categorical, and may exhibit linear or non-linear relationships between 
-features.  Choosing the right algorithm depends heavily on these factors. This 
+features. Choosing the right algorithm depends heavily on these factors. This 
 research delves into this crucial aspect of ML application by exploring the 
 performance of two distinct algorithms on contrasting datasets.
 
@@ -86,30 +86,34 @@ and industry sector. By investigating these two distinct datasets, this research
 aims to gain a broader understanding of how ML algorithms perform on different 
 data types with varying underlying structures and complexities.
 
-\subsection{Methodology: Unveiling the Algorithms - Linear Regression and Multi-Layered Perceptron}
-To investigate the performance on these contrasting datasets, this study employs 
-two prominent ML algorithms: Linear Regression and Multi-Layered Perceptron (MLP). 
+\subsection{Methodology: Unveiling the Algorithms - Logistic Regression and Multi-Layered Perceptron}
+This section delves into the core methodologies employed in this study: 
+Logistic Regression and Multi-Layered Perceptron (MLP). Both algorithms fall 
+under the umbrella of supervised learning, where a model learns from labeled 
+data to make predictions on unseen examples. Here, we unveil the underlying 
+principles and functionalities of each technique.
 
-Linear Regression is a well\-established technique known for its interpretability
-and efficiency in uncovering linear relationships between features (data points) 
-and target variables (what we want to predict). This makes it a valuable tool 
-for understanding the underlying factors influencing a particular outcome, such 
-as the relationship between blood pressure and stroke risk. However, its strength 
-lies in capturing linear relationships. If the underlying relationships in the 
-data are more complex and non-linear, then Linear Regression might not be as 
-effective.
+Logistic regression serves as a foundational algorithm for classification tasks.
+It establishes a mathematical model that maps input features (e.g., age, blood 
+pressure) to a probability of a specific outcome (e.g., stroke occurrence). The 
+model essentially learns a decision boundary, separating observations with high 
+and low probabilities of the target outcome. This approach makes logistic 
+regression well-suited for analyzing datasets like the stroke prediction one,
+where the goal is to categorize individuals based on their risk level.
 
-On the other hand, Multi-Layered Perceptrons (MLPs) are a type of artificial 
-neural network capable of learning complex, non-linear patterns within data. 
-Unlike Linear Regression, MLPs are not limited by linearity and can potentially 
-capture more intricate relationships between features and target variables. This 
-capability makes them particularly suitable for datasets with complex underlying 
-structures, such as the factors influencing an individual's salary, which might 
-involve a combination of education, experience, industry, and other factors 
-interacting in non-linear ways.
+On the other hand, Multi-Layered Perceptron (MLP) represents a more complex 
+architecture - a type of artificial neural network. It consists of interconnected 
+layers of artificial neurons, mimicking the structure of the human brain. Each 
+layer transforms the received data using activation functions, ultimately leading 
+to an output prediction. MLP's strength lies in its ability to learn complex, 
+non-linear relationships within data. This makes it a powerful tool for tackling 
+intricate prediction problems, potentially outperforming logistic regression 
+when the underlying relationships are not easily captured by a linear model. 
+The salary prediction dataset, where various factors might influence income 
+levels, could be a prime candidate for exploration with MLP.
 
 \subsection{Research Objectives: Evaluating Algorithms, Unveiling Strengths and Weaknesses}
-By comparatively analyzing the performance of Linear Regression and MLP on 
+By comparatively analyzing the performance of Logistic Regression and MLP on 
 stroke and salary prediction tasks, this research seeks to achieve several key 
 objectives:
 
@@ -117,19 +121,13 @@ objectives:
 This involves assessing the effectiveness of each algorithm in capturing the 
 underlying relationships within the stroke prediction and salary prediction 
 datasets. We will determine which algorithm performs better on each dataset, 
-offering insights into their suitability for different data types, such as 
-linear datasets (blood pressure and stroke risk) versus potentially non-linear 
-datasets (factors influencing salary).
+offering insights into their suitability for different data types.
 
 \subsubsection{Gain Insights into Algorithmic Strengths and Weaknesses:}
 By analyzing the comparative performance, we aim to highlight the scenarios where
 each algorithm excels and identify areas where one might outperform the other. 
 This will provide valuable guidance for researchers and practitioners in 
 selecting the most appropriate algorithm for their specific prediction tasks. 
-For instance, if interpretability is crucial (e.g., understanding the factors 
-influencing stroke risk), Linear Regression might be preferred. If the data is 
-likely to have complex, non-linear relationships, then an MLP might be a better 
-choice.
 
 \subsubsection{Demonstrate Best Practices for Data Analysis in ML Applications:}
 Effective data analysis is crucial for building robust ML models. This research 
@@ -735,43 +733,39 @@ Algorithm design is a critical aspect of computer science and machine learning,
 focusing on creating efficient and effective methods to solve complex problems. 
 The process involves the careful selection of algorithms based on the specific 
 characteristics of the data and the desired outcomes. This document explores the 
-application of two prominent machine learning algorithms, Linear Regression and 
+application of two prominent machine learning algorithms, Logistic Regression and 
 Multi-Layered Perceptron (MLP), on diverse datasets. The goal is to compare their 
 performance and suitability for different types of prediction tasks, particularly 
 in the contexts of stroke prediction and salary prediction.
 
-\subsection{Linear Regression}
-Linear Regression is one of the most fundamental and widely used algorithms in 
-machine learning. It is known for its simplicity, interpretability, and 
-efficiency in identifying linear relationships between variables. The primary 
-purpose of Linear Regression is to model the relationship between a dependent 
-variable and one or more independent variables by fitting a linear equation to 
-observed data.
+\subsection{Logistic Regression}
+Logistic regression is a fundamental statistical method employed for classification 
+tasks in machine learning. It establishes a mathematical model that maps a set
+of input features (independent variables) to a probability of a specific outcome 
+(dependent variable). The core functionality lies in estimating the odds of a 
+particular class membership (e.g., presence of stroke) based on the input 
+features. The resulting model essentially learns a decision boundary, 
+separating observations with high and low probabilities of belonging to the 
+target class. This characteristic makes logistic regression particularly 
+well-suited for analyzing datasets where the outcome variable is binary 
+(e.g., stroke occurrence vs. no stroke occurrence).
 
-In the context of stroke prediction, Linear Regression can be used to analyze 
-how various factors such as age, blood pressure, cholesterol levels, and smoking 
-history influence the likelihood of experiencing a stroke. Its straightforward 
-approach allows for clear insights into the significance and impact of each 
-factor on stroke risk.
-
-In the \textit{linear\_regression} folder at the root of the project directory,
-we implemented the Linear Regression algorithm in two different ways:
+In the \textit{logistic\_regression} folder at the root of the project directory,
+we implemented the Logistic Regression algorithm in two different ways:
 
 \begin{itemize}
-    \item \textit{Linear Regression with Scikit-Learn:} We used the Scikit-Learn
-    library to implement Linear Regression on the preprocessed datasets.
-    \item \textit{Linear Regression from Scratch:} We implemented Linear Regression
-    as in the 8th laboratory from the Artificial Intelligence course.
+    \item \textit{Logistic Regression with Scikit-Learn:} We used the Scikit-Learn
+    library to implement Logistic Regression on the preprocessed datasets.
+    \item \textit{Logistic Regression from Scratch:} We implemented Logistic Regression
+    from scratch using the Negative Log-Likelihood method and the Gradient Descent
+    optimization algorithm.
 \end{itemize}
 
-I choose to implement the RidgeRegression algorithm. Because of the large number of
-features in the dataset, the RidgeRegression algorithm is more suitable than the
-LinearRegression algorithm. The RidgeRegression algorithm is a regularized version
-of Linear Regression that adds a penalty term to the loss function to prevent overfitting.
-This penalty term helps to reduce the model's complexity and improve its generalization
-performance. The alpha parameter controls the strength of the regularization, with
-higher values of alpha leading to stronger regularization. I used the value of alpha
-1.75 because it provided the best results in the experiments.
+
+Before starting the implementation of the Logistic Regression algorithm, we need to
+encode the categorical attributes in the datasets. Categorical attributes are non-numeric
+attributes that represent discrete categories or groups. These attributes need to be
+encoded into a numerical format before they can be used in machine learning algorithms.
 
 For enconding the categorical attributes except the target attribute, I used the
 \textit{OneHotEncoder} class from the \textit{sklearn.preprocessing} module. This
@@ -781,7 +775,15 @@ machine learning models, as most algorithms require numerical input data. For th
 target attribute, I used the \textit{LabelEncoder} class from the \textit{sklearn.preprocessing}
 module to encode the target attribute as integer values.
 
-The results of both implementations for each dataset are saved in the \textit{LinearRegression}
+In the Logistic Regression with Scikit-Learn implementation, we used the \textit{LogisticRegression}
+class from the \textit{sklearn.linear\_model} module to train the model on the preprocessed
+datasets, without setting any hyperparameters, using the default values.
+For the Logistic Regression from Scratch implementation, we implemented the Negative Log-Likelihood
+loss function and the Gradient Descent optimization algorithm. We trained the model on the
+preprocessed datasets, setting the learning rate to 0.01 and the number of epochs to 10000. For the
+regularization, we used the Ridge Regression technique.
+
+The results of both implementations for each dataset are saved in the \textit{LogisticRegression}
 folder at the specific dataset's root.
 
 \subsection{Multi-Layered Perceptron (MLP)}

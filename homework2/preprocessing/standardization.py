@@ -40,16 +40,19 @@ def standardize(train_file, test_file):
 	test_standardized = pd.DataFrame(X_test, columns=header[:-1])
 	test_standardized[header[-1]] = y_test
 
-	train_standardized.to_csv(train_file.replace('.csv', '_standardized.csv'), index=False)
-	test_standardized.to_csv(test_file.replace('.csv', '_standardized.csv'), index=False)
+	return train_standardized, test_standardized
 
 if __name__ == '__main__':
 	# Salary Prediction dataset
 	train_file = './tema2_SalaryPrediction/preprocessed_correlated_SalaryPrediction_train.csv'
 	test_file = './tema2_SalaryPrediction/preprocessed_correlated_SalaryPrediction_test.csv'
-	standardize(train_file, test_file)
+	train, test = standardize(train_file, test_file)
+	train.to_csv('./tema2_SalaryPrediction/preprocessed_standardized_SalaryPrediction_train.csv', index=False)
+	test.to_csv('./tema2_SalaryPrediction/preprocessed_standardized_SalaryPrediction_test.csv', index=False)
 
 	# Stroke Prediction dataset
 	train_file = './tema2_AVC/preprocessed_correlated_AVC_train.csv'
 	test_file = './tema2_AVC/preprocessed_correlated_AVC_test.csv'
-	standardize(train_file, test_file)
+	train, test = standardize(train_file, test_file)
+	train.to_csv('./tema2_AVC/preprocessed_standardized_AVC_train.csv', index=False)
+	test.to_csv('./tema2_AVC/preprocessed_standardized_AVC_test.csv', index=False)
