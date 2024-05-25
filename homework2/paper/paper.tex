@@ -754,6 +754,36 @@ history influence the likelihood of experiencing a stroke. Its straightforward
 approach allows for clear insights into the significance and impact of each 
 factor on stroke risk.
 
+In the \textit{linear\_regression} folder at the root of the project directory,
+we implemented the Linear Regression algorithm in two different ways:
+
+\begin{itemize}
+    \item \textit{Linear Regression with Scikit-Learn:} We used the Scikit-Learn
+    library to implement Linear Regression on the preprocessed datasets.
+    \item \textit{Linear Regression from Scratch:} We implemented Linear Regression
+    as in the 8th laboratory from the Artificial Intelligence course.
+\end{itemize}
+
+I choose to implement the RidgeRegression algorithm. Because of the large number of
+features in the dataset, the RidgeRegression algorithm is more suitable than the
+LinearRegression algorithm. The RidgeRegression algorithm is a regularized version
+of Linear Regression that adds a penalty term to the loss function to prevent overfitting.
+This penalty term helps to reduce the model's complexity and improve its generalization
+performance. The alpha parameter controls the strength of the regularization, with
+higher values of alpha leading to stronger regularization. I used the value of alpha
+1.75 because it provided the best results in the experiments.
+
+For enconding the categorical attributes except the target attribute, I used the
+\textit{OneHotEncoder} class from the \textit{sklearn.preprocessing} module. This
+class encodes categorical attributes as one-hot vectors, creating a binary representation
+of each category. This encoding is essential for feeding categorical attributes into
+machine learning models, as most algorithms require numerical input data. For the
+target attribute, I used the \textit{LabelEncoder} class from the \textit{sklearn.preprocessing}
+module to encode the target attribute as integer values.
+
+The results of both implementations for each dataset are saved in the \textit{LinearRegression}
+folder at the specific dataset's root.
+
 \subsection{Multi-Layered Perceptron (MLP)}
 Multi-Layer Perceptron (MLP) is a type of artificial neural network designed to 
 capture complex, non-linear patterns in data. Unlike Linear Regression, which is
@@ -781,6 +811,16 @@ accurate and nuanced understanding of the factors influencing salary levels.
 % ---- Bibliography ----
 \begin{thebibliography}{8}
     \bibitem{}
+    \href{https://curs.upb.ro/2023/course/view.php?id=13749}{Moodle - Artifical Intelligence Course}
+    \bibitem{}
+    \href{https://en.wikipedia.org/wiki/Linear_regression}{Wikipedia - Linear Regression}
+    \bibitem{}
+    \href{https://en.wikipedia.org/wiki/Linear_classifier}{Wikipedia - Linear Classifier}
+    \bibitem{}
+    \href{https://en.wikipedia.org/wiki/Ridge_regression}{Wikipedia - Ridge Regression}
+    \bibitem{}
+    \href{https://www.semanticscholar.org/reader/2c9022fe0af15568a885e59d475ec8f95726e51b}{Metrics for Multi-Class Classification: An Overview}
+    \bibitem{}
     \href{https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html}{Pandas - DataFrame}
     \bibitem{}
     \href{https://en.wikipedia.org/wiki/Correlation}{Wikipedia - Correlation}
@@ -791,6 +831,17 @@ accurate and nuanced understanding of the factors influencing salary levels.
     \bibitem{}
     \href{https://en.wikipedia.org/wiki/Cram\%C3\%A9r\%27s\_V}{Wikipedia - Cramér's V}
     \bibitem{}
+    \href{https://saturncloud.io/blog/how-to-detect-and-exclude-outliers-in-a-pandas-dataframe/}{Saturn Cloud - How to Detect and Exclude Outliers in a Pandas DataFrame}
+    \bibitem{}
+    \href{https://www.kaggle.com/discussions/questions-and-answers/159183}{Kaggle - When to standardize test and train data?}
+    \bibitem{}
+    \href{https://scikit-learn.org/stable/modules/preprocessing.html#standardization-or-mean-removal-and-variance-scaling}{Scikit-Learn - Standardization or Mean Removal and Variance Scaling}
+    \bibitem{}
+    \href{https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.OneHotEncoder.html}{Scikit-Learn - OneHotEncoder}
+    \bibitem{}
+    \href{https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.LabelEncoder.html}{Scikit-Learn - LabelEncoder}
+    \bibitem{}
+    \href{https://towardsdatascience.com/understanding-confusion-matrix-a9ad42dcfd62}{Towards Data Science - Understanding Confusion Matrix}
     
     \end{thebibliography}
 \end{document}

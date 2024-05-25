@@ -10,11 +10,8 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_sc
 class LinearRegression(object):
     def fit(self, X, t):
         N, D = X.shape
-        
         X_transpose = np.transpose(X)
-        # Use pseudo-inverse instead of inverse
         self.w = np.linalg.pinv(X_transpose @ X) @ X_transpose @ t
-        
         self.var = np.mean(np.square(X @ self.w - t))
 
     def predict(self, X, return_std=False):
