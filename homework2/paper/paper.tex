@@ -787,17 +787,44 @@ The results of both implementations for each dataset are saved in the \textit{Lo
 folder at the specific dataset's root.
 
 \subsection{Multi-Layered Perceptron (MLP)}
-Multi-Layer Perceptron (MLP) is a type of artificial neural network designed to 
-capture complex, non-linear patterns in data. Unlike Linear Regression, which is
-limited to linear relationships, MLPs consist of multiple layers of interconnected 
-nodes, or neurons, that can model intricate interactions between variables.
+A Multilayer Perceptron (MLP) is a class of feedforward artificial neural network 
+that consists of at least three layers of nodes: an input layer, one or more 
+hidden layers, and an output layer. Each node, except for the input nodes, is a 
+neuron that uses a nonlinear activation function. MLPs are capable of modeling 
+complex relationships in data, making them suitable for tasks such as 
+classification, regression, and pattern recognition. The network learns by 
+adjusting the weights through a process called backpropagation, which minimizes 
+the error between the predicted outputs and the actual targets. This 
+adaptability and learning capability make MLPs powerful tools in machine 
+learning and artificial intelligence applications.
 
-MLPs are particularly suitable for tasks involving complex datasets with 
-non-linear relationships, such as salary prediction. In salary prediction, 
-factors like education, work experience, industry sector, and other 
-socio-economic variables interact in complex ways that Linear Regression might 
-not fully capture. MLPs can learn these non-linear patterns, providing a more 
-accurate and nuanced understanding of the factors influencing salary levels.
+In the \textit{mlp} folder at the root of the project directory, we implemented the
+Multi-Layered Perceptron algorithm in two different ways:
+
+\begin{itemize}
+    \item \textit{MLP with Scikit-Learn:} We used the Scikit-Learn library to implement
+    the MLP algorithm on the preprocessed datasets.
+    \item \textit{MLP from Scratch:} We implemented the MLP algorithm from scratch using
+    the Negative Log-Likelihood method, the Gradient Descent optimization algorithm, and
+    the Sigmoid activation function.
+\end{itemize}
+
+Before starting the implementation of the MLP algorithm, we need to standardize the
+numeric attributes in the datasets as in the Logistic Regression algorithm.
+
+For the MLP with Scikit-Learn implementation, we used the \textit{MLPClassifier} class
+from the \textit{sklearn.neural\_network} module to train the model on the preprocessed
+datasets, without setting any hyperparameters, using the default values.
+
+For the MLP from Scratch implementation, we implemented the Negative Log-Likelihood loss
+function, the Gradient Descent optimization algorithm, and the Sigmoid activation function.
+We trained the model on the preprocessed datasets, setting the learning rate to 0.01, the
+number of epochs to 10000, and the number of hidden units to 100. For the regularization,
+we used the Ridge Regression technique.
+
+The results of both implementations for each dataset are saved in the \textit{MLP}
+folder at the specific dataset's root.
+
 
 % ------------------------------------------------------------------------------
 
