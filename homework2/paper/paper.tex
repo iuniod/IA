@@ -210,6 +210,8 @@ in Table \ref{tab:stroke_attributes_description}.
    \end{longtable}
 \end{center}
 
+\pagebreak
+
 \begin{center}
     \begin{longtable}{ |>{\centering\arraybackslash}m{3.5cm}||>{\centering\arraybackslash}m{2cm}|>{\centering\arraybackslash}m{3.5cm}|>{\centering\arraybackslash}m{2.5cm}| }
         \hline
@@ -390,6 +392,14 @@ preprocessing process.
     \label{fig:boxplot_example_stroke}
 \end{figure}
 
+From the Discret Nominal Attributes tables (Tables \ref{tab:discrete_nominal_attributes_salary} and \ref{tab:discrete_nominal_attributes_stroke})
+we can see that each dataset contains
+only one attribute with missing values. In the Salary Prediction dataset 
+the \textit{gender} attribute is missing, while the Stroke Prediction dataset the
+\textit{married} attribute is missing. Also, the number of unique values for each attribute
+descibes the diversity of the data. For example, the \textit{country} attribute
+in the Salary Prediction dataset has 41 unique values, indicating that the data
+contains information from 41 different countries.
 
 \begin{center}
     \begin{longtable}{ |>{\centering\arraybackslash}m{5cm}||>{\centering\arraybackslash}m{3cm}|>{\centering\arraybackslash}m{3cm}|}
@@ -454,14 +464,7 @@ preprocessing process.
     \end{longtable}
 \end{center}
 
-From the Discret Nominal Attributes tables (Tables \ref{tab:discrete_nominal_attributes_salary} and \ref{tab:discrete_nominal_attributes_stroke})
-we can see that each dataset contains
-only one attribute with missing values. In the Salary Prediction dataset 
-the \textit{gender} attribute is missing, while the Stroke Prediction dataset the
-\textit{married} attribute is missing. Also, the number of unique values for each attribute
-descibes the diversity of the data. For example, the \textit{country} attribute
-in the Salary Prediction dataset has 41 unique values, indicating that the data
-contains information from 41 different countries.
+\pagebreak
 
 In the historigrams for the discrete nominal attributes, we can see the
 distribution of the unique values for each attribute. These visualizations can
@@ -470,6 +473,19 @@ can be useful for understanding the data's composition and identifying potential
 imbalances or biases. The histograms for the discrete nominal attributes are
 located in the \textit{'plots'} folder at the root of the project directory.
 The name of each histogram starts with \textit{'histogram\_'}.
+
+In Figure \ref{fig:histogram_example_salary} we can see a histogram of the
+\textit{work\_type} attribute in the Salary Prediction dataset. The dominance of
+the 'Priv' category indicates a severe class imbalance. For classification tasks,
+the model might predict Priv most of the time since it's the majority class, 
+leading to a high overall accuracy but poor precision, recall, and F1 scores 
+for minority classes.
+
+Also, in Figure \ref{fig:histogram_example_stroke} we can see a histogram of the
+\textit{tobacco\_usage} attribute in the Stroke Prediction dataset. The histogram 
+shows that the majority of individuals are non-smokers, with a significant portion 
+having undefined tobacco usage status. This imbalance and the presence of missing 
+data need to be addressed appropriately.
 
 \begin{figure}[H]
     \centering
@@ -484,19 +500,6 @@ The name of each histogram starts with \textit{'histogram\_'}.
     \caption{Histogram for the \textit{tobacco\_usage} attribute in the Stroke Prediction dataset}
     \label{fig:histogram_example_stroke}
 \end{figure}
-
-In Figure \ref{fig:histogram_example_salary} we can see a histogram of the
-\textit{work\_type} attribute in the Salary Prediction dataset. The dominance of
-the 'Priv' category indicates a severe class imbalance. For classification tasks,
-the model might predict Priv most of the time since it's the majority class, 
-leading to a high overall accuracy but poor precision, recall, and F1 scores 
-for minority classes.
-
-Also, in Figure \ref{fig:histogram_example_stroke} we can see a histogram of the
-\textit{tobacco\_usage} attribute in the Stroke Prediction dataset. The histogram 
-shows that the majority of individuals are non-smokers, with a significant portion 
-having undefined tobacco usage status. This imbalance and the presence of missing 
-data need to be addressed appropriately.
 
 \subsection{Investigation of Class Distribution}
 In machine learning, it is common practice to split a dataset into two distinct
@@ -528,18 +531,6 @@ By checking the distribution, we can address imbalance:
     \item Better metrics: Use precision, recall, and F1-score to get a clearer picture.
 \end{itemize}
 
-In Figures \ref{fig:distribution_salary} and \ref{fig:distribution_stroke} we can
-see the distribution of each class in the datasets. The class distributions provide
-insights into the balance of the data and can help guide the selection of appropriate
-strategies for handling imbalanced classes. For example, in the Stroke Prediction
-dataset, the \textit{cerebrovascular\_accident} class is highly imbalanced, with
-a significantly higher number of negative instances compared to positive instances.
-This imbalance can impact the model's ability to learn patterns from the minority
-class and may require resampling techniques or cost-sensitive learning to address.
-On the other hand, the Salary Prediction dataset exhibits a more balanced distribution
-of the \textit{money} class, which may require less intervention to handle class
-imbalance.
-
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{../plots/distribution_SalaryPrediction.png}
@@ -553,6 +544,18 @@ imbalance.
     \caption{Distribution of the \textit{cerebrovascular\_accident} class in the Stroke Prediction dataset}
     \label{fig:distribution_stroke}
 \end{figure}
+
+In Figures \ref{fig:distribution_salary} and \ref{fig:distribution_stroke} we can
+see the distribution of each class in the datasets. The class distributions provide
+insights into the balance of the data and can help guide the selection of appropriate
+strategies for handling imbalanced classes. For example, in the Stroke Prediction
+dataset, the \textit{cerebrovascular\_accident} class is highly imbalanced, with
+a significantly higher number of negative instances compared to positive instances.
+This imbalance can impact the model's ability to learn patterns from the minority
+class and may require resampling techniques or cost-sensitive learning to address.
+On the other hand, the Salary Prediction dataset exhibits a more balanced distribution
+of the \textit{money} class, which may require less intervention to handle class
+imbalance.
 
 \subsection{Analysis of Feature Correlations}
 Feature correlation analysis is a critical step in understanding the relationships
@@ -579,13 +582,6 @@ numeric attributes. In Figures \ref{fig:cramer_v_matrix_example_salary} and
 \ref{fig:cramer_v_matrix_example_stroke} we can see the Cramér's V matrix for
 the discrete nominal attributes.
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{../plots/correlation_matrix_SalaryPrediction_full.png}
-    \caption{Correlation matrix for the Salary Prediction dataset}
-    \label{fig:correlation_matrix_example_salary}
-\end{figure}
-\pagebreak
 The correlation matrix and Cramér's V matrix provide valuable insights into the
 relationships between attributes in the datasets. By examining these matrices, we
 can see that Figure \ref{fig:correlation_matrix_example_salary} the \textit{prod}
@@ -596,6 +592,13 @@ In Figure \ref{fig:correlation_matrix_example_stroke} we can see that the
 \textit{mean\_blood\_sugar\_level} attribute is highly correlated with the
 \textit{analysis\_results} attribute, while the \textit{body\_mass\_indicator} 
 attribute is negatively correlated with the \textit{analysis\_results} attribute.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{../plots/correlation_matrix_SalaryPrediction_full.png}
+    \caption{Correlation matrix for the Salary Prediction dataset}
+    \label{fig:correlation_matrix_example_salary}
+\end{figure}
 
 \begin{figure}[H]
     \centering
@@ -829,9 +832,293 @@ folder at the specific dataset's root.
 % ------------------------------------------------------------------------------
 
 \section{Evaluation}
+The evaluation of machine learning models is a critical step in assessing their
+performance and effectiveness. By comparing the model's predictions to the actual
+ground truth, we can determine the model's accuracy, precision, recall, and other
+metrics that quantify its performance. This section delves into the evaluation
+of the Logistic Regression and Multi-Layered Perceptron (MLP) models on the
+Salary Prediction and Stroke Prediction datasets.
+
+\subsection{Hyperparameter Tuning}
+Hyperparameters are parameters that are set before the learning process begins.
+They control the learning process and the behavior of the model. Hyperparameter
+tuning is the process of selecting the optimal hyperparameters for a machine
+learning model to achieve the best performance. This process involves searching
+through different hyperparameter configurations and evaluating the model's
+performance on a validation set to find the optimal settings.
+
+In the context of the Logistic Regression (manual implementation), the 
+hyperparameters that were used are:
+
+\begin{itemize}
+    \item \textit{learning\_rate:} The rate at which the model updates the weights - 0.01
+    \item \textit{num\_iterations} The number of iterations the model trains for - 10000
+    \item \textit{regularization} The regularization parameter to prevent overfitting - 0.1
+\end{itemize}
+
+In the context of the Logistic Regression (Scikit-Learn implementation), the majority of
+hyperparameters that were used are the default values provided by the Scikit-Learn
+library. The only hyperparameters that were set are:
+
+
+\begin{itemize}
+    \item \textit{solver:} The optimization algorithm used in the model - 
+    'saga' for SalaryPrediction and 'sag' for AVC
+    \item \textit{max\_iter:} The maximum number of iterations for the optimization algorithm - 200 for SalaryPrediction and 500 for AVC
+    \item \textit{C:} The regularization parameter to prevent overfitting - 0.4342470001 for SalaryPrediction and  2.56050926 for AVC
+\end{itemize}
+
+In the context of the Multi-Layered Perceptron (manual implementation), the
+hyperparameters that were used are:
+
+\begin{itemize}
+    \item \textit{hidden\_sizes:} The sizes of the hidden layers are defined as a list - [256, 128, 64]
+    \item \textit{num\_epochs:} The number of epochs the model trains for - 100
+    \item \textit{learning\_rate:} The rate at which the model updates the weights - 0.01
+    \item \textit{Loss Function	:} The loss function used to optimize the model - Negative Log-Likelihood
+\end{itemize}
+
+In the context of the Multi-Layered Perceptron (Scikit-Learn implementation), the 
+hyperparameters that were used are the default values provided by the Scikit-Learn
+library.
+
+\subsection{Confusion Matrix}
+A confusion matrix is a table that summarizes the performance of a classification
+model on a set of test data for which the true values are known. It provides
+insights into the model's predictions, including true positive, true negative,
+false positive, and false negative instances. These metrics are essential for
+evaluating the model's performance and identifying potential areas for improvement.
+
+In the context of the Logistic Regression and Multi-Layered Perceptron models, we
+generated confusion matrices to analyze the model's predictions on the test data.
+The confusion matrices provide a detailed breakdown of the model's performance,
+highlighting the number of correct and incorrect predictions for each class.
+
+In Figures \ref{fig:confusion_matrix_logistic_manual_salary} and 
+\ref{fig:confusion_matrix_logistic_scikit_salary} we can see the confusion matrices
+for the Logistic Regression model on the Salary Prediction dataset, implemented
+manually and with Scikit-Learn, respectively. In Figures 
+\ref{fig:confusion_matrix_mlp_manual_salary} and \ref{fig:confusion_matrix_mlp_scikit_salary}
+we can see the confusion matrices for the Multi-Layered Perceptron model on the
+Salary Prediction dataset, implemented manually and with Scikit-Learn, respectively.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{../tema2_SalaryPrediction/LogisticRegression/confusion_matrix_manual.png}
+    \caption{Confusion Matrix for the Logistic Regression model on the Salary Prediction dataset (Manual Implementation)}
+    \label{fig:confusion_matrix_logistic_manual_salary}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{../tema2_SalaryPrediction/LogisticRegression/confusion_matrix_scikit-learn.png}
+    \caption{Confusion Matrix for the Logistic Regression model on the Salary Prediction dataset (Scikit-Learn Implementation)}
+    \label{fig:confusion_matrix_logistic_scikit_salary}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{../tema2_SalaryPrediction/MLP/confusion_matrix_manual.png}
+    \caption{Confusion Matrix for the Multi-Layered Perceptron model on the Salary Prediction dataset (Manual Implementation)}
+    \label{fig:confusion_matrix_mlp_manual_salary}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{../tema2_SalaryPrediction/MLP/confusion_matrix_scikit-learn.png}
+    \caption{Confusion Matrix for the Multi-Layered Perceptron model on the Salary Prediction dataset (Scikit-Learn Implementation)}
+    \label{fig:confusion_matrix_mlp_scikit_salary}
+\end{figure}
+
+We can see that the Logistic Regression model implemented with Scikit-Learn achieved
+almost the same results as the manual implementation and the MLP model implemented
+with Scikit-Learn. All 4 models achieved a high number of true positive predictions
+for the negative class, indicating that the models are effective at identifying
+negative instances in the dataset. The true positive predictions for the positive
+class are lower, but the models still achieved a reasonable prediction but the
+MLP model with manual implementation achieved the worst results. It may be due to
+the hyperparameters that were set for the model. The false positive and false negative
+predictions are also lower than the true positive and true negative predictions, which
+is a good sign for the model's performance.
+
+In Figures \ref{fig:confusion_matrix_logistic_manual_stroke} and
+\ref{fig:confusion_matrix_logistic_scikit_stroke} we can see the confusion matrices
+for the Logistic Regression model on the Stroke Prediction dataset, implemented
+manually and with Scikit-Learn, respectively. In Figures
+\ref{fig:confusion_matrix_mlp_manual_stroke} and \ref{fig:confusion_matrix_mlp_scikit_stroke}
+we can see the confusion matrices for the Multi-Layered Perceptron model on the
+Stroke Prediction dataset, implemented manually and with Scikit-Learn, respectively.
+
+Because of the high class imbalance in the Stroke Prediction dataset, the models
+can not predict the positive class effectively (the positive class is less than 5\%
+of the dataset). On the other hand, the models can predict the negative class
+effectively.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{../tema2_AVC/LogisticRegression/confusion_matrix_manual.png}
+    \caption{Confusion Matrix for the Logistic Regression model on the Stroke Prediction dataset (Manual Implementation)}
+    \label{fig:confusion_matrix_logistic_manual_stroke}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{../tema2_AVC/LogisticRegression/confusion_matrix_scikit-learn.png}
+    \caption{Confusion Matrix for the Logistic Regression model on the Stroke Prediction dataset (Scikit-Learn Implementation)}
+    \label{fig:confusion_matrix_logistic_scikit_stroke}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{../tema2_AVC/MLP/confusion_matrix_manual.png}
+    \caption{Confusion Matrix for the Multi-Layered Perceptron model on the Stroke Prediction dataset (Manual Implementation)}
+    \label{fig:confusion_matrix_mlp_manual_stroke}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{../tema2_AVC/MLP/confusion_matrix_scikit-learn.png}
+    \caption{Confusion Matrix for the Multi-Layered Perceptron model on the Stroke Prediction dataset (Scikit-Learn Implementation)}
+    \label{fig:confusion_matrix_mlp_scikit_stroke}
+\end{figure}
+
+\subsection{Evaluation Metrics}
+To evaluate the performance of the machine learning models, we employ a range of
+evaluation metrics that provide insights into different aspects of the model's
+performance. These metrics include:
+
+\begin{itemize}
+    \item \textit{Accuracy:} The proportion of correctly classified instances
+    out of the total instances. It provides a general measure of the model's
+    correctness.
+    \item \textit{Precision:} The proportion of true positive predictions out
+    of all positive predictions. It measures the model's ability to avoid false
+    positives.
+    \item \textit{Recall:} The proportion of true positive predictions out of
+    all actual positive instances. It measures the model's ability to capture
+    all positive instances.
+    \item \textit{F1-Score:} The harmonic mean of precision and recall. It provides
+    a balanced measure of the model's performance.
+\end{itemize}
+
+These evaluation metrics help us understand the strengths and weaknesses of the
+machine learning models and guide us in improving their performance. By analyzing
+these metrics, we can identify areas for optimization and fine-tuning to enhance
+the model's predictive capabilities.
+
+In the following tables, Table \ref{tab:evaluation_metrics_salary} and Table
+\ref{tab:evaluation_metrics_stroke}, we present the evaluation metrics for the 
+Logistic Regression
+and Multi-Layered Perceptron models on both prediction tasks: Salary Prediction and
+Stroke Prediction.
+
+\begin{center}
+    \begin{longtable}{ |>{\centering\arraybackslash}m{4cm}||>{\centering\arraybackslash}m{2cm}|>{\centering\arraybackslash}m{2cm}|>{\centering\arraybackslash}m{2cm}|>{\centering\arraybackslash}m{2cm}|}
+        \hline
+        \multicolumn{5}{|c|}{Evaluation Metrics for Salary Prediction Dataset - Train set} \\
+        \hline
+        Model & Accuracy & Precision & Recall & F1-Score \\
+        \hline\hline
+        Logistic Regression (Manual) & 0.829353669 & 0.700867052 & 0.504945340 & 0.586989409 \\
+        \hline
+        Logistic Regression (Scikit-Learn) & 0.8371046 & 0.707940780 & 0.54763144 & 0.617552098 \\
+        \hline
+        Multi-Layered Perceptron (Manual) & 0.759844980 & \textbf{1.0} & 0.0 & 0.0 \\
+        \hline
+        Multi-Layered Perceptron (Scikit-Learn) & \textbf{0.91098887} & 0.85537918 & \textbf{0.75741801} & \textbf{0.80342352} \\
+        \hline
+        \hline
+        \multicolumn{5}{|c|}{Evaluation Metrics for Salary Prediction Dataset - Test set} \\
+        \hline
+        Model & Accuracy & Precision & Recall & F1-Score \\
+        \hline\hline
+        Logistic Regression (Manual) & \textbf{0.831} & 0.712250712 & 0.513347022 & 0.596658711 \\
+        \hline
+        Logistic Regression (Scikit-Learn) & 0.825 & 0.676092544 & \textbf{0.54004106} & \textbf{0.60045662} \\
+        \hline
+        Multi-Layered Perceptron (Manual) & 0.7565 & \textbf{1.0} & 0.0 & 0.0 \\
+        \hline
+        Multi-Layered Perceptron (Scikit-Learn) & 0.811 & 0.635235732 & 0.525667351 & 0.575280898 \\
+        \hline
+        \caption{Evaluation Metrics for Logistic Regression and Multi-Layered Perceptron Models on Salary Prediction Dataset}
+        \label{tab:evaluation_metrics_salary} \\
+    \end{longtable}
+\end{center}
+
+\begin{center}
+    \begin{longtable}{ |>{\centering\arraybackslash}m{4cm}||>{\centering\arraybackslash}m{2cm}|>{\centering\arraybackslash}m{2cm}|>{\centering\arraybackslash}m{2cm}|>{\centering\arraybackslash}m{2cm}|}
+        \hline
+        \multicolumn{5}{|c|}{Evaluation Metrics for Stroke Prediction Dataset - Train set} \\
+        \hline
+        Model & Accuracy & Precision & Recall & F1-Score \\
+        \hline\hline
+        Logistic Regression (Manual) & 0.957191780 & 0. & 0.0 & 0.0 \\
+        \hline
+        Logistic Regression (Scikit-Learn) & 0.957436399 & \textbf{1.0} & 0.0 & 0.0 \\
+        \hline
+        Multi-Layered Perceptron (Manual) & 0.957436399 & \textbf{1.0} & 0.0 & 0.0 \\
+        \hline
+        Multi-Layered Perceptron (Scikit-Learn) & \textbf{0.96232876} & 0.83333333 & \textbf{0.14367816} &  \textbf{0.24509803} \\
+        \hline
+        \hline
+        \multicolumn{5}{|c|}{Evaluation Metrics for Stroke Prediction Dataset - Test set} \\
+        \hline
+        Model & Accuracy & Precision & Recall & F1-Score \\
+        \hline\hline
+        Logistic Regression (Manual) & 0.925636007 & 0.0 & 0.0 & 0.0 \\
+        \hline
+        Logistic Regression (Scikit-Learn) & 0.925636007 & 0.0 & 0.0 & 0.0 \\
+        \hline
+        Multi-Layered Perceptron (Manual) & \textbf{0.92661448} & \textbf{1.0} & 0.0 & 0.0 \\
+        \hline
+        Multi-Layered Perceptron (Scikit-Learn) & 0.92367906 & 0.2 & \textbf{0.01333333} & \textbf{0.025} \\
+        \hline
+
+        \caption{Evaluation Metrics for Logistic Regression and Multi-Layered Perceptron Models on Stroke Prediction Dataset}
+        \label{tab:evaluation_metrics_stroke} \\
+    \end{longtable}
+\end{center}
 
 % ------------------------------------------------------------------------------
 \section{Conclusions}
+In this document, we explored the application of machine learning algorithms to
+two distinct prediction tasks: Salary Prediction and Stroke Prediction. We conducted
+a comprehensive analysis of the datasets, including data exploration, feature
+correlation analysis, and data preprocessing. We implemented two prominent machine
+learning algorithms, Logistic Regression and Multi-Layered Perceptron (MLP), to
+predict the outcomes of the two tasks. We evaluated the models using various
+evaluation metrics, including accuracy, precision, recall, and F1-Score, to assess
+their performance.
+
+The results of the evaluation metrics indicate that the models achieved varying
+levels of performance on the two prediction tasks. The Logistic Regression model
+performed well on the Salary Prediction dataset, achieving high accuracy and F1-Score
+values. The Multi-Layered Perceptron model also demonstrated strong performance on
+the Salary Prediction dataset, achieving high accuracy and F1-Score values. However,
+the models struggled to predict the positive class effectively
+on the Stroke Prediction dataset due to the high class imbalance. The Logistic
+Regression and Multi-Layered Perceptron models achieved similar results on the
+Stroke Prediction dataset, with low recall and F1-Score values for the positive class.
+
+Overall, it is evident that the Multi-Layered Perceptron (Scikit-Learn 
+implementation) generally performs better than Logistic Regression across both 
+datasets. Specifically:
+
+\begin{itemize}
+    \item \textit{Salary Prediction:} The MLP model achieves higher accuracy, 
+    precision, recall, and F1-score on the training set compared to Logistic
+     Regression. While its test set performance is slightly lower than its 
+     training set performance, it still demonstrates a competitive F1-score.
+    \item \textit{Stroke Prediction:} Despite the challenge posed by class 
+    imbalance, the MLP model achieves a better balance between precision and 
+    recall than Logistic Regression, which fails to predict the positive class 
+    at all, resulting in an F1-score of 0.
+\end{itemize}
+
+Therefore, based on these metrics, the Multi-Layered Perceptron (Scikit-Learn 
+implementation) is the better algorithm for both the Salary Prediction and 
+Stroke Prediction tasks due to its superior performance across multiple 
+evaluation criteria.
 
 
 \pagebreak
@@ -842,15 +1129,23 @@ folder at the specific dataset's root.
     \bibitem{}
     \href{https://curs.upb.ro/2023/course/view.php?id=13749}{Moodle - Artifical Intelligence Course}
     \bibitem{}
-    \href{https://en.wikipedia.org/wiki/Linear_regression}{Wikipedia - Linear Regression}
+    \href{https://en.wikipedia.org/wiki/Machine_learning}{Wikipedia - Machine Learning}
     \bibitem{}
-    \href{https://en.wikipedia.org/wiki/Linear_classifier}{Wikipedia - Linear Classifier}
+    \href{https://en.wikipedia.org/wiki/Logistic_regression}{Wikipedia - Logistic Regression}
+    \bibitem{}
+    \href{https://en.wikipedia.org/wiki/Multilayer_perceptron}{Wikipedia - Multilayer Perceptron}
     \bibitem{}
     \href{https://en.wikipedia.org/wiki/Ridge_regression}{Wikipedia - Ridge Regression}
     \bibitem{}
     \href{https://www.semanticscholar.org/reader/2c9022fe0af15568a885e59d475ec8f95726e51b}{Metrics for Multi-Class Classification: An Overview}
     \bibitem{}
+    \href{https://developers.google.com/machine-learning/crash-course/classification/accuracy}{Google Developers - Classification: Accuracy}
+    \bibitem{}
+    \href{https://ocw.mit.edu/courses/6-867-machine-learning-fall-2006/}{MIT OpenCourseWare - Machine Learning}
+    \bibitem{}
     \href{https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html}{Pandas - DataFrame}
+    \bibitem{}
+    \href{https://en.wikipedia.org/wiki/Imputation_(statistics)}{Wikipedia - Imputation (statistics)}
     \bibitem{}
     \href{https://en.wikipedia.org/wiki/Correlation}{Wikipedia - Correlation}
     \bibitem{}

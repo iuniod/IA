@@ -3,10 +3,40 @@ import os
 import sys
 import pandas as pd
 from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import RandomizedSearchCV
 import matplotlib.pyplot as plt
 import seaborn as sns
+from scipy.stats import uniform
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix
 
+def get_best_model(X_train, y_train, X_test, y_test):
+	# Create the model
+	model = LogisticRegression()
+
+	# Create the hyperparameter space: regularization parameter, solver, max_iter
+	hyperparameters = {
+		'C': uniform(loc=0, scale=4),
+		'solver': ['newton-cg', 'lbfgs', 'liblinear', 'sag', 'saga'],
+		'max_iter': [200, 500, 1000]
+	}
+
+	# Create the RandomizedSearchCV object
+	search = RandomizedSearchCV(model, hyperparameters)
+
+	# Fit the model
+	search.fit(X_train, y_train)
+
+	# Get the best model
+	best_model = search.best_estimator_
+
+	# print the best hyperparameters
+	print(f"Best hyperparameters: {search.best_params_}")
+
+	# Make predictions
+	y_train_pred = best_model.predict(X_train)
+	y_test_pred = best_model.predict(X_test)
+
+	return y_train_pred, y_test_pred
 
 def solver(dataset):
 	train_file = f'./tema2_{dataset}/preprocessed_standardized_{dataset}_train_converted.csv'
@@ -28,33 +58,22 @@ def solver(dataset):
 	X_test = test.drop(target, axis=1).values
 	y_test = test[target].values
 
-	# Create and train the logistic regression model
-	model = LogisticRegression()
-	model.fit(X_train, y_train)
-
-	# Make predictions
-	y_train_pred = model.predict(X_train)
-	y_test_pred = model.predict(X_test)
-
-	# convert the predictions to binary
-	# get the maximum value of the predictions
-	mean_train = np.mean(y_train_pred)
-	y_train_pred = np.where(y_train_pred > mean_train, 1, 0)
-	mean_test = np.mean(y_test_pred)
-	y_test_pred = np.where(y_test_pred > mean_test, 1, 0)
+	# Get the best parameters for the model
+	print(f"Training Logistic Regression {dataset} model...")
+	y_train_pred, y_test_pred = get_best_model(X_train, y_train, X_test, y_test)
 
 	# Evaluate the model
 	# Training metrics
 	train_accuracy = accuracy_score(y_train, y_train_pred)
-	train_precision = precision_score(y_train, y_train_pred, average='weighted', zero_division=1)
-	train_recall = recall_score(y_train, y_train_pred, average='weighted', zero_division=1)
-	train_f1 = f1_score(y_train, y_train_pred, average='weighted', zero_division=1)
+	train_precision = precision_score(y_train, y_train_pred, zero_division=1)
+	train_recall = recall_score(y_train, y_train_pred, zero_division=1)
+	train_f1 = f1_score(y_train, y_train_pred, zero_division=1)
 
 	# Test metrics
 	test_accuracy = accuracy_score(y_test, y_test_pred)
-	test_precision = precision_score(y_test, y_test_pred, average='weighted', zero_division=1)
-	test_recall = recall_score(y_test, y_test_pred, average='weighted', zero_division=1)
-	test_f1 = f1_score(y_test, y_test_pred, average='weighted', zero_division=1)
+	test_precision = precision_score(y_test, y_test_pred, zero_division=1)
+	test_recall = recall_score(y_test, y_test_pred, zero_division=1)
+	test_f1 = f1_score(y_test, y_test_pred, zero_division=1)
 
 	# Confusion matrix
 	train_cm = confusion_matrix(y_train, y_train_pred)

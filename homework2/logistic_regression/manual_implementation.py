@@ -83,24 +83,18 @@ def solver(dataset):
     y_train_pred = model.predict(X_train)
     y_test_pred = model.predict(X_test)
 
-    # Convert the predictions to binary
-    mean_train = np.mean(y_train_pred)
-    y_train_pred = np.where(y_train_pred > mean_train, 1, 0)
-    mean_test = np.mean(y_test_pred)
-    y_test_pred = np.where(y_test_pred > mean_test, 1, 0)
-
     # Evaluate the model
     # Training metrics
     train_accuracy = accuracy_score(y_train, y_train_pred)
-    train_precision = precision_score(y_train, y_train_pred, average='weighted', zero_division=1)
-    train_recall = recall_score(y_train, y_train_pred, average='weighted', zero_division=1)
-    train_f1 = f1_score(y_train, y_train_pred, average='weighted', zero_division=1)
+    train_precision = precision_score(y_train, y_train_pred, zero_division=1)
+    train_recall = recall_score(y_train, y_train_pred, zero_division=1)
+    train_f1 = f1_score(y_train, y_train_pred, zero_division=1)
 
     # Test metrics
     test_accuracy = accuracy_score(y_test, y_test_pred)
-    test_precision = precision_score(y_test, y_test_pred, average='weighted', zero_division=1)
-    test_recall = recall_score(y_test, y_test_pred, average='weighted', zero_division=1)
-    test_f1 = f1_score(y_test, y_test_pred, average='weighted', zero_division=1)
+    test_precision = precision_score(y_test, y_test_pred, zero_division=1)
+    test_recall = recall_score(y_test, y_test_pred, zero_division=1)
+    test_f1 = f1_score(y_test, y_test_pred, zero_division=1)
 
     # Confusion matrix
     train_cm = confusion_matrix(y_train, y_train_pred)
